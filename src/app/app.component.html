@@ -1,20 +1,108 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="container-fluid main-container" style="background-color: #ffffff;overflow: hidden">
+  <div class="row">
+    <div class="col-md-12" style="background-color: #444443;">
+        <h3 style="color: white;">Clara has Logged on</h3>
+    </div>
+    
+  </div>
+  <div class="row" style="height: 100%">
+    
+    <div class="col-md-2" style="background-color: #24344b;color:#ffffff;height: 100%;overflow: scroll">
+      <h4>Recent</h4>
+      <hr>
+      <p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p>
+    </div>
+
+    <!-- Employee Logged On details Column-->
+    <div class="col-md-2" style="height: 100%; padding-top:20px">
+
+      <div class="row">
+        <div class="col-md-12">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf6aaQJAo291z97N4QtmDBsG_WhZ9puznRWdlSLIKC5h6RtgqgeQ" alt="avatar"style="width: 100%;border-radius: 10px;">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="container-fluid" style="padding: 0;">
+            <div class="row" style="padding: 20px 0px 10px 0px;">
+              <div class="col-md-2">
+                  <span>Date</span><br>
+              </div>
+              <div class="col-md-10" style="padding-left: 40px;">
+                  <span>8:30pm</span>
+              </div>
+            </div>
+
+            <div class="row" style="padding: 0px 0px 10px 0px;">
+              <div class="col-md-2">
+                  <span>Time</span><br>
+              </div>
+              <div class="col-md-10" style="padding-left: 40px;">
+                  <span>8:30pm</span>
+              </div>
+            </div>
+
+            <div class="row" style="padding: 0px 0px 10px 0px;">
+              <div class="col-md-2">
+                  <span>Location</span><br>
+              </div>
+              <div class="col-md-10" style="padding-left: 40px;">
+                  <span>{{this.address}}</span>
+              </div>
+            </div>
+
+            <div class="row" style="padding: 0px 0px 10px 0px;">
+              <div class="col-md-2">
+                  <span>Battery</span><br>
+              </div>
+              <div class="col-md-10" style="padding-left: 40px;">
+                  <i class="fa fa-battery-three-quarters" aria-hidden="true" style="font-size: 22px; color:green"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ***************************** -->
+
+    <!-- Maps Column -->
+    <div class="col-md-6" style="height:400px;padding: 20px;padding-left: 10px;">
+        <agm-map 
+        [latitude]="lat" 
+        [longitude]="lng"
+        [zoom]="zoom"
+        [disableDefaultUI]="true"
+        [zoomControl]="false"
+         style="height: 100%">
+            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+        </agm-map>
+    </div>
+    <!--***********************-->
+
+    <div class="col-md-2" style="background-color: #efefef; height: 100%;">
+      <div class="container-fluid" style="height: 80%">
+        <div class="row" style="height: 100%;overflow: scroll">
+          <div class="col-md-12">
+              <p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+              <textarea class="form-control" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-block btn-primary">Send</button>
+            </div>
+          </div>
+      </div>
+      
+
+
+    </div>
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
