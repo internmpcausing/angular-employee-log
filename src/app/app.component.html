@@ -1,108 +1,175 @@
 <div class="container-fluid main-container" style="background-color: #ffffff;overflow: hidden">
   <div class="row">
-    <div class="col-md-12" style="background-color: #444443;">
-        <h3 style="color: white;">Clara has Logged on</h3>
-    </div>
+    <div class="col-md-12" style="background-color: #444443;min-height: 60px;"></div>
     
   </div>
-  <div class="row" style="height: 100%">
+  <div class="row" style="height: 100%; padding-bottom:10px">
     
-    <div class="col-md-2" style="background-color: #24344b;color:#ffffff;height: 100%;overflow: scroll">
-      <h4>Recent</h4>
-      <hr>
-      <p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p>
-    </div>
+    <!-- Notifications Column -->
+    <div class="col-md-2" style="background-color: #24344b;height: 100%;padding:0">
+      <div class="container-fluid" style="padding:0;height: 100%">
+        <div class="row">
+          <div class="col-md-12">
+              <p style="color: #587088;margin: 20px 18px 15px 18px;border-bottom: solid 2px #3b4f6a;padding-bottom: 5px;font-size: 14px;font-weight: bold;">RECENT</p>
+          </div>
+        </div>
 
-    <!-- Employee Logged On details Column-->
-    <div class="col-md-2" style="height: 100%; padding-top:20px">
+        <div class="row" style="height: 100%;padding-bottom:115px;margin-right: 0px;">
+          <div class="col-md-12" style="height: 100%;overflow:auto;padding-right: 0;">
 
-      <div class="row">
-        <div class="col-md-12">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf6aaQJAo291z97N4QtmDBsG_WhZ9puznRWdlSLIKC5h6RtgqgeQ" alt="avatar"style="width: 100%;border-radius: 10px;">
+
+              <div class="row" style="padding: 0px 20px;margin-left: 0;margin-right: 0;margin-bottom: 15px;display: flex;justify-content: center;">
+                  <div class="col-md-3" style="padding: 0;max-width: 50px;">
+                      <img style="width: 100%;border-radius: 6px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf6aaQJAo291z97N4QtmDBsG_WhZ9puznRWdlSLIKC5h6RtgqgeQ" alt="chat-avatar">
+                  </div>
+                  <div class="col-md-9" style="padding-right: 0;align-self: center;">
+                      <p style="color: #ffffff;font-weight: bold;line-height: 13px;margin-bottom: 2px;">dsda GFD GGDF GDFGDF GDF GDF GDFG</p>
+                      <p style="color: #a1dbe6;font-size: 13px;margin: 0;">has logged in</p>
+                    </div>
+                </div>
+
+                
+            
+
+            
+              
+          </div>
         </div>
       </div>
 
+      
+    </div>
+    <!--*****************************-->
+
+
+    <div class="col-md-8 employee-log-map-container">
       <div class="row">
         <div class="col-md-12">
-          <div class="container-fluid" style="padding: 0;">
-            <div class="row" style="padding: 20px 0px 10px 0px;">
-              <div class="col-md-2">
-                  <span>Date</span><br>
-              </div>
-              <div class="col-md-10" style="padding-left: 40px;">
-                  <span>8:30pm</span>
-              </div>
-            </div>
-
-            <div class="row" style="padding: 0px 0px 10px 0px;">
-              <div class="col-md-2">
-                  <span>Time</span><br>
-              </div>
-              <div class="col-md-10" style="padding-left: 40px;">
-                  <span>8:30pm</span>
-              </div>
-            </div>
-
-            <div class="row" style="padding: 0px 0px 10px 0px;">
-              <div class="col-md-2">
-                  <span>Location</span><br>
-              </div>
-              <div class="col-md-10" style="padding-left: 40px;">
-                  <span>{{this.address}}</span>
-              </div>
-            </div>
-
-            <div class="row" style="padding: 0px 0px 10px 0px;">
-              <div class="col-md-2">
-                  <span>Battery</span><br>
-              </div>
-              <div class="col-md-10" style="padding-left: 40px;">
-                  <i class="fa fa-battery-three-quarters" aria-hidden="true" style="font-size: 22px; color:green"></i>
-              </div>
-            </div>
-          </div>
+          <h4>Fernandez, Clara R.</h4>
         </div>
       </div>
-    </div>
-    <!-- ***************************** -->
-
-    <!-- Maps Column -->
-    <div class="col-md-6" style="height:400px;padding: 20px;padding-left: 10px;">
-        <agm-map 
-        [latitude]="lat" 
-        [longitude]="lng"
-        [zoom]="zoom"
-        [disableDefaultUI]="true"
-        [zoomControl]="false"
-         style="height: 100%">
-            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-        </agm-map>
-    </div>
-    <!--***********************-->
-
-    <div class="col-md-2" style="background-color: #efefef; height: 100%;">
-      <div class="container-fluid" style="height: 80%">
-        <div class="row" style="height: 100%;overflow: scroll">
-          <div class="col-md-12">
-              <p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p><p>Notification</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-              <textarea class="form-control" rows="3"></textarea>
-          </div>
-        </div>
-
-        <div class="row">
+      <div class="row" style="height: 100%;padding-bottom: 90px;">
+        <!-- Employee Logged On details Column-->
+        <div class="col-md-4 employee-container">
+          <div class="row">
             <div class="col-md-12">
-                <button type="button" class="btn btn-block btn-primary">Send</button>
+                <img [src]="pic" alt="avatar" class="selfie-thumb">
             </div>
           </div>
+    
+          <div class="row">
+            <div class="col-md-12">
+              <div class="container-fluid logged-details">
+                <div class="row first-item">
+                  <div class="col-md-2">
+                      <span class="logged-details-label">Date</span><br>
+                  </div>
+                  <div class="col-md-10 logged-details-info">
+                      <span>8:30pm</span>
+                  </div>
+                </div>
+    
+                <div class="row">
+                  <div class="col-md-2">
+                      <span class="logged-details-label">Time</span><br>
+                  </div>
+                  <div class="col-md-10 logged-details-info">
+                      <span>8:30pm</span>
+                  </div>
+                </div>
+    
+                <div class="row" style="padding: 0px 0px 10px 0px;">
+                  <div class="col-md-2">
+                      <span>Location</span><br>
+                  </div>
+                  <div class="col-md-10" style="padding-left: 40px;">
+                      <span>{{this.address}}</span>
+                  </div>
+                </div>
+    
+                <div class="row">
+                  <div class="col-md-2">
+                      <span>Battery</span><br>
+                  </div>
+                  <div class="col-md-10" style="padding-left: 40px;">
+                      <i class="fa fa-battery-three-quarters" aria-hidden="true" style="font-size: 22px; color:green"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- ***************************** -->
+  
+      <!-- Map Column -->
+        <div class="col-md-8 map-container">
+            <agm-map
+            [latitude]="lat" 
+            [longitude]="lng"
+            [zoom]="zoom"
+            [disableDefaultUI]="true"
+            [zoomControl]="false"
+            >
+                <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+            </agm-map>
+        </div>
+      <!--***********************-->
       </div>
+    </div>
+    
+    <!--Chat Column -->
+    <div class="col-md-2 chat-container">
+      <div class="row chat-first-row">
+        <div class="container-fluid msgs-container" #chatMessages>
+          <div class="row msgs">
+            <div class="col-md-12 _msgs">
+              <div *ngFor="let message of messages"> 
+                <div class="row msg-container other-msg" *ngIf="message.isme">
+                    <div class="col-md-3 avatar">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf6aaQJAo291z97N4QtmDBsG_WhZ9puznRWdlSLIKC5h6RtgqgeQ" alt="chat-avatar">
+                    </div>
+                    <div class="col-md-9 msg">
+                      <p>{{message.txt}}</p>
+                      <span>8:30 1/11/18</span>
+                    </div>
+                </div>
+
+                <div class="row msg-container my-msg" *ngIf="!message.isme">
+                    <div class="col-md-9 msg">
+                      <p>{{message.txt}}</p>
+                      <span>8:30 1/11/18</span>
+                    </div>
+                    <div class="col-md-3 avatar">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf6aaQJAo291z97N4QtmDBsG_WhZ9puznRWdlSLIKC5h6RtgqgeQ" alt="chat-avatar">
+                    </div>
+                </div>
+            </div>
+            </div>          
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="container-fluid">
+            <div class="row msg-text-area">
+                <div class="col-md-12">
+                    <textarea class="form-control" rows="3" #msg (keyup.enter)="sendNewMessage(msg)" placeholder="Send a message"></textarea>
+                </div>
+              </div>
+      
+              <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-block btn-primary" (click)="sendNewMessage(msg)">Send</button>
+                </div>
+              </div>
+        </div>
+      </div>
+      
       
 
 
     </div>
+    <!--**********************************-->
   </div>
 </div>
 
