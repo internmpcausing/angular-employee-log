@@ -145,6 +145,10 @@ html, body, .main-container{
     padding-left: 25px;
 }
 
-.logged-details-label{
+/* .logged-details-label{
     
+} */
+
+.notification-seen{
+    background-color: #3b4f6a;
 }

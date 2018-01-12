@@ -18,12 +18,12 @@
           <div class="col-md-12" style="height: 100%;overflow:auto;padding-right: 0;">
 
 
-              <div class="row" style="padding: 0px 20px;margin-left: 0;margin-right: 0;margin-bottom: 15px;display: flex;justify-content: center;">
+              <div class="row" [ngClass]="{'notification-seen': !notification.isseen}" *ngFor="let notification of notifications" style="padding: 8px 20px;margin-left: 0;margin-right: 0;display: flex;justify-content: center;border-bottom: 1px solid #24344b;cursor: pointer;" (click)="viewNotification(notification)">
                   <div class="col-md-3" style="padding: 0;max-width: 50px;">
-                      <img style="width: 100%;border-radius: 6px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf6aaQJAo291z97N4QtmDBsG_WhZ9puznRWdlSLIKC5h6RtgqgeQ" alt="chat-avatar">
+                      <img [src]="notification.picthumb" style="width: 100%;border-radius: 6px;" alt="chat-avatar">
                   </div>
                   <div class="col-md-9" style="padding-right: 0;align-self: center;">
-                      <p style="color: #ffffff;font-weight: bold;line-height: 13px;margin-bottom: 2px;">dsda GFD GGDF GDFGDF GDF GDF GDFG</p>
+                      <p style="color: #ffffff;font-weight: bold;line-height: 13px;margin-bottom: 2px;">{{notification.name | titlecase}}</p>
                       <p style="color: #a1dbe6;font-size: 13px;margin: 0;">has logged in</p>
                     </div>
                 </div>
@@ -124,7 +124,7 @@
           <div class="row msgs">
             <div class="col-md-12 _msgs">
               <div *ngFor="let message of messages"> 
-                <div class="row msg-container other-msg" *ngIf="message.isme">
+                <div class="row msg-container other-msg" *ngIf="!message.isme">
                     <div class="col-md-3 avatar">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf6aaQJAo291z97N4QtmDBsG_WhZ9puznRWdlSLIKC5h6RtgqgeQ" alt="chat-avatar">
                     </div>
@@ -134,7 +134,7 @@
                     </div>
                 </div>
 
-                <div class="row msg-container my-msg" *ngIf="!message.isme">
+                <div class="row msg-container my-msg" *ngIf="message.isme">
                     <div class="col-md-9 msg">
                       <p>{{message.txt}}</p>
                       <span>8:30 1/11/18</span>
