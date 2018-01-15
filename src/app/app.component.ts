@@ -2,6 +2,7 @@ import { MapService } from './Services/googlemaps.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as io from "socket.io-client";
 import { Observable } from 'rxjs/Observable';
+import * as moment from 'moment';
 
 
 @Component({
@@ -15,6 +16,7 @@ export class AppComponent implements OnInit{
   lng: number = -122.0842499;
   address: string;
   zoom: number = 11;
+  notificationdate: string = 'Fri Jan 12 2018 18:40:38';
   pic: string = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf6aaQJAo291z97N4QtmDBsG_WhZ9puznRWdlSLIKC5h6RtgqgeQ';
 
   socket = io('http://localhost:8080/',
@@ -45,12 +47,12 @@ export class AppComponent implements OnInit{
       for(let item of data){
         this.notifications.unshift(item);
       }
-      console.log(data);
+      // console.log(data);
     })
 
     this.socket.on('sv-newnotification', data => {
       this.notifications.unshift(data);
-      console.log(data);
+      // console.log(data);
     });
 
     this.socket.on('sv-newmessagetoadmin', data => {
@@ -64,10 +66,11 @@ export class AppComponent implements OnInit{
     });
 
     this.socket.on('sv-servenotificationdetails', data => {
-      console.log(data);
+      //console.log(data);
       this.lat = data.map.lat;
       this.lng = data.map.long
       this.pic = data.pic;
+      this.notificationdate = moment(data.timein).format('ddd MMM DD YYYY HH:mm:ss');
       this.mapService.getFormattedAddress(this.lat, this.lng).subscribe(
         data => {
           this.address = (<any>data).results[0].formatted_address;
@@ -76,7 +79,7 @@ export class AppComponent implements OnInit{
         }
       ); 
     
-      this.socket.emit('cl-join-room', 4324);
+      // this.socket.emit('cl-join-room', 4324);
 
       
     });

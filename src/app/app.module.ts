@@ -4,11 +4,14 @@ import { NgModule } from '@angular/core';
 
 //ngx-bootstrap Modules
 import { AlertModule, BsDropdownModule } from 'ngx-bootstrap';
+//***************************
+
+
 import { AppComponent } from './app.component';
 import { AgmCoreModule } from '@agm/core';
 import { MapService } from './Services/googlemaps.service';
-
 import { HttpClientModule } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
