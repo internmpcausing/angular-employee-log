@@ -1,0 +1,12 @@
+.ng-progress{
+    position: static !important;
+}
+
+ng-progress-bar .ng-progress .bar{
+    z-index: 999;
+}
+
+
+.ng-progress .active{
+    position: static !important;
+}

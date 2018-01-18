@@ -1,0 +1,88 @@
+.chat-container{
+    background-color: #efefef;
+    height: 100%;
+}
+
+.msgs-container{
+    height: 100%;
+}
+
+.chat-container .msg-text-area{
+    margin-bottom: 10px;
+}
+
+.chat-container textarea.form-control{
+    overflow: hidden;
+    resize: none;
+    margin-bottom: 10px;
+}
+
+.msgs .avatar, .msgs .msg {
+    padding: 0px 10px;
+}
+
+.msgs .msg {
+    padding: 0px 0px;
+    text-align: center;
+    padding-right: 10px;
+}
+
+.other-msg .avatar img{
+    width: 100%;
+    border-radius: 5px;
+}
+
+.other-msg .msg p{
+    border: 1px solid #c4d8d9;
+    background-color: #ffffff;
+    border-radius: 3px;
+    margin-bottom: 0px;
+}
+
+.msg p{
+    min-height: 30px;
+    text-align: start;
+    padding: 7px;
+    font-size: 13px;
+    line-height: 15px;
+    color: #575757;
+}
+
+.msg span{
+    font-size: 11px;
+    color: #919191;
+}
+
+.my-msg .avatar img{
+    width: 100%;
+    border-radius: 5px;
+}
+.msg-container.my-msg{
+    margin-left: 0px;
+}
+
+.my-msg .msg p{
+    border: 1px solid #c4d8d9;
+    background-color: #d3e7e8;
+    border-radius: 3px;
+    margin-bottom: 0px;
+}
+
+.my-msg .msg{
+    padding-right: 0px;
+}
+.msg-container{
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.chat-first-row{
+    height: 78%;
+    padding-bottom: 15px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.msgs ._msgs{
+    padding: 10px 10px 10px 0px;
+}

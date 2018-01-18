@@ -1,0 +1,24 @@
+<div class="row" style="height: 100%">
+    <div class="col-md-12 map-container" style="padding: 0;">
+        <agm-map
+        [latitude]="lat" 
+        [longitude]="lng"
+        [zoom]="zoom"
+        [disableDefaultUI]="true"
+        [zoomControl]="false"
+        >
+            <!-- <agm-marker  [latitude]="lat" [longitude]="lng"></agm-marker> -->
+            <agm-marker 
+              *ngFor="let m of markers; let i = index"
+              (markerClick)="clickedMarker(m.label, i)"
+              [latitude]="m.lat"
+              [longitude]="m.lng">
+              
+            <agm-info-window>
+              <strong>InfoWindow content</strong>
+            </agm-info-window>
+            
+          </agm-marker>
+        </agm-map>
+    </div>
+</div>

@@ -1,0 +1,90 @@
+<div class="row" style="height: 100%; padding-bottom:10px" >
+    <ng-progress class="logs-progress-bar" [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1"
+    [speed]="200" [showSpinner]="true" [direction]="'leftToRightIncreased'"
+    [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"
+  ></ng-progress>
+  <app-notifications (displayNotifDetails)="displayNotifDetails($event)"></app-notifications>
+
+
+  <div class="col-md-8 employee-log-map-container">
+      
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Fernandez, Clara R.</h4>
+      </div>
+    </div>
+    <div class="row" style="height: 100%;padding-bottom: 90px;">
+      <!-- Employee Logged On details Column-->
+      <div class="col-md-4 employee-container">
+        <div class="row">
+          <div class="col-md-12">
+              <img [src]="pic" alt="avatar" class="selfie-thumb">
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="col-md-12">
+            <div class="container-fluid logged-details">
+              <div class="row first-item">
+                <div class="col-md-2">
+                    <span class="logged-details-label">Date</span><br>
+                </div>
+                <div class="col-md-10 logged-details-info">
+                    <span>{{(timeIn | amFromUnix) | amDateFormat:'LL'}}</span>
+                </div>
+              </div>
+  
+              <div class="row">
+                <div class="col-md-2">
+                    <span class="logged-details-label">Time</span><br>
+                </div>
+                <div class="col-md-10 logged-details-info">
+                    <span>{{ (timeIn | amFromUnix) | amDateFormat:'hh:mm A'}}</span>
+                </div>
+              </div>
+  
+              <div class="row" style="padding: 0px 0px 10px 0px;">
+                <div class="col-md-2">
+                    <span>Location</span><br>
+                </div>
+                <div class="col-md-10" style="padding-left: 40px;">
+                    <span>{{this.address}}</span>
+                </div>
+              </div>
+  
+              <div class="row">
+                <div class="col-md-2">
+                    <span>Battery</span><br>
+                </div>
+                <div class="col-md-10" style="padding-left: 40px;">
+                    <i class="fa fa-battery-three-quarters" aria-hidden="true" style="font-size: 22px; color:green"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- ***************************** -->
+
+    <!-- Map Column -->
+      <div class="col-md-8 map-container">
+          <agm-map
+          [latitude]="lat" 
+          [longitude]="lng"
+          [zoom]="zoom"
+          [disableDefaultUI]="true"
+          [zoomControl]="false"
+          >
+              <agm-marker  [latitude]="lat" [longitude]="lng"></agm-marker>
+              <!-- <agm-marker  [latitude]="37.4224734" [longitude]="-122.0842489"></agm-marker> -->
+          </agm-map>
+      </div>
+    <!--***********************-->
+    </div>
+  </div>
+  
+  
+  <!--Chat Column -->
+  <app-chat></app-chat>
+  <!--**********************************-->
+</div>

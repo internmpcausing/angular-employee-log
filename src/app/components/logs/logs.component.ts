@@ -1,19 +1,17 @@
-
-
-
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as io from "socket.io-client";
 import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
-import { SocketService } from './services/socket.service';
-import { ChatComponent } from './components/logs/chat/chat.component';
+import { SocketService } from './../../services/socket.service';
+import { ChatComponent } from './chat/chat.component';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-logs',
+  templateUrl: './logs.component.html',
+  styleUrls: ['./logs.component.css']
 })
-export class AppComponent implements OnInit{
+export class LogsComponent implements OnInit{
   title = 'app';
   lat: number = 51.678418;
   lng: number = 7.809007;
@@ -24,7 +22,6 @@ export class AppComponent implements OnInit{
 
 
   constructor(private socketService:SocketService){
-    this.socketService.connect();
   }
 
   @ViewChild(ChatComponent) chatComponent:ChatComponent
@@ -40,13 +37,14 @@ export class AppComponent implements OnInit{
   }
   
   ngOnInit(){
+    
     // console.log(Math.floor(Date.now() /1000));
     // let fds = moment.unix(Math.floor(Date.now() /1000));
     // console.log(fds);
     // this.socketService.socket.emit('cl-timeIn',{
-    //   employeeId: '5a60804b8a25526ee901c0eb',
+    //   employeeId: '5a5f185480a25f2aac4abf20',
     //   timeIn: Math.floor(Date.now() /1000),
-    //   pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROFEI7Sni25qsfe2AIuQQt_frca-mvDtseIxfnjP6wSSfJCnFi',
+    //   pic: 'fdfsdfd',
     //   map: {
     //     lng: -122.0842499,
     //     lat: 37.4224764,

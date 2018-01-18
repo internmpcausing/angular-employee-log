@@ -1,0 +1,11 @@
+.nav-bar .nav-buttons{
+    padding-top: 10px;
+    padding-left: 45px;
+}
+
+.nav-bar .nav-buttons a{
+    margin-right: 17px;
+    font-size: 26px;
+    color: white;
+    font-weight: bold;
+}
