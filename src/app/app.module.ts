@@ -1,6 +1,8 @@
 
 
 
+
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -23,6 +25,9 @@ import { NgProgressModule } from 'ngx-progressbar';
 import { LogsComponent } from './components/logs/logs.component';
 import { AppRoutingModule, routingComponents } from './app.routing';
 import { HomeComponent } from './components/home/home.component';
+import { HomeService } from './services/home.service';
+import { NavLinks } from './services/navlinks.service';
+
 
 @NgModule({
   declarations: [
@@ -45,7 +50,7 @@ import { HomeComponent } from './components/home/home.component';
     }),
     MomentModule
   ],
-  providers: [SocketService, NotificationService, ChatService],
+  providers: [SocketService, NotificationService, ChatService, HomeService, NavLinks],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,3 +1,4 @@
+import { NavLinks } from './services/navlinks.service';
 
 
 
@@ -23,30 +24,33 @@ export class AppComponent implements OnInit{
   pic: string = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf6aaQJAo291z97N4QtmDBsG_WhZ9puznRWdlSLIKC5h6RtgqgeQ';
 
 
-  constructor(private socketService:SocketService){
+  constructor(private socketService:SocketService,
+            private navLinks:NavLinks){
     this.socketService.connect();
   }
 
   @ViewChild(ChatComponent) chatComponent:ChatComponent
   displayNotifDetails(notifDetails){
-    console.log(notifDetails)
     this.lat = notifDetails.map.lat;
     this.lng = notifDetails.map.lng
     this.pic = notifDetails.pic.thumb;
     
     this.timeIn = notifDetails.timeIn;
     this.address = notifDetails.map.formattedAddress;
-    this.chatComponent.getInitMessages(notifDetails.id);
+    this.chatComponent.requestInitMessages(notifDetails.id);
   }
   
+  
+
+
   ngOnInit(){
     // console.log(Math.floor(Date.now() /1000));
     // let fds = moment.unix(Math.floor(Date.now() /1000));
     // console.log(fds);
     // this.socketService.socket.emit('cl-timeIn',{
-    //   employeeId: '5a60804b8a25526ee901c0eb',
+    //   employeeId: '5a61960599a85149c7682c99',
     //   timeIn: Math.floor(Date.now() /1000),
-    //   pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROFEI7Sni25qsfe2AIuQQt_frca-mvDtseIxfnjP6wSSfJCnFi',
+    //   pic: 'https://media.istockphoto.com/photos/love-selfie-picture-id533647449?k=6&m=533647449&s=612x612&w=0&h=81v4NJXuBksOp2CZS_DxX1hQ2M6J-4ibK9Cujwj3fnc=',
     //   map: {
     //     lng: -122.0842499,
     //     lat: 37.4224764,

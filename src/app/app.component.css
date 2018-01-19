@@ -5,7 +5,30 @@
 
 .nav-bar .nav-buttons a{
     margin-right: 17px;
-    font-size: 26px;
+    font-size: 15px;
     color: white;
     font-weight: bold;
+    text-decoration: none;
+}
+
+a.logo{
+    text-decoration: none;
+    font-size: 28px !important;
+    font-weight: bold;
+    margin-right: 100px !important;
+}
+
+
+
+a.logo span{
+    font-weight: 100;
+}
+
+.nav-btn{
+    padding: 10px 15px;
+}
+
+.nav-btn.active{
+    background-color: #24344b;
+    border-radius: 5px;
 }

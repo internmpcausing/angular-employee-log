@@ -3,11 +3,11 @@
     <div class="container-fluid msgs-container" >
       <div class="row msgs">
         <div class="col-md-12 _msgs">
-          <div *ngFor="let message of employee.messages"> 
+          <div *ngFor="let message of messages"> 
             
             <div class="row msg-container other-msg" *ngIf="message.isMe">
                 <div class="col-md-3 avatar">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf6aaQJAo291z97N4QtmDBsG_WhZ9puznRWdlSLIKC5h6RtgqgeQ" alt="chat-avatar">
+                    <img [src]="employee.pic.thumb" alt="chat-avatar">
                 </div>
                 <div class="col-md-9 msg">
                   <p>{{message.content}}</p>
@@ -25,16 +25,24 @@
                 </div>
             </div>
         </div>
-        </div>          
+        </div>         
       </div>
     </div>
   </div>
 
+  <div class="row" style="min-height: 34px;">
+      <div class="container-fluid">
+        <div class="col-md-12" style="padding: 7px 0;">
+            <span *ngIf="showEmployeeIsTyping">{{employee.name.firstName | titlecase}} is typing ...</span>
+        </div>
+      </div>
+      
+  </div>
   <div class="row">
     <div class="container-fluid">
         <div class="row msg-text-area">
             <div class="col-md-12">
-                <textarea class="form-control" rows="3" #msg (keyup.enter)="sendNewMessage(msg)" placeholder="Send a message"></textarea>
+                <textarea class="form-control" rows="3" #msg (keyup.enter)="sendNewMessage(msg)" placeholder="Send a message" (keypress)="typing()"></textarea>
             </div>
           </div>
   

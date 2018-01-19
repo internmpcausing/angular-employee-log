@@ -1,3 +1,4 @@
+import { NavLinks } from './../../services/navlinks.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
 
   markers: marker[] = [
     {
-      lat: 14.600902,
+      lat: 14.600902, 
       lng: 120.982561,
       label: 'A',
       draggable: true
@@ -37,7 +38,9 @@ export class HomeComponent implements OnInit {
       draggable: true
     }
   ]
-  constructor() { }
+  constructor(private navLinks:NavLinks) { 
+    this.navLinks.selectedNavlink(0);
+  }
 
   ngOnInit() {
   }

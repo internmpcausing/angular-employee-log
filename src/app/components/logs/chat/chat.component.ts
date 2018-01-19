@@ -14,31 +14,84 @@ export class ChatComponent implements OnInit {
   constructor(private chatService:ChatService, private socketService:SocketService) { }
 
   ngOnInit() {
-    this.socketService.socket.on('sv-newMessageFromEmployee', (newMessage) => {
-      this.employee.messages.push(newMessage);
-  });
+
+    
+
+    this.chatService.displayInitMessages().subscribe(_employee => this.displayInitMessages(_employee));
+
+    this.chatService.employeeTyping().subscribe(() => this.employeeTyping());
+    // this.socketService.socket.on('sv-newMessageFromEmployee', (_newMessage) => {
+    //   console.log(_newMessage);
+    // })
+    this.chatService.displayNewMessage().subscribe(_newMessage => this.displayNewMessage(_newMessage));
   }
 
-  employee = {
-    messages: [],
-    id: 0,
-    pic: {
-      thumb: '',
-      original: ''
-    }
-  };
-  getInitMessages(notificationId){
-    this.employee.messages = [];
-    this.chatService.getInitMessages(notificationId).subscribe(employee => this.displayInitMessages(employee));
+  employee;
+  messages = [];
+  requestInitMessages(notifDetails){
+    console.log(notifDetails);
+    this.chatService.requestInitMessages(notifDetails.id);
   }
 
-  
-  displayInitMessages(employee){
-    this.employee = employee;
+  displayInitMessages(_employee){
+    this.messages = _employee.messages;
+    this.employee = _employee;
+    console.log(this.messages);
+    
+  }
+
+  typing(){
+    //
+    this.chatService.typing({isEmployee: false});
+  }
+
+  showEmployeeIsTyping = false;
+
+  timeOutEmployeeTyping;
+  ftimeOutEmployeeTyping(){
+    this.timeOutEmployeeTyping = setTimeout(() =>{
+      this.showEmployeeIsTyping = false; 
+    }, 1500);
+  }
+
+  employeeTyping(){
+    clearTimeout(this.timeOutEmployeeTyping);
+    this.showEmployeeIsTyping = true;
+    this.ftimeOutEmployeeTyping();
   }
 
    @ViewChild('chatMessages') chatMessages: ElementRef
    sendNewMessage(txt: HTMLInputElement){
+     let t = txt.value.toString().trim();
+     if (!t) {
+      txt.value = '';
+       return
+      };
+     let newMessage = {
+        content: t,
+        isMe: false,
+        sentAt: Math.floor(Date.now() /1000)
+      };
+    
+    this.messages.push(newMessage); 
+    (<any>newMessage).employeeId = this.employee._id;
+    console.log(this.employee);
+    this.chatService.sendMessage(newMessage);
+    txt.value = '';
+    this.chatMessages.nativeElement.scrollTop = this.chatMessages.nativeElement.scrollHeight;
+   }
+
+  displayNewMessage(_newMessage){
+    console.log(_newMessage);
+    this.showEmployeeIsTyping = false;
+    if(_newMessage.employeeId == this.employee._id){
+      this.messages.push(_newMessage);
+    }    
+  }
+}
+
+
+
 
     // this.socketService.socket.emit('cl-timeIn',{
     //   employeeId: '5a5f185480a25f2aac4abf20',
@@ -51,29 +104,3 @@ export class ChatComponent implements OnInit {
     //   },
     //   batteryStatus: 65
     // });
-     let t = txt.value.toString().trim();
-     if (!t) {
-      txt.value = '';
-       return
-      };
-     let newMessage = {
-        content: t,
-        isMe: false,
-        sentAt: Math.floor(Date.now() /1000)
-      };
-      
-    this.employee.messages.push(newMessage);
-    (<any>newMessage).employeeId = this.employee.id;
-    this.socketService.socket.emit('cl-sendNewMessage', newMessage);
-    //this.chatService.sendMessage(newMessage).subscribe(newMessage => this.displayNewMessage(newMessage));
-    txt.value = '';
-    this.chatMessages.nativeElement.scrollTop = this.chatMessages.nativeElement.scrollHeight;
-   }
-
-   displayNewMessage(newMessage){
-    console.log(newMessage);
-    this.employee.messages.push(newMessage);
-    
-   }
-
-}

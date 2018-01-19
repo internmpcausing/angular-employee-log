@@ -9,8 +9,11 @@ export class NotificationService{
     constructor(private socketService:SocketService){}
 
 
-    getInitNotif(){
+    requestInitNotif(){
         this.socketService.socket.emit('cl-getInitNotif');
+    }
+
+    displayInitNotif(){
         let observable = new Observable(observer => {
             this.socketService.socket.on('sv-sendInitNotif', (data) => {
                     observer.next(data);    
@@ -22,8 +25,12 @@ export class NotificationService{
         return observable;
     }
 
-    getNotifDetails(notification){
+    requestNotifDetails(notification){
         this.socketService.socket.emit('cl-getNotifDetails',{id: notification.id});
+
+    }
+
+    displayNotifDetails(){
         let observable = new Observable(observer => {
             this.socketService.socket.on('sv-serveNotifDetails', (data) => {
                     observer.next(data);    
@@ -35,7 +42,7 @@ export class NotificationService{
         return observable;
     }
 
-    newNotification(){
+    newNotif(){
         let observable = new Observable(observer => {
             this.socketService.socket.on('sv-newNotification', (data) => {
                     observer.next(data);    

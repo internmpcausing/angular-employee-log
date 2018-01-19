@@ -1,3 +1,4 @@
+
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as io from "socket.io-client";
 import { Observable } from 'rxjs/Observable';
@@ -5,6 +6,7 @@ import * as moment from 'moment';
 import { SocketService } from './../../services/socket.service';
 import { ChatComponent } from './chat/chat.component';
 import { NgProgress } from 'ngx-progressbar';
+import { NavLinks } from './../../services/navlinks.service';
 
 @Component({
   selector: 'app-logs',
@@ -12,28 +14,33 @@ import { NgProgress } from 'ngx-progressbar';
   styleUrls: ['./logs.component.css']
 })
 export class LogsComponent implements OnInit{
-  title = 'app';
-  lat: number = 51.678418;
-  lng: number = 7.809007;
-  address: string = 'sample address';
-  zoom: number = 17;
-  timeIn: number = 0;
-  pic: string = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf6aaQJAo291z97N4QtmDBsG_WhZ9puznRWdlSLIKC5h6RtgqgeQ';
 
-
-  constructor(private socketService:SocketService){
+  constructor(private socketService:SocketService,
+              private navLinks:NavLinks){
+                
+    this.navLinks.selectedNavlink(1);
   }
 
+  firstLoad = false;
+  employee;
+  employeeTimeIn;
   @ViewChild(ChatComponent) chatComponent:ChatComponent
   displayNotifDetails(notifDetails){
+    this.employeeTimeIn = notifDetails;
+    this.employee = notifDetails.employee;
+    this.firstLoad = true
     console.log(notifDetails)
-    this.lat = notifDetails.map.lat;
-    this.lng = notifDetails.map.lng
-    this.pic = notifDetails.pic.thumb;
+    // this.lat = notifDetails.map.lat;
+    // this.lng = notifDetails.map.lng
+    // this.pic = notifDetails.pic.thumb;
+    // this.battery = notifDetails.batteryStatus;
+    // this.timeIn = notifDetails.timeIn;
+    // this.address = notifDetails.map.formattedAddress;
     
-    this.timeIn = notifDetails.timeIn;
-    this.address = notifDetails.map.formattedAddress;
-    this.chatComponent.getInitMessages(notifDetails.id);
+    setTimeout(() => {
+      this.chatComponent.requestInitMessages(notifDetails);
+    }, 1)
+   
   }
   
   ngOnInit(){

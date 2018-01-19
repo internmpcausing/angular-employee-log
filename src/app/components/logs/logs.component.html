@@ -6,11 +6,11 @@
   <app-notifications (displayNotifDetails)="displayNotifDetails($event)"></app-notifications>
 
 
-  <div class="col-md-8 employee-log-map-container">
+  <div class="col-md-8 employee-log-map-container" *ngIf="firstLoad">
       
     <div class="row">
       <div class="col-md-12">
-        <h4>Fernandez, Clara R.</h4>
+        <h4>{{employee.name.lastName}}, {{employee.name.firstName}}</h4>
       </div>
     </div>
     <div class="row" style="height: 100%;padding-bottom: 90px;">
@@ -18,7 +18,7 @@
       <div class="col-md-4 employee-container">
         <div class="row">
           <div class="col-md-12">
-              <img [src]="pic" alt="avatar" class="selfie-thumb">
+              <img [src]="employeeTimeIn.pic.thumb" alt="avatar" class="selfie-thumb">
           </div>
         </div>
   
@@ -30,7 +30,7 @@
                     <span class="logged-details-label">Date</span><br>
                 </div>
                 <div class="col-md-10 logged-details-info">
-                    <span>{{(timeIn | amFromUnix) | amDateFormat:'LL'}}</span>
+                    <span>{{(employeeTimeIn.timeIn | amFromUnix) | amDateFormat:'LL'}}</span>
                 </div>
               </div>
   
@@ -39,7 +39,7 @@
                     <span class="logged-details-label">Time</span><br>
                 </div>
                 <div class="col-md-10 logged-details-info">
-                    <span>{{ (timeIn | amFromUnix) | amDateFormat:'hh:mm A'}}</span>
+                    <span>{{ (employeeTimeIn.timeIn | amFromUnix) | amDateFormat:'hh:mm A'}}</span>
                 </div>
               </div>
   
@@ -48,7 +48,7 @@
                     <span>Location</span><br>
                 </div>
                 <div class="col-md-10" style="padding-left: 40px;">
-                    <span>{{this.address}}</span>
+                    <span>{{employeeTimeIn.map.formattedAddress}}</span>
                 </div>
               </div>
   
@@ -56,7 +56,7 @@
                 <div class="col-md-2">
                     <span>Battery</span><br>
                 </div>
-                <div class="col-md-10" style="padding-left: 40px;">
+                <div class="col-md-10" style="padding-left: 40px;">{{employeeTimeIn.batteryStatus}}%
                     <i class="fa fa-battery-three-quarters" aria-hidden="true" style="font-size: 22px; color:green"></i>
                 </div>
               </div>
@@ -69,14 +69,13 @@
     <!-- Map Column -->
       <div class="col-md-8 map-container">
           <agm-map
-          [latitude]="lat" 
-          [longitude]="lng"
-          [zoom]="zoom"
+          [latitude]="employeeTimeIn.map.lat" 
+          [longitude]="employeeTimeIn.map.lng"
+          [zoom]="20"
           [disableDefaultUI]="true"
           [zoomControl]="false"
           >
-              <agm-marker  [latitude]="lat" [longitude]="lng"></agm-marker>
-              <!-- <agm-marker  [latitude]="37.4224734" [longitude]="-122.0842489"></agm-marker> -->
+            <agm-marker  [latitude]="employeeTimeIn.map.lat" [longitude]="employeeTimeIn.map.lng"></agm-marker>
           </agm-map>
       </div>
     <!--***********************-->
@@ -85,6 +84,6 @@
   
   
   <!--Chat Column -->
-  <app-chat></app-chat>
+  <app-chat *ngIf="firstLoad"></app-chat>
   <!--**********************************-->
 </div>

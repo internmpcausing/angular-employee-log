@@ -1,3 +1,7 @@
 .notification-seen{
     background-color: #3b4f6a;
 }
+
+.notification-selected{
+    background-color: #1f2631;
+}

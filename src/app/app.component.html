@@ -1,9 +1,11 @@
 <div class="container-fluid main-container" style="background-color: #ffffff;overflow: hidden">
   <div class="row">
-    <div class="col-md-12" style="background-color: #444443;min-height: 60px;" class="nav-bar">
+    <div class="col-md-12" style="background-color: #151f2b;min-height: 60px;" class="nav-bar">
       <div class="nav-buttons">
-          <a routerLink="/">Home</a>
-          <a routerLink="/logs">Logs</a>
+          <a routerLink="/" class="logo">DEMO <span>APP</span></a>
+          <a *ngFor="let navLink of navLinks.navLinks" routerLink="{{navLink.path}}" class="nav-btn" [ngClass]="{'active': navLink.isActive}">{{navLink.label}}</a>
+
+          
       </div>
       
     </div>

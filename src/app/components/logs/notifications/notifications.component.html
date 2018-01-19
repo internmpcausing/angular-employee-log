@@ -10,13 +10,13 @@
       <div class="col-md-12" style="height: 100%;overflow:auto;padding-right: 0;">
 
 
-          <div class="row" [ngClass]="{'notification-seen': !notification.isSeen}" *ngFor="let notification of notifications" style="padding: 8px 20px;margin-left: 0;margin-right: 0;display: flex;justify-content: center;border-bottom: 1px solid #24344b;cursor: pointer;" (click)="getNotifDetails(notification)">
+          <div class="row" [ngClass]="{'notification-seen': !notification.isSeen, 'notification-selected': notification.selected}" *ngFor="let notification of notifications" style="padding: 8px 20px;margin-left: 0;margin-right: 0;display: flex;justify-content: center;border-bottom: 1px solid #24344b;cursor: pointer;" (click)="getNotifDetails(notification)">
               <div class="col-md-3" style="padding: 0;max-width: 50px;">
                   <img [src]="notification.pic" style="width: 100%;border-radius: 6px;" alt="chat-avatar">
               </div>
               <div class="col-md-9" style="padding-right: 0;align-self: center;">
                   <p style="color: #ffffff;font-weight: bold;line-height: 13px;margin-bottom: 2px;">{{notification.name.firstName + ' ' + notification.name.lastName  | titlecase}}</p>
-                  <p style="color: #a1dbe6;font-size: 13px;margin: 0;">has logged in at {{ (notification.timeIn | amFromUnix) | amCalendar}}</p>
+                  <p style="color: #a1dbe6;font-size: 13px;margin: 0;">{{ (notification.timeIn | amFromUnix) | amCalendar}}</p>
                 </div>
             </div>
 
