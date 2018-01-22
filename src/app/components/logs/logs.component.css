@@ -7,6 +7,3 @@ ng-progress-bar .ng-progress .bar{
 }
 
 
-.ng-progress .active{
-    position: static !important;
-}

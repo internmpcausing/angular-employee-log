@@ -48,7 +48,7 @@ export class AppComponent implements OnInit{
     // let fds = moment.unix(Math.floor(Date.now() /1000));
     // console.log(fds);
     // this.socketService.socket.emit('cl-timeIn',{
-    //   employeeId: '5a61960599a85149c7682c99',
+    //   employeeId: '5a6554a75192282618345c40',
     //   timeIn: Math.floor(Date.now() /1000),
     //   pic: 'https://media.istockphoto.com/photos/love-selfie-picture-id533647449?k=6&m=533647449&s=612x612&w=0&h=81v4NJXuBksOp2CZS_DxX1hQ2M6J-4ibK9Cujwj3fnc=',
     //   map: {

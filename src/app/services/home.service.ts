@@ -8,10 +8,9 @@ import { Injectable } from '@angular/core';
 export class HomeService{
     constructor(private socketService:SocketService){}
 
-    getInitMessages(notificationId){
-        this.socketService.socket.emit('cl-getInitMessages', {notificationId: notificationId});
+    getRecentEmployeeTimeIns(){
         let observable = new Observable(observer => {
-            this.socketService.socket.on('sv-sendInitMessages', (data) => {
+            this.socketService.socket.on('sv-sendRecentTimeIns', (data) => {
                     observer.next(data);
                 });
                 return () => {
@@ -20,18 +19,10 @@ export class HomeService{
         })
         return observable;
     }
-    
-    sendMessage(newMessage){
-        this.socketService.socket.emit('cl-sendNewMessage', newMessage);
-        let observable = new Observable(observer => {
-            this.socketService.socket.on('sv-newMessageFromEmployee', (data) => {
-                    observer.next(data);
-                });
-                return () => {
-                    this.socketService.socket.disconnect();
-                };
-        })
-        return observable;
+
+    requestRecentEmployeeTimeIns(){ 
+        console.log('rwere')
+        this.socketService.socket.emit('cl-getRecentTimeIns')
     }
     
 }

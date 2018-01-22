@@ -1,0 +1,79 @@
+.left-side-bar{
+    position: absolute;
+    height: 100%;
+    background-color: #24344b;
+    min-width: 300px;
+    left: 0;
+    max-width: 300px;
+    padding: 5px;
+    padding-top: 15px;
+}
+
+.right-side-bar{
+    position: absolute;
+    height: 100%;
+    background-color: #24344b;
+    min-width: 300px;
+    right: 0;
+    max-width: 300px;
+    padding: 5px;
+    padding-top: 15px;
+    transform: translateX(100%);
+    transition: transform 0.4s ease;
+}
+
+.right-side-bar.show-right-side-bar{
+    transform: translateX(0);
+}
+
+.right-side-bar .employee-name{
+    color: white;
+    font-weight: bold;
+    border-bottom: solid 1px white;
+    margin-top: 0;
+    padding-bottom: 5px;
+    margin-top: 15px;
+     
+}
+
+.right-side-bar .avatar{
+    width: 100%;
+    border-radius: 8px;
+}
+
+
+.right-side-bar .togglearrow{
+    cursor: pointer;
+}
+
+
+.right-side-bar .details{
+    padding-top: 20px;
+    font-size: 15px;
+} 
+
+.right-side-bar .dl-horizontal{
+    margin-bottom: 15px;
+}
+
+.right-side-bar .details dt{
+    text-align: left;
+    white-space: unset;
+    width: 72px;
+    font-weight: normal;
+    color: #6cb7bc;
+    font-size: 15px;
+    line-height: 19px;
+}
+
+.right-side-bar .details dd{
+    color: white;
+    margin-left: 0px;
+    line-height: 19px;
+    margin-left: 80px;
+}
+
+.right-side-bar .details dd .battery-icon{
+    transform: translateY(-5%);
+}
+

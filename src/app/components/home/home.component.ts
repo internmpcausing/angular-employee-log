@@ -1,5 +1,8 @@
+
 import { NavLinks } from './../../services/navlinks.service';
 import { Component, OnInit } from '@angular/core';
+import { HomeService } from './../../services/home.service';
+
 
 @Component({
   selector: 'app-home',
@@ -8,50 +11,79 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-
-  title = 'app';
   lat: number =  14.6390175;
   lng: number = 121.0261686;
+  zoom: number = 9;
 
-  address: string = 'sample address';
-  zoom: number = 13;
-  timeIn: number = 0;
-  pic: string = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf6aaQJAo291z97N4QtmDBsG_WhZ9puznRWdlSLIKC5h6RtgqgeQ';
 
-  markers: marker[] = [
-    {
-      lat: 14.600902, 
-      lng: 120.982561,
-      label: 'A',
-      draggable: true
-    },
-    {
-      lat: 14.600279,
-      lng: 120.992775,
-      label: 'B',
-      draggable: false
-    },
-    {
-      lat: 14.602605,
-      lng: 120.997195,
-      label: 'C',
-      draggable: true
-    }
-  ]
-  constructor(private navLinks:NavLinks) { 
+  constructor(private navLinks:NavLinks, private homeService:HomeService) { 
     this.navLinks.selectedNavlink(0);
+    
   }
 
   ngOnInit() {
+    this.homeService.requestRecentEmployeeTimeIns();
+    this.homeService.getRecentEmployeeTimeIns().subscribe(_data => this.displayRecentEmployeeTimeIns(_data));
   }
 
+  employeeTimeIns;
+  displayRecentEmployeeTimeIns(_data){
+    console.log(_data);
+    
+    this.employeeTimeIns = _data;
+  }
+
+  selectedEmployeeTimeIn = {
+    _id: '',
+    employee: {
+      name: '',
+      pic: '',
+      _id: ''
+      
+    },
+    map: {
+      lat: '',
+      long: '',
+      formattedAddress: ''
+    },
+    timeIn: ''
+  }
+
+  clickedMarker(_employeeTimeIn){
+    this.selectedEmployeeTimeIn = _employeeTimeIn;
+    this.rightSideBar = true;
+    this.zoom = 9;
+    this.lat = 0;
+    this.lng = 0;
+    setTimeout(()=>{
+      this.zoom = 15;
+      this.lat = _employeeTimeIn.map.lat;
+      this.lng = _employeeTimeIn.map.lng;
+    }, 1);
+    
+    
+    this.selectedEmployeeTimeIn = _employeeTimeIn;
+  }
+
+  onMouseOver(infoWindow, gm) {
+
+    if (gm.lastOpen != null) {
+        gm.lastOpen.close();
+    }
+
+    gm.lastOpen = infoWindow;
+
+    infoWindow.open();
 }
 
+fdsfd(){
+    console.log('dassd');
+  }
 
-// just an interface for type safety.
-interface marker {
-lat: number;
-lng: number;
-label?: string;
-draggable: boolean;
+
+  rightSideBar = false;
+  hideRightSideBar(rightSideBar){
+    this.rightSideBar = false;
+  }
+
 }

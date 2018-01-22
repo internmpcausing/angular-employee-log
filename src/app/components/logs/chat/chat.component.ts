@@ -11,7 +11,7 @@ import { SocketService } from '../../../services/socket.service';
 })
 export class ChatComponent implements OnInit {
 
-  constructor(private chatService:ChatService, private socketService:SocketService) { }
+  constructor(private chatService:ChatService) { }
 
   ngOnInit() {
 
@@ -20,9 +20,7 @@ export class ChatComponent implements OnInit {
     this.chatService.displayInitMessages().subscribe(_employee => this.displayInitMessages(_employee));
 
     this.chatService.employeeTyping().subscribe(() => this.employeeTyping());
-    // this.socketService.socket.on('sv-newMessageFromEmployee', (_newMessage) => {
-    //   console.log(_newMessage);
-    // })
+
     this.chatService.displayNewMessage().subscribe(_newMessage => this.displayNewMessage(_newMessage));
   }
 
@@ -89,18 +87,3 @@ export class ChatComponent implements OnInit {
     }    
   }
 }
-
-
-
-
-    // this.socketService.socket.emit('cl-timeIn',{
-    //   employeeId: '5a5f185480a25f2aac4abf20',
-    //   timeIn: Math.floor(Date.now() /1000),
-    //   pic: 'fdfsdfd',
-    //   map: {
-    //     lng: -122.0842499,
-    //     lat: 37.4224764,
-    //     formattedAddress: 'dsasdsad'
-    //   },
-    //   batteryStatus: 65
-    // });
