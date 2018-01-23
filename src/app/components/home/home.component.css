@@ -1,13 +1,4 @@
-.left-side-bar{
-    position: absolute;
-    height: 100%;
-    background-color: #24344b;
-    min-width: 300px;
-    left: 0;
-    max-width: 300px;
-    padding: 5px;
-    padding-top: 15px;
-}
+
 
 .right-side-bar{
     position: absolute;
@@ -59,10 +50,11 @@
 .right-side-bar .details dt{
     text-align: left;
     white-space: unset;
-    width: 72px;
+    width: 80px;
     font-weight: normal;
     color: #6cb7bc;
     font-size: 15px;
+    text-overflow: unset;
     line-height: 19px;
 }
 
@@ -70,10 +62,107 @@
     color: white;
     margin-left: 0px;
     line-height: 19px;
-    margin-left: 80px;
+    margin-left: 85px;
 }
 
 .right-side-bar .details dd .battery-icon{
     transform: translateY(-5%);
 }
 
+.right-side-bar .details dd .fa-plug, .right-side-bar .details dd .battery{
+    margin-left: 5px;
+}
+
+.right-side-bar .loading{
+    color: white;
+    display: block;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.right-side-bar .details .fa-circle{
+    font-size: 13px;
+    margin-left: 5px;
+}
+
+.right-side-bar .details .fa-circle.online{
+    color: green;
+}
+
+.right-side-bar .details .fa-circle.offline{
+    color: rgb(153, 153, 153);
+}
+
+.right-side-bar .details .view-selfie:hover{
+    cursor: pointer;
+    text-decoration: underline;
+    color: #67b2bc;
+    width: 0;
+}
+
+.left-side-bar{
+    position: absolute;
+    height: 100%;
+    background-color: #24344b;
+    min-width: 300px;
+    left: 0;
+    max-width: 300px;
+    padding-top: 15px;
+}
+
+.left-side-bar .employee{
+    margin-bottom: 2px;
+    padding: 10px 10px;
+    cursor: pointer;
+}
+
+.left-side-bar .employee:hover{
+    background-color: #3b4f6a;
+}
+
+.left-side-bar .employee img{
+    border-radius: 6px;
+    max-width: 50px;
+}
+
+.left-side-bar .employee span{
+    color: #ffffff;
+    font-weight: bold;
+    line-height: 13px;
+    margin-bottom: 2px;
+    margin-left: 10px;
+}
+
+.modal-body img.selfie{
+    width: 100%; 
+    border-radius: 10px;
+}
+
+
+.marker-info-window{
+    margin: 0px;
+}
+
+.marker-info-window dt{
+    text-align: unset;
+    width: auto;
+}
+
+.marker-info-window dt img{
+    border-radius: 5px;
+    max-width: 50px;
+}
+
+.marker-info-window dd{
+    margin-left: 50px;
+}
+
+.marker-info-window dd span.name{
+    padding-left: 10px;
+    font-size: 14px;
+    color: #242e3a;
+}
+
+.marker-info-window dd span.details-btn{
+    position: absolute;bottom: 0;right: 0;color: #6ab8ba;font-weight: bold;cursor:pointer
+}

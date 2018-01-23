@@ -6,6 +6,7 @@
         [zoom]="zoom"
         [disableDefaultUI]="true"
         [zoomControl]="false"
+        (mapClick)="agmMapClick(gm)"
         >
             <!-- <agm-marker  [latitude]="lat" [longitude]="lng"></agm-marker> -->
             <agm-marker 
@@ -17,13 +18,13 @@
               >
               
             <agm-info-window #infoWindow>
-              <dl class="dl-horizontal" style="margin: 0px;">
-                <dt style="text-align: unset;width: auto;">
-                  <img [src]="employeeTimeIn.employee.pic.thumb" style="border-radius: 5px;">
+              <dl class="dl-horizontal marker-info-window">
+                <dt>
+                  <img [src]="employeeTimeIn.employee.pic.thumb">
                 </dt>
-                <dd style="margin-left: 50px;">
-                  <span style="padding-left: 10px;font-size: 14px;color: #242e3a;">{{(employeeTimeIn.employee.name.lastName + ', ' + employeeTimeIn.employee.name.firstName) | titlecase}}</span><br>
-                  <span style="position: absolute;bottom: 0;right: 0;color: #6ab8ba;font-weight: bold;">DETAILS</span>
+                <dd>
+                  <span class="name">{{(employeeTimeIn.employee.name.lastName + ', ' + employeeTimeIn.employee.name.firstName) | titlecase}}</span><br>
+                  <span class="details-btn" (click)="clickedMarker(employeeTimeIn)">DETAILS</span>
                 </dd>
               </dl>
             </agm-info-window>
@@ -34,19 +35,35 @@
 
     <div class="left-side-bar">
         <div class="container-fluid">
-          <div class="row">
-
+          <div class="row employee" (click)="employeeDeployedClicked(employeeTimeIn)" *ngFor="let employeeTimeIn of employeeTimeIns">
+            <div class="col-md-12">
+                <img [src]="employeeTimeIn.employee.pic.thumb">
+                <span>{{(employeeTimeIn.employee.name.lastName + ', ' + employeeTimeIn.employee.name.firstName) | titlecase}}</span>
+            </div>
           </div>
         </div>
       </div>
 
     <div class="right-side-bar" [ngClass]="{'show-right-side-bar': rightSideBar}">
+      
+
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
               <img src="assets/img/togglearrow.png" alt="togglearrow" class="togglearrow" (click)="hideRightSideBar(rightSideBar)">
           </div>
+        </div>
 
+        <div class="container-fluid" *ngIf="showLoadingRightSideBar">
+          <div class="row">
+            <div class="col-md-12">
+                <i class="loading fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row" *ngIf="!showLoadingRightSideBar">
           <div class="col-md-12">
             <h3 class="employee-name">{{(selectedEmployeeTimeIn.employee.name.lastName + ', ' + selectedEmployeeTimeIn.employee.name.firstName) | titlecase}}</h3>
           </div>
@@ -58,25 +75,45 @@
           <div class="col-md-12 details">
             <dl class="dl-horizontal">
               <dt>Status</dt>
-              <dd>Online</dd>
+              <dd *ngIf="selectedEmployeeTimeIn.employee.online">Online <i class="fa fa-circle online" aria-hidden="true"></i></dd>
+              <dd *ngIf="!selectedEmployeeTimeIn.employee.online">Offline <i class="fa fa-circle offline" aria-hidden="true"></i></dd>
             </dl>
 
-            <dl class="dl-horizontal">
-              <dt>Battery</dt>
-              <dd>98% <img src="assets/img/battery-3.png" alt="battery" class="battery-icon"></dd>
-              
-            </dl>
+            <div *ngIf="selectedEmployeeTimeIn.employee.online">
+                <dl class="dl-horizontal">
+                  <dt>Connection Type</dt>
+                  <dd>{{selectedEmployeeTimeIn.connectionType | titlecase}}</dd>
+                </dl>
+    
+                <dl class="dl-horizontal">
+                  <dt>Battery</dt>
+                  <dd>
+                    {{selectedEmployeeTimeIn.battery.percent}}%
+                    <i class="fa battery" [ngClass]="selectedEmployeeTimeIn.battery.batteryClass" aria-hidden="true"></i>
+                    <!-- <img src="assets/img/battery-3.png" alt="battery" class="battery-icon"> -->
+                    <i class="fa fa-plug" aria-hidden="true" *ngIf="selectedEmployeeTimeIn.battery.status"></i>
+                  </dd>
+                </dl>
+    
+                <dl class="dl-horizontal">
+                  <dt>Current Location</dt>
+                  <dd>{{selectedEmployeeTimeIn.currentLocation}}</dd>
+                </dl>
+            </div>
+            
 
             <dl class="dl-horizontal">
-              <dt>Current Location</dt>
+              <dt>Logged In Location</dt>
               <dd>{{selectedEmployeeTimeIn.map.formattedAddress}}</dd>
             </dl>
 
             <dl class="dl-horizontal">
-              <dt>Previous Location</dt>
-              <dd>Google Building 40, 1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA</dd>
+              <dt>Selfie</dt>
+              <dd class="view-selfie" (click)="viewSelfie(SelfieModal)">View</dd>
             </dl>
           </div>
+
+          
 
           
 
@@ -85,3 +122,16 @@
       </div>
     </div>
 </div>
+
+
+<ng-template #SelfieModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Selfie</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <img [src]="selectedEmployeeTimeIn.pic.original" alt="selfie" class="selfie">
+  </div>
+</ng-template>

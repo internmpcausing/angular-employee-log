@@ -1,22 +1,21 @@
-<div class="col-md-2" style="background-color: #24344b;height: 100%;padding:0">
-  <div class="container-fluid" style="padding:0;height: 100%">
+<div class="col-md-2 main-container">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-          <p style="color: #587088;margin: 20px 18px 15px 18px;border-bottom: solid 2px #3b4f6a;padding-bottom: 5px;font-size: 14px;font-weight: bold;">RECENT</p>
+          <p class="header">RECENT</p>
       </div>
     </div>
 
-    <div class="row" style="height: 100%;padding-bottom:115px;margin-right: 0px;">
-      <div class="col-md-12" style="height: 100%;overflow:auto;padding-right: 0;">
+    <div class="row notifications-container">
+      <div class="col-md-12 notification-container">
 
-
-          <div class="row" [ngClass]="{'notification-seen': !notification.isSeen, 'notification-selected': notification.selected}" *ngFor="let notification of notifications" style="padding: 8px 20px;margin-left: 0;margin-right: 0;display: flex;justify-content: center;border-bottom: 1px solid #24344b;cursor: pointer;" (click)="getNotifDetails(notification)">
-              <div class="col-md-3" style="padding: 0;max-width: 50px;">
-                  <img [src]="notification.pic" style="width: 100%;border-radius: 6px;" alt="chat-avatar">
+          <div class="row notification-item" [ngClass]="{'notification-seen': !notification.isSeen, 'notification-selected': notification.selected}" *ngFor="let notification of notifications" (click)="getNotifDetails(notification)">
+              <div class="col-md-3 pic-container">
+                  <img [src]="notification.pic" alt="chat-avatar">
               </div>
-              <div class="col-md-9" style="padding-right: 0;align-self: center;">
-                  <p style="color: #ffffff;font-weight: bold;line-height: 13px;margin-bottom: 2px;">{{notification.name.firstName + ' ' + notification.name.lastName  | titlecase}}</p>
-                  <p style="color: #a1dbe6;font-size: 13px;margin: 0;">{{ (notification.timeIn | amFromUnix) | amCalendar}}</p>
+              <div class="col-md-9 other-details">
+                  <p class="name">{{notification.name.firstName + ' ' + notification.name.lastName  | titlecase}}</p>
+                  <p class="time">{{ (notification.timeIn | amFromUnix) | amCalendar}}</p>
                 </div>
             </div>
 

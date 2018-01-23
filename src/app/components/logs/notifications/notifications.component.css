@@ -5,3 +5,77 @@
 .notification-selected{
     background-color: #1f2631;
 }
+
+.main-container{
+    background-color: #24344b;
+    height: 100%;
+    padding:0
+}
+
+.main-container .container-fluid{
+    padding:0;
+    height: 100%
+}
+
+.main-container .header{
+    color: #587088;
+    margin: 20px 18px 15px 18px;
+    border-bottom: solid 2px #3b4f6a;
+    padding-bottom: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.main-container .notifications-container{
+    height: 100%;
+    padding-bottom:115px;
+    margin-right: 0px;
+}
+
+.main-container .notifications-container{
+    height: 100%;
+    padding-bottom:115px;
+    margin-right: 0px;
+}
+
+.main-container .notifications-container .notification-container{
+    height: 100%;
+    overflow:auto;
+    padding-right: 0;
+}
+
+.main-container .notifications-container .notification-container .notification-item{
+    padding: 8px 20px;
+    margin-left: 0;
+    margin-right: 0;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #24344b;
+    cursor: pointer;
+}
+
+.notification-item .pic-container{
+    padding: 0;max-width: 50px;
+}
+
+.notification-item .pic-container img{
+    width: 100%;border-radius: 6px;
+}
+
+.notification-item .other-details{
+    padding-right: 0;
+    align-self: center;
+}
+
+.notification-item .other-details .name{
+    color: #ffffff;
+    font-weight: bold;
+    line-height: 13px;
+    margin-bottom: 2px;
+}
+
+.notification-item .other-details .time{
+    color: #a1dbe6;
+    font-size: 13px;
+    margin: 0;
+}

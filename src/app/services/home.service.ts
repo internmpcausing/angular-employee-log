@@ -21,8 +21,23 @@ export class HomeService{
     }
 
     requestRecentEmployeeTimeIns(){ 
-        console.log('rwere')
         this.socketService.socket.emit('cl-getRecentTimeIns')
+    }
+
+    getEmployeeStatus(){
+        let observable = new Observable(observer => {
+            this.socketService.socket.on('sv-sendEmployeeStatus', (data) => {
+                    observer.next(data);
+                });
+                return () => {
+                    this.socketService.socket.disconnect();
+                };
+        })
+        return observable;
+    }
+
+    requestEmployeeStatus(_employeeId){
+        this.socketService.socket.emit('cl-getEmployeeStatus', {employeeId: _employeeId})
     }
     
 }

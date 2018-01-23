@@ -7,7 +7,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 //ngx-bootstrap Modules
-import { AlertModule, BsDropdownModule } from 'ngx-bootstrap';
+import { AlertModule, BsDropdownModule, ModalModule } from 'ngx-bootstrap';
+
 //***************************
 
 
@@ -44,6 +45,7 @@ import { NavLinks } from './services/navlinks.service';
     HttpClientModule,
     NgProgressModule,
     AlertModule.forRoot(),
+    ModalModule.forRoot(),
     BsDropdownModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDuOss95cF1Xa6hfbn7M_fC7plWH9GCnj8'
