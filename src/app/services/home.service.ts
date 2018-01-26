@@ -11,11 +11,8 @@ export class HomeService{
     getRecentEmployeeTimeIns(){
         let observable = new Observable(observer => {
             this.socketService.socket.on('sv-sendRecentTimeIns', (data) => {
-                    observer.next(data);
-                });
-                return () => {
-                    this.socketService.socket.disconnect();
-                };
+                observer.next(data);
+            })
         })
         return observable;
     }
@@ -27,11 +24,8 @@ export class HomeService{
     getEmployeeStatus(){
         let observable = new Observable(observer => {
             this.socketService.socket.on('sv-sendEmployeeStatus', (data) => {
-                    observer.next(data);
-                });
-                return () => {
-                    this.socketService.socket.disconnect();
-                };
+                observer.next(data);
+            })
         })
         return observable;
     }

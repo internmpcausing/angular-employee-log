@@ -1,16 +1,19 @@
 
 import { NavLinks } from './../../services/navlinks.service';
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
 import { HomeService } from './../../services/home.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service'
+import { ISubscription } from "rxjs/Subscription";
+
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+
 
   lat: number =  14.6390175;
   lng: number = 121.0261686;
@@ -27,10 +30,18 @@ export class HomeComponent implements OnInit {
     
   }
 
+  private subscription: ISubscription[] = [];
   ngOnInit() {
     this.homeService.requestRecentEmployeeTimeIns();
-    this.homeService.getRecentEmployeeTimeIns().subscribe(_data => this.displayRecentEmployeeTimeIns(_data));
-    this.homeService.getEmployeeStatus().subscribe(_data => this.displayEmployeeStatus(_data));
+
+    this.subscription.push(this.homeService.getRecentEmployeeTimeIns().subscribe(_data => this.displayRecentEmployeeTimeIns(_data)));
+    this.subscription.push(this.homeService.getEmployeeStatus().subscribe(_data => this.displayEmployeeStatus(_data)));
+  }
+
+  ngOnDestroy() {
+    for(let s of this.subscription){
+      s.unsubscribe();
+    }
   }
   
   
@@ -84,25 +95,37 @@ export class HomeComponent implements OnInit {
   displayEmployeeStatus(_data){
     console.log(_data);
     setTimeout(() => {
-      this.showLoadingRightSideBar = false;
-      this.selectedEmployeeTimeIn.employee.online = _data.online;
+      if(_data.employeeId == this.selectedEmployeeTimeIn.employee._id){
+        this.showLoadingRightSideBar = false;
+        this.selectedEmployeeTimeIn.employee.online = _data.online;
+        if (_data.online){
 
-      if(_data.online && (_data.employeeId == this.selectedEmployeeTimeIn.employee._id)){
-        (<any>this.selectedEmployeeTimeIn).connectionType = _data.connection;
-        (<any>this.selectedEmployeeTimeIn).currentLocation = _data.location;
-        
-        let batteryClass: string;
-        if (_data.battery < 5) batteryClass = 'fa-battery-empty';
-        if (_data.battery > 12) batteryClass = 'fa-battery-quarter';
-        if (_data.battery > 37) batteryClass = 'fa-battery-half';
-        if (_data.battery > 63) batteryClass = 'fa-battery-three-quarters';
-        if (_data.battery > 87) batteryClass = 'fa-battery-full';
+          if(_data.connection) (<any>this.selectedEmployeeTimeIn).connectionType = _data.connection;
+          if(_data.location) (<any>this.selectedEmployeeTimeIn).currentLocation = _data.location.formattedAddress;
+          if(_data.phone) (<any>this.selectedEmployeeTimeIn).phone = _data.phone;
+          if(_data.battery){
+            let batteryClass: string;
+            if (_data.battery.level < 5) batteryClass = 'fa-battery-empty';
+            if (_data.battery.level > 12) batteryClass = 'fa-battery-quarter';
+            if (_data.battery.level > 37) batteryClass = 'fa-battery-half';
+            if (_data.battery.level > 63) batteryClass = 'fa-battery-three-quarters';
+            if (_data.battery.level > 87) batteryClass = 'fa-battery-full';
 
-        (<any>this.selectedEmployeeTimeIn).battery = {
-          percent:_data.battery,
-          status: _data.batteryPlugged,
-          batteryClass: batteryClass
+            console.log(_data.battery);
+
+            (<any>this.selectedEmployeeTimeIn).battery = {
+              percent:_data.battery.level,
+              status: _data.battery.plugged,
+              batteryClass: batteryClass
+            }
+          }
+          
+
+          
+
+          
         }
+        
       }
       
     }, 500)

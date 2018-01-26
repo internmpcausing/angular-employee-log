@@ -3,7 +3,9 @@
     <div class="col-md-12" style="background-color: #151f2b;min-height: 60px;" class="nav-bar">
       <div class="nav-buttons">
           <a routerLink="/" class="logo">DEMO <span>APP</span></a>
-          <a *ngFor="let navLink of navLinks.navLinks" routerLink="{{navLink.path}}" class="nav-btn" [ngClass]="{'active': navLink.isActive}">{{navLink.label}}</a>
+          <a *ngFor="let navLink of navLinks.navLinks" routerLink="{{navLink.path}}" class="nav-btn" [ngClass]="{'active': navLink.isActive}">{{navLink.label}}
+            <span class="badge" *ngIf>42</span>
+          </a>
 
           
       </div>

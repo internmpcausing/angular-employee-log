@@ -15,6 +15,7 @@
               [latitude]="employeeTimeIn.map.lat"
               [longitude]="employeeTimeIn.map.lng"
               (mouseOver)="onMouseOver(infoWindow,gm)"
+              [iconUrl]=""
               >
               
             <agm-info-window #infoWindow>
@@ -99,10 +100,21 @@
                   <dt>Current Location</dt>
                   <dd>{{selectedEmployeeTimeIn.currentLocation}}</dd>
                 </dl>
+
+                <dl class="dl-horizontal phone">
+                  <dt>Phone</dt>
+                  <dd>
+                    Manufacturer <br><span>{{selectedEmployeeTimeIn.phone.manufacturer | titlecase}}</span><br>
+                    Model <br><span>{{selectedEmployeeTimeIn.phone.model}}</span><br>
+                    OS <br><span>{{selectedEmployeeTimeIn.phone.platform}}</span><br>
+                    
+                    
+                  </dd>
+                </dl>
             </div>
             
 
-            <dl class="dl-horizontal">
+            <dl class="dl-horizontal" *ngIf="!selectedEmployeeTimeIn.employee.online">
               <dt>Logged In Location</dt>
               <dd>{{selectedEmployeeTimeIn.map.formattedAddress}}</dd>
             </dl>

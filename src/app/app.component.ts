@@ -1,13 +1,13 @@
 import { NavLinks } from './services/navlinks.service';
 
-
-
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import * as io from "socket.io-client";
 import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
 import { SocketService } from './services/socket.service';
 import { ChatComponent } from './components/logs/chat/chat.component';
+
 
 @Component({
   selector: 'app-root',
@@ -23,10 +23,14 @@ export class AppComponent implements OnInit{
   timeIn: number = 0;
   pic: string = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf6aaQJAo291z97N4QtmDBsG_WhZ9puznRWdlSLIKC5h6RtgqgeQ';
 
-
+  private socket;
   constructor(private socketService:SocketService,
-            private navLinks:NavLinks){
+              private navLinks:NavLinks,
+              private toastr: ToastrService){
+    this.socket = this.socketService.socket;
     this.socketService.connect();
+
+    
   }
 
   @ViewChild(ChatComponent) chatComponent:ChatComponent
@@ -38,12 +42,21 @@ export class AppComponent implements OnInit{
     this.timeIn = notifDetails.timeIn;
     this.address = notifDetails.map.formattedAddress;
     this.chatComponent.requestInitMessages(notifDetails.id);
+
+    
   }
+
+  // dsad(){
+  //   this.toastr.show('Hello fdsfdfsdfdforld!', 'Toastr fun!', {disableTimeOut: true});
+  // }
   
   
 
 
   ngOnInit(){
+    this.socketService.socket.on('sv-newNotification', (data) => {
+      this.toastr.show(data, 'New Time In', {disableTimeOut: false});
+    });  
     // console.log(Math.floor(Date.now() /1000));
     // let fds = moment.unix(Math.floor(Date.now() /1000));
     // console.log(fds);

@@ -79,3 +79,16 @@
     font-size: 13px;
     margin: 0;
 }
+
+.notification-loading-container{
+    margin: 0px;
+}
+.notification-loading{
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.notification-loading i{
+    color: white;
+    font-size: 25px;
+}

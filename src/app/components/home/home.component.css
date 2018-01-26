@@ -166,3 +166,12 @@
 .marker-info-window dd span.details-btn{
     position: absolute;bottom: 0;right: 0;color: #6ab8ba;font-weight: bold;cursor:pointer
 }
+
+.dl-horizontal.phone dd{
+    color:#86e493!important;
+}
+
+.dl-horizontal.phone dd span{
+    color: white;
+    padding-left: 5px;
+}

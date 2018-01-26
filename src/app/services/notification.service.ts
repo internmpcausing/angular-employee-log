@@ -16,11 +16,21 @@ export class NotificationService{
     displayInitNotif(){
         let observable = new Observable(observer => {
             this.socketService.socket.on('sv-sendInitNotif', (data) => {
-                    observer.next(data);    
-                });
-                return () => {
-                    this.socketService.socket.disconnect();
-                };  
+                observer.next(data);    
+            });
+        })
+        return observable;
+    }
+
+    requestAdditionalNotif(lastNotificationTimeIn){
+        this.socketService.socket.emit('cl-getAdditionalNotif', {timeIn: lastNotificationTimeIn});
+    }
+
+    displayAdditionalNotif(){
+        let observable = new Observable(observer => {
+            this.socketService.socket.on('sv-sendAdditionNotif', (data) => {
+                observer.next(data);    
+            });
         })
         return observable;
     }
@@ -33,23 +43,19 @@ export class NotificationService{
     displayNotifDetails(){
         let observable = new Observable(observer => {
             this.socketService.socket.on('sv-serveNotifDetails', (data) => {
-                    observer.next(data);    
-                });
-                return () => {
-                    this.socketService.socket.disconnect();
-                };  
+                observer.next(data);
+            });
         })
         return observable;
     }
 
+    
+
     newNotif(){
         let observable = new Observable(observer => {
             this.socketService.socket.on('sv-newNotification', (data) => {
-                    observer.next(data);    
-                });
-                return () => {
-                    this.socketService.socket.disconnect();
-                };  
+                observer.next(data);    
+            });  
         })
         return observable;
     }

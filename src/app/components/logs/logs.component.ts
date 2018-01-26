@@ -8,6 +8,7 @@ import { ChatComponent } from './chat/chat.component';
 import { NgProgress } from 'ngx-progressbar';
 import { NavLinks } from './../../services/navlinks.service';
 
+
 @Component({
   selector: 'app-logs',
   templateUrl: './logs.component.html',

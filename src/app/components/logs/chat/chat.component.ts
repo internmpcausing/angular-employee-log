@@ -1,7 +1,9 @@
 
+
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ChatService } from './../../../services/chat.service';
 import { SocketService } from '../../../services/socket.service';
+import { Observable } from 'rxjs/Observable';
 
 
 @Component({
@@ -11,79 +13,59 @@ import { SocketService } from '../../../services/socket.service';
 })
 export class ChatComponent implements OnInit {
 
-  constructor(private chatService:ChatService) { }
+  constructor(private chatService:ChatService, private socket:SocketService) {
+   }
 
+  
+  employee: Observable<any>;
   ngOnInit() {
-
-    
-
-    this.chatService.displayInitMessages().subscribe(_employee => this.displayInitMessages(_employee));
-
-    this.chatService.employeeTyping().subscribe(() => this.employeeTyping());
-
-    this.chatService.displayNewMessage().subscribe(_newMessage => this.displayNewMessage(_newMessage));
+    this.employee = this.chatService.employee;
   }
 
-  employee;
-  messages = [];
   requestInitMessages(notifDetails){
-    console.log(notifDetails);
-    this.chatService.requestInitMessages(notifDetails.id);
-  }
-
-  displayInitMessages(_employee){
-    this.messages = _employee.messages;
-    this.employee = _employee;
-    console.log(this.messages);
-    
+    this.chatService.loadInitMessages(notifDetails.id);
   }
 
   typing(){
-    //
-    this.chatService.typing({isEmployee: false});
+    this.chatService.typing();
   }
 
-  showEmployeeIsTyping = false;
-
-  timeOutEmployeeTyping;
-  ftimeOutEmployeeTyping(){
-    this.timeOutEmployeeTyping = setTimeout(() =>{
-      this.showEmployeeIsTyping = false; 
-    }, 1500);
-  }
-
-  employeeTyping(){
-    clearTimeout(this.timeOutEmployeeTyping);
-    this.showEmployeeIsTyping = true;
-    this.ftimeOutEmployeeTyping();
-  }
 
    @ViewChild('chatMessages') chatMessages: ElementRef
    sendNewMessage(txt: HTMLInputElement){
-     let t = txt.value.toString().trim();
-     if (!t) {
+    let t = txt.value.toString().trim();
+    if (!t) {
       txt.value = '';
        return
       };
-     let newMessage = {
+    let newMessage = {
         content: t,
         isMe: false,
-        sentAt: Math.floor(Date.now() /1000)
+        sentAt: Math.floor(Date.now() /1000),
+        secret: Math.floor(Date.now() /1000).toString() + 'wqwq'
       };
-    
-    this.messages.push(newMessage); 
-    (<any>newMessage).employeeId = this.employee._id;
-    console.log(this.employee);
-    this.chatService.sendMessage(newMessage);
+      
+    this.chatService.send(newMessage);
     txt.value = '';
-    this.chatMessages.nativeElement.scrollTop = this.chatMessages.nativeElement.scrollHeight;
+    this.fIntervalChatScroll();
    }
 
-  displayNewMessage(_newMessage){
-    console.log(_newMessage);
-    this.showEmployeeIsTyping = false;
-    if(_newMessage.employeeId == this.employee._id){
-      this.messages.push(_newMessage);
-    }    
+  intervalChatScroll;
+  fIntervalChatScroll(){
+      let i = this.chatMessages.nativeElement.scrollHeight;
+      let p = 2;
+      setTimeout(()=>{
+        this.chatMessages.nativeElement.scrollTop -= 50;
+        this.intervalChatScroll = setInterval(() => {
+          let c = this.chatMessages.nativeElement.scrollTop;
+          p *= p;
+          this.chatMessages.nativeElement.scrollTop = this.chatMessages.nativeElement.scrollTop + p;
+            if(c >= this.chatMessages.nativeElement.scrollTop){
+              clearInterval(this.intervalChatScroll);
+            }
+        }, 50)
+      },1)
+      
   }
+
 }

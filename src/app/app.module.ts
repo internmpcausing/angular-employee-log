@@ -28,6 +28,10 @@ import { AppRoutingModule, routingComponents } from './app.routing';
 import { HomeComponent } from './components/home/home.component';
 import { HomeService } from './services/home.service';
 import { NavLinks } from './services/navlinks.service';
+import { ScrollEventModule } from 'ngx-scroll-event';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { NotificationToastComponent } from './components/notification-toast/notification-toast.component';
 
 
 @NgModule({
@@ -37,16 +41,21 @@ import { NavLinks } from './services/navlinks.service';
     ChatComponent,
     LogsComponent,
     routingComponents,
-    HomeComponent
+    HomeComponent,
+    NotificationToastComponent
   ],
+  entryComponents: [NotificationToastComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     NgProgressModule,
+    ScrollEventModule,
     AlertModule.forRoot(),
     ModalModule.forRoot(),
     BsDropdownModule.forRoot(),
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({toastComponent: NotificationToastComponent}),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDuOss95cF1Xa6hfbn7M_fC7plWH9GCnj8'
     }),

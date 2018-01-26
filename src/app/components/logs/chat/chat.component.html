@@ -1,13 +1,13 @@
 <div class="col-md-2 chat-container">
   <div class="row chat-first-row" #chatMessages>
-    <div class="container-fluid msgs-container" >
+    <div class="container-fluid msgs-container">
       <div class="row msgs">
         <div class="col-md-12 _msgs">
-          <div *ngFor="let message of messages"> 
+          <div *ngFor="let message of (employee | async).messages"> 
             
             <div class="row msg-container other-msg" *ngIf="message.isMe">
                 <div class="col-md-3 avatar">
-                    <img [src]="employee.pic.thumb" alt="chat-avatar">
+                    <img [src]="(employee | async).pic.thumb" alt="chat-avatar">
                 </div>
                 <div class="col-md-9 msg">
                   <p>{{message.content}}</p>
@@ -33,7 +33,7 @@
   <div class="row" style="min-height: 34px;">
       <div class="container-fluid">
         <div class="col-md-12" style="padding: 7px 0;">
-            <span *ngIf="showEmployeeIsTyping">{{employee.name.firstName | titlecase}} is typing ...</span>
+            <span *ngIf="(employee | async).isTyping">{{(employee | async).name.firstName | titlecase}} is typing ...</span>
         </div>
       </div>
       

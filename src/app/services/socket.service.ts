@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class SocketService{
-    serverAddress = `http://localhost:8080/`;
+    serverAddress = `http://192.168.1.73:8080/`;
     public socket;
     
     constructor(){}
