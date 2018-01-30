@@ -3,29 +3,32 @@
         <agm-map #gm
         [latitude]="lat" 
         [longitude]="lng"
-        [zoom]="zoom"
+        [zoom]="mapZoomLevel"
         [disableDefaultUI]="true"
         [zoomControl]="false"
+        [usePanning]="true"
         (mapClick)="agmMapClick(gm)"
+        (zoomChange)="agmZoomChange(gm)"
         >
             <!-- <agm-marker  [latitude]="lat" [longitude]="lng"></agm-marker> -->
             <agm-marker 
-              *ngFor="let employeeTimeIn of employeeTimeIns"
-              (markerClick)="clickedMarker(employeeTimeIn)"
-              [latitude]="employeeTimeIn.map.lat"
-              [longitude]="employeeTimeIn.map.lng"
+              *ngFor="let employee of (employees$ | async)"
+              (markerClick)="showDetails(employee)"
+              [latitude]="employee.currentLocation.lat"
+              [longitude]="employee.currentLocation.lng"
               (mouseOver)="onMouseOver(infoWindow,gm)"
               [iconUrl]=""
+              
               >
               
             <agm-info-window #infoWindow>
               <dl class="dl-horizontal marker-info-window">
                 <dt>
-                  <img [src]="employeeTimeIn.employee.pic.thumb">
+                  <img [src]="employee.pic.thumb">
                 </dt>
                 <dd>
-                  <span class="name">{{(employeeTimeIn.employee.name.lastName + ', ' + employeeTimeIn.employee.name.firstName) | titlecase}}</span><br>
-                  <span class="details-btn" (click)="clickedMarker(employeeTimeIn)">DETAILS</span>
+                  <span class="name">{{(employee.name.lastName + ', ' + employee.name.firstName) | titlecase}}</span><br>
+                  <span class="details-btn" (click)="showDetails(employee)">DETAILS</span>
                 </dd>
               </dl>
             </agm-info-window>
@@ -36,16 +39,16 @@
 
     <div class="left-side-bar">
         <div class="container-fluid">
-          <div class="row employee" (click)="employeeDeployedClicked(employeeTimeIn)" *ngFor="let employeeTimeIn of employeeTimeIns">
+          <div class="row employee" (click)="employeeClick(employee)" *ngFor="let employee of (employees$ | async)">
             <div class="col-md-12">
-                <img [src]="employeeTimeIn.employee.pic.thumb">
-                <span>{{(employeeTimeIn.employee.name.lastName + ', ' + employeeTimeIn.employee.name.firstName) | titlecase}}</span>
+                <img [src]="employee.pic.thumb">
+                <span>{{(employee.name.lastName + ', ' + employee.name.firstName) | titlecase}}</span>
             </div>
           </div>
         </div>
       </div>
 
-    <div class="right-side-bar" [ngClass]="{'show-right-side-bar': rightSideBar}">
+    <div class="right-side-bar" [ngClass]="{'show-right-side-bar': (showRightSideBar$ | async)}">
       
 
       <div class="container-fluid">
@@ -55,95 +58,103 @@
           </div>
         </div>
 
-        <div class="container-fluid" *ngIf="showLoadingRightSideBar">
-          <div class="row">
-            <div class="col-md-12">
-                <i class="loading fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        
+
+        
+        
+        <div *ngIf="(selectedEmployee$ | async) as selectedEmployee">
+          <div class="container-fluid" *ngIf="!selectedEmployee?.name">
+            <div class="row">
+              <div class="col-md-12">
+                  <i class="loading fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+              </div>
             </div>
           </div>
-        </div>
 
-
-        <div class="row" *ngIf="!showLoadingRightSideBar">
-          <div class="col-md-12">
-            <h3 class="employee-name">{{(selectedEmployeeTimeIn.employee.name.lastName + ', ' + selectedEmployeeTimeIn.employee.name.firstName) | titlecase}}</h3>
-          </div>
-
-          <div class="col-md-12">
-            <img [src]="selectedEmployeeTimeIn.employee.pic.original" alt="" class="avatar">
-          </div>
-
-          <div class="col-md-12 details">
-            <dl class="dl-horizontal">
-              <dt>Status</dt>
-              <dd *ngIf="selectedEmployeeTimeIn.employee.online">Online <i class="fa fa-circle online" aria-hidden="true"></i></dd>
-              <dd *ngIf="!selectedEmployeeTimeIn.employee.online">Offline <i class="fa fa-circle offline" aria-hidden="true"></i></dd>
-            </dl>
-
-            <div *ngIf="selectedEmployeeTimeIn.employee.online">
+          <div class="row" *ngIf="selectedEmployee?.name">
+              <div class="col-md-12">
+                <h3 class="employee-name">{{(selectedEmployee.name.lastName + ', ' + selectedEmployee.name.firstName) | titlecase}}</h3>
+              </div>
+    
+              <div class="col-md-12">
+                <img [src]="selectedEmployee.pic.original" alt="" class="avatar">
+              </div>
+    
+              <div class="col-md-12 details">
                 <dl class="dl-horizontal">
-                  <dt>Connection Type</dt>
-                  <dd>{{selectedEmployeeTimeIn.connectionType | titlecase}}</dd>
+                  <dt>Status</dt>
+                  <dd *ngIf="selectedEmployee.isOnline">Online <i class="fa fa-circle online" aria-hidden="true"></i></dd>
+                  <dd *ngIf="!selectedEmployee.isOnline">Offline <i class="fa fa-circle offline" aria-hidden="true"></i></dd>
+                </dl>
+    
+                <div *ngIf="selectedEmployee.isOnline">
+                    <dl class="dl-horizontal">
+                      <dt>Connection Type</dt>
+                      <dd>{{selectedEmployeeTimeIn.connectionType | titlecase}}</dd>
+                    </dl>
+        
+                    <dl class="dl-horizontal">
+                      <dt>Battery</dt>
+                      <dd>
+                        {{selectedEmployeeTimeIn.battery.percent}}%
+                        <i class="fa battery" [ngClass]="selectedEmployeeTimeIn.battery.batteryClass" aria-hidden="true"></i>
+                        <!-- <img src="assets/img/battery-3.png" alt="battery" class="battery-icon"> -->
+                        <i class="fa fa-plug" aria-hidden="true" *ngIf="selectedEmployeeTimeIn.battery.status"></i>
+                      </dd>
+                    </dl>
+        
+                    <dl class="dl-horizontal">
+                      <dt>Current Location</dt>
+                      <dd>{{selectedEmployee.currentLocation}}</dd>
+                    </dl>
+    
+                    <dl class="dl-horizontal phone">
+                      <dt>Phone</dt>
+                      <dd>
+                        Manufacturer <br><span>{{selectedEmployeeTimeIn.phone.manufacturer | titlecase}}</span><br>
+                        Model <br><span>{{selectedEmployeeTimeIn.phone.model}}</span><br>
+                        OS <br><span>{{selectedEmployeeTimeIn.phone.platform}}</span><br>
+                        
+                        
+                      </dd>
+                    </dl>
+                </div>
+                
+    
+                <dl class="dl-horizontal" *ngIf="!selectedEmployeeTimeIn.employee.online">
+                  <dt>Logged In Location</dt>
+                  <dd>{{selectedEmployee.previousLocation.formattedAddress}}</dd>
                 </dl>
     
                 <dl class="dl-horizontal">
-                  <dt>Battery</dt>
-                  <dd>
-                    {{selectedEmployeeTimeIn.battery.percent}}%
-                    <i class="fa battery" [ngClass]="selectedEmployeeTimeIn.battery.batteryClass" aria-hidden="true"></i>
-                    <!-- <img src="assets/img/battery-3.png" alt="battery" class="battery-icon"> -->
-                    <i class="fa fa-plug" aria-hidden="true" *ngIf="selectedEmployeeTimeIn.battery.status"></i>
-                  </dd>
+                  <dt>Selfie</dt>
+                  <dd class="view-selfie" (click)="viewSelfie(SelfieModal)">View</dd>
+
+                  <ng-template #SelfieModal >
+                    <div class="modal-header">
+                      <h4 class="modal-title pull-left">Selfie</h4>
+                      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <img [src]="selectedEmployee.selfie.original" alt="selfie" class="selfie">
+                    </div>
+                  </ng-template>
                 </dl>
+              </div>
     
-                <dl class="dl-horizontal">
-                  <dt>Current Location</dt>
-                  <dd>{{selectedEmployeeTimeIn.currentLocation}}</dd>
-                </dl>
-
-                <dl class="dl-horizontal phone">
-                  <dt>Phone</dt>
-                  <dd>
-                    Manufacturer <br><span>{{selectedEmployeeTimeIn.phone.manufacturer | titlecase}}</span><br>
-                    Model <br><span>{{selectedEmployeeTimeIn.phone.model}}</span><br>
-                    OS <br><span>{{selectedEmployeeTimeIn.phone.platform}}</span><br>
-                    
-                    
-                  </dd>
-                </dl>
+              
+    
+              
+    
+    
             </div>
-            
-
-            <dl class="dl-horizontal" *ngIf="!selectedEmployeeTimeIn.employee.online">
-              <dt>Logged In Location</dt>
-              <dd>{{selectedEmployeeTimeIn.map.formattedAddress}}</dd>
-            </dl>
-
-            <dl class="dl-horizontal">
-              <dt>Selfie</dt>
-              <dd class="view-selfie" (click)="viewSelfie(SelfieModal)">View</dd>
-            </dl>
-          </div>
-
-          
-
-          
-
-
         </div>
+
+        
       </div>
     </div>
 </div>
 
 
-<ng-template #SelfieModal>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Selfie</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <img [src]="selectedEmployeeTimeIn.pic.original" alt="selfie" class="selfie">
-  </div>
-</ng-template>

@@ -7,3 +7,16 @@ ng-progress-bar .ng-progress .bar{
 }
 
 
+.selfie-container{
+    background-repeat: no-repeat;
+    background-size: contain;
+    overflow: hidden;
+    position: relative;
+    max-height: 400px;
+    background-position: center;
+}
+
+.selfie-thumb {
+    width: 100%;
+    opacity: 0;
+}

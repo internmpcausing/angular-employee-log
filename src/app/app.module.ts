@@ -34,6 +34,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NotificationToastComponent } from './components/notification-toast/notification-toast.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,11 +51,11 @@ import { NotificationToastComponent } from './components/notification-toast/noti
     AppRoutingModule,
     HttpClientModule,
     NgProgressModule,
+    BrowserAnimationsModule,
     ScrollEventModule,
     AlertModule.forRoot(),
     ModalModule.forRoot(),
     BsDropdownModule.forRoot(),
-    BrowserAnimationsModule,
     ToastrModule.forRoot({toastComponent: NotificationToastComponent}),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDuOss95cF1Xa6hfbn7M_fC7plWH9GCnj8'

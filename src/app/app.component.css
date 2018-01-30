@@ -32,3 +32,13 @@ a.logo span{
     background-color: #24344b;
     border-radius: 5px;
 }
+
+span.custom-badge{
+    position: absolute;
+    background-color: #6aa042;
+    height: 28px;
+    width: 28px;
+    text-align: center;
+    line-height: 27px;
+    border-radius: 50%;
+}

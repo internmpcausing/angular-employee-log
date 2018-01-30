@@ -30,7 +30,6 @@ export class LogsComponent implements OnInit{
     this.employeeTimeIn = notifDetails;
     this.employee = notifDetails.employee;
     this.firstLoad = true
-    console.log(notifDetails)
     // this.lat = notifDetails.map.lat;
     // this.lng = notifDetails.map.lng
     // this.pic = notifDetails.pic.thumb;

@@ -17,7 +17,7 @@
       <!-- Employee Logged On details Column-->
       <div class="col-md-4 employee-container">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-12 selfie-container" [ngStyle]="{'background-image': 'url(' + employeeTimeIn.pic.thumb + ')'}">
               <img [src]="employeeTimeIn.pic.thumb" alt="avatar" class="selfie-thumb">
           </div>
         </div>

@@ -87,3 +87,22 @@
 .msgs ._msgs{
     padding: 10px 10px 10px 0px;
 }
+
+.additional-messages-loading{
+    text-align: center;
+    padding: 10px;
+}
+
+.chatbox-initial-loading{
+    text-align: center;
+    padding: 30px;
+}
+
+.additional-messages-loading i{
+    font-size: 20px;
+}
+
+
+.chatbox-initial-loading i{
+    font-size: 30px;
+}

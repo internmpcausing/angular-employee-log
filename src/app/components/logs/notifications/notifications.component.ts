@@ -59,7 +59,6 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
   @Output() displayNotifDetails = new EventEmitter<any>();
   onDisplayNotifDetails(notifDetails){
-    console.log(notifDetails);
     (<any>notifDetails).employee = this.selectedNotification;
     this.displayNotifDetails.emit(notifDetails);
     this.ngProgress.done();
@@ -82,7 +81,6 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         let lastNotificationTimeIn = this.notifications[this.notifications.length -1].timeIn;
         this.notifService.requestAdditionalNotif(lastNotificationTimeIn);
         this.alreadyRequesting = true;
-      
     }
   }
 

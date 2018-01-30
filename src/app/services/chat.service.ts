@@ -1,4 +1,3 @@
-import { IMessage } from './chat.service';
 import { SocketService } from './socket.service';
 import * as io from "socket.io-client";
 import { Observable } from 'rxjs/Observable';
@@ -25,14 +24,74 @@ export class ChatService{
     private socket;
     public employee: Observable<IEmployee[]>;
     private _employee: BehaviorSubject<IEmployee[]>;
+
+
+    public scollChatBox: Observable<boolean>;
+    private _scollChatBox: BehaviorSubject<boolean>;
+
+    public addSmallValueToScrollChatBox: Observable<null>;
+    private _addSmallValueToScrollChatBox: BehaviorSubject<null>;
+
+    public doneRequestingAdditionalMessages: Observable<boolean>;
+    private _doneRequestingAdditionalMessages: BehaviorSubject<boolean>;
+
+    public noMoreMessage: Observable<boolean>;
+    private _noMoreMessage: BehaviorSubject<boolean>;
+
     constructor(private socketService:SocketService){
         this.socket = this.socketService.socket;
         this._employee = <BehaviorSubject<IEmployee[]>>new BehaviorSubject([]);
         this.employee = this._employee.asObservable();
 
+        this._scollChatBox = <BehaviorSubject<false>>new BehaviorSubject(false);
+        this.scollChatBox = this._scollChatBox.asObservable();
+
+        this._addSmallValueToScrollChatBox = <BehaviorSubject<null>>new BehaviorSubject(null);
+        this.addSmallValueToScrollChatBox = this._addSmallValueToScrollChatBox.asObservable();
+
+        this._doneRequestingAdditionalMessages = <BehaviorSubject<false>>new BehaviorSubject(false);
+        this.doneRequestingAdditionalMessages = this._doneRequestingAdditionalMessages.asObservable();
+
+        this._noMoreMessage = <BehaviorSubject<false>>new BehaviorSubject(false);
+        this.noMoreMessage = this._noMoreMessage.asObservable();
+
         this.socket.on('sv-sendInitMessages', (data) => {
-            this._employee.next(Object.assign({}, data, {isTyping:false}));
+            if(data.messages) data.messages = data.messages.reverse();
+
+            
+
+            setTimeout(() => {
+                let e = this._employee.getValue();
+                let s = true;
+                if(e){
+                    if((<any>e)._id == data._id){
+                        data.messages = (<any>e).messages;
+                        s = false;
+                    }
+                }
+
+                this._employee.next(Object.assign({}, data, {isTyping:false}));
+                if(s) this._scollChatBox.next(true);
+                
+            }, 500);
+            
         });
+
+        this.socket.on('sv-sendAdditionalMessages', data => {
+            if(!data.messages.length) this._noMoreMessage.next(true);
+
+            let e = Object.assign({}, this._employee.getValue(), {});
+            
+            setTimeout(() => {
+                this._addSmallValueToScrollChatBox.next(null);
+                for(let m of data.messages){
+                    (<any>e).messages.unshift(m);
+                }
+                this._employee.next(e);
+                this._doneRequestingAdditionalMessages.next(true);
+            }, 500)
+            
+        })
 
         this.socket.on('sv-employeeTyping', () => {
             this.employeeTyping();
@@ -47,6 +106,7 @@ export class ChatService{
                 console.log('New Message');
                 (<any>(<any>employee).messages).push(data);
                 this._employee.next(employee);
+                this._scollChatBox.next(null);
             }
             else{
                 console.log('Message Sent!!');
@@ -54,8 +114,19 @@ export class ChatService{
         });
     }
     
-    loadInitMessages(notificationId){
+    loadInitMessages(notificationId, employeeId){
         this.socket.emit('cl-getInitMessages', {notificationId: notificationId });
+    }
+
+    loadAdditionalMessages(){
+        let e = this._employee.getValue();
+        let sentAt = (<any>e).messages ? (<any>e).messages[0].sentAt : 0;
+        let r = Object.assign({}, {
+            employeeId: (<any>e)._id,
+            sentAt: sentAt
+        })
+        
+        this.socket.emit('cl-getAdditionalMessages', r);
     }
 
     timeOutEmployeeTyping;
