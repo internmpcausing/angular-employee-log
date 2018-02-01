@@ -53,12 +53,40 @@ export class HomeService{
             this._employees.next(data);
         })
         
-        this.socketService.socket.on('sv-sendSelectedEmployeeStatus', (data) => {
+        this.socket.on('sv-sendSelectedEmployeeStatus', (data) => {
+            
+            console.log('current value');
+            console.log(this._selectedEmployee.getValue());
+            console.log('will added value');
             console.log(data);
 
-            setTimeout(() => { 
-                this._selectedEmployee.next(data);
-            }, 500);
+            if(data.battery){
+                let batteryClass: string;
+                let batteryColor;
+                if (data.battery.level < 5) batteryClass = 'fa-battery-empty';
+                if (data.battery.level > 12) batteryClass = 'fa-battery-quarter';
+                if (data.battery.level > 37) batteryClass = 'fa-battery-half';
+                if (data.battery.level > 63) batteryClass = 'fa-battery-three-quarters';
+                if (data.battery.level > 87) batteryClass = 'fa-battery-full';
+
+                let fColor = (percent) => {
+                    let r = percent<50 ? 255 : Math.floor(255-(percent*2-100)*255/100);
+                    let g = percent>50 ? 255 : Math.floor((percent*2)*255/100);
+                    return 'rgb('+r+','+g+',0)';
+                }
+                batteryColor = fColor(data.battery.level);
+                data.battery = Object.assign({}, data.battery, {batteryClass: batteryClass, batteryColor: batteryColor});
+            }
+
+            let e = Object.assign({}, this._selectedEmployee.getValue(), data);
+            console.log('new value');
+            console.log(e);
+            this._selectedEmployee.next(e);
+
+
+            // setTimeout(() => { 
+            //     
+            // }, 500);
         })
     }
 

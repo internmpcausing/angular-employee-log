@@ -6,7 +6,6 @@ import * as moment from 'moment';
 import { SocketService } from './../../services/socket.service';
 import { ChatComponent } from './chat/chat.component';
 import { NgProgress } from 'ngx-progressbar';
-import { NavLinks } from './../../services/navlinks.service';
 
 
 @Component({
@@ -16,10 +15,8 @@ import { NavLinks } from './../../services/navlinks.service';
 })
 export class LogsComponent implements OnInit{
 
-  constructor(private socketService:SocketService,
-              private navLinks:NavLinks){
-                
-    this.navLinks.selectedNavlink(1);
+  constructor(private socketService:SocketService){
+
   }
 
   firstLoad = false;

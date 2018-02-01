@@ -1,4 +1,4 @@
-import { NavLinks } from './services/navlinks.service';
+
 
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
@@ -25,7 +25,6 @@ export class AppComponent implements OnInit{
 
   private socket;
   constructor(private socketService:SocketService,
-              private navLinks:NavLinks,
               private toastr: ToastrService){
     this.socket = this.socketService.socket;
     this.socketService.connect();

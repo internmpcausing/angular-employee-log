@@ -90,30 +90,29 @@
                 <div *ngIf="selectedEmployee.isOnline">
                     <dl class="dl-horizontal">
                       <dt>Connection Type</dt>
-                      <dd>{{selectedEmployeeTimeIn.connectionType | titlecase}}</dd>
+                      <dd>{{selectedEmployee.connectionType | titlecase}}</dd>
                     </dl>
         
                     <dl class="dl-horizontal">
                       <dt>Battery</dt>
                       <dd>
-                        {{selectedEmployeeTimeIn.battery.percent}}%
-                        <i class="fa battery" [ngClass]="selectedEmployeeTimeIn.battery.batteryClass" aria-hidden="true"></i>
-                        <!-- <img src="assets/img/battery-3.png" alt="battery" class="battery-icon"> -->
-                        <i class="fa fa-plug" aria-hidden="true" *ngIf="selectedEmployeeTimeIn.battery.status"></i>
+                        {{selectedEmployee.battery.level}}%
+                        <i class="fa battery" [ngClass]="selectedEmployee.battery.batteryClass" [ngStyle]="{'color': selectedEmployee.battery.batteryColor}" aria-hidden="true"></i>
+                        <i class="fa fa-plug" aria-hidden="true" *ngIf="selectedEmployee.battery.plugged"></i>
                       </dd>
                     </dl>
         
                     <dl class="dl-horizontal">
                       <dt>Current Location</dt>
-                      <dd>{{selectedEmployee.currentLocation}}</dd>
+                      <dd>{{selectedEmployee.currentLocation.formattedAddress}}</dd>
                     </dl>
     
                     <dl class="dl-horizontal phone">
                       <dt>Phone</dt>
                       <dd>
-                        Manufacturer <br><span>{{selectedEmployeeTimeIn.phone.manufacturer | titlecase}}</span><br>
-                        Model <br><span>{{selectedEmployeeTimeIn.phone.model}}</span><br>
-                        OS <br><span>{{selectedEmployeeTimeIn.phone.platform}}</span><br>
+                        Manufacturer <br><span>{{selectedEmployee.phone.manufacturer | titlecase}}</span><br>
+                        Model <br><span>{{selectedEmployee.phone.model}}</span><br>
+                        OS <br><span>{{selectedEmployee.phone.platform}}</span><br>
                         
                         
                       </dd>

@@ -1,4 +1,4 @@
-import { NavLinks } from './../../services/navlinks.service';
+
 import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
 import { HomeService } from './../../services/home.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -25,11 +25,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   selectedEmployee$: Observable<any>;
   showRightSideBar$: Observable<any>;
   
-  constructor(private navLinks:NavLinks, 
-              private homeService:HomeService,
+  constructor(private homeService:HomeService,
               private modalService: BsModalService) {
 
-    this.navLinks.selectedNavlink(0);
     this.employees$ = this.homeService.employees;
     this.selectedEmployee$ = this.homeService.selectedEmployee;
     this.showRightSideBar$ = this.homeService.showRightSideBar;

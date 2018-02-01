@@ -27,7 +27,6 @@ import { LogsComponent } from './components/logs/logs.component';
 import { AppRoutingModule, routingComponents } from './app.routing';
 import { HomeComponent } from './components/home/home.component';
 import { HomeService } from './services/home.service';
-import { NavLinks } from './services/navlinks.service';
 import { ScrollEventModule } from 'ngx-scroll-event';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -62,7 +61,7 @@ import { NotificationToastComponent } from './components/notification-toast/noti
     }),
     MomentModule
   ],
-  providers: [SocketService, NotificationService, ChatService, HomeService, NavLinks],
+  providers: [SocketService, NotificationService, ChatService, HomeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
