@@ -23,8 +23,6 @@ export class HomeService{
     public selectedEmployee: Observable<IEmployee>;
     private _selectedEmployee: BehaviorSubject<IEmployee>;
 
-    public showRightSideBar: Observable<boolean>;
-    private _showRightSideBar: BehaviorSubject<boolean>;
 
 
     constructor(private socketService:SocketService){
@@ -34,9 +32,6 @@ export class HomeService{
 
         this._selectedEmployee = <BehaviorSubject<IEmployee>>new BehaviorSubject({});
         this.selectedEmployee = this._selectedEmployee.asObservable();
-
-        this._showRightSideBar = <BehaviorSubject<boolean>>new BehaviorSubject(false);
-        this.showRightSideBar = this._showRightSideBar.asObservable();
         
 
         
@@ -55,10 +50,10 @@ export class HomeService{
         
         this.socket.on('sv-sendSelectedEmployeeStatus', (data) => {
             
-            console.log('current value');
-            console.log(this._selectedEmployee.getValue());
-            console.log('will added value');
-            console.log(data);
+            // console.log('current value');
+            // console.log(this._selectedEmployee.getValue());
+            // console.log('will added value');
+            // console.log(data);
 
             if(data.battery){
                 let batteryClass: string;
@@ -79,14 +74,33 @@ export class HomeService{
             }
 
             let e = Object.assign({}, this._selectedEmployee.getValue(), data);
-            console.log('new value');
-            console.log(e);
-            this._selectedEmployee.next(e);
+            // console.log('new value');
+            // console.log(e);
 
+            setTimeout(() => { 
+                this._selectedEmployee.next(e);                
+            }, 500);
+        })
 
-            // setTimeout(() => { 
-            //     
-            // }, 500);
+        this.socket.on('sv-sendEmployeeStatus', data => {
+            console.log(data);
+            let m = this._employees.getValue();
+
+            let e = m.map((employee) => {
+                if (employee.id == data.id){
+                    if(data.currentLocation){
+                        employee.currentLocation = Object.assign({}, employee.currentLocation, {
+                            lat: data.currentLocation.lat,
+                            lng: data.currentLocation.lng
+                        })
+                    }
+                    employee.isOnline = data.isOnline;
+                    
+                }
+                return employee;
+            })
+            this._employees.next(e);
+            console.log(this._employees.getValue());
         })
     }
 
@@ -97,12 +111,7 @@ export class HomeService{
     getEmployeeStatus(employeeId){
         this._selectedEmployee.next(Object.assign({}));
         console.log(employeeId);
-        this._showRightSideBar.next(true); 
         this.socketService.socket.emit('cl-getEmployeeStatus', employeeId);
-    }
-
-    hideRightSideBar(){
-        this._showRightSideBar.next(false); 
     }
     
 }

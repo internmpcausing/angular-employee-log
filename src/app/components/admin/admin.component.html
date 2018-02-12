@@ -1,0 +1,47 @@
+<div fxFlexFill fxLayout="column" class="main-container">
+  <div fxFlex="60px" fxLayout="row" class="header">
+    <div fxFlex fxFlexAlign="center" >
+      <div class="navigation-buttons" *ngIf="!(showNavigationButton$ | async)"><span class="logo">DEMO <span>APP</span></span>
+      </div>
+
+      <div class="navigation-buttons" *ngIf="(showNavigationButton$ | async)"><span class="logo">DEMO <span>APP</span></span>
+
+        <a routerLink="/dashboard" class="nav-btn" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <span>Home</span>
+        </a>
+
+        <a routerLink="logs" routerLinkActive="active" class="nav-btn">Logs
+          <span class="custom-badge" *ngIf="(logsBadgeCount$ | async) as logsBadgeCount">{{logsBadgeCount}}</span>
+        </a>
+
+        <a routerLink="employees" routerLinkActive="active" class="nav-btn">Employees</a>
+      </div>
+    </div>
+
+    <div fxFlex="100px">
+      <div fxLayout="row" fxFlexFill>
+        <div fxFlex fxFlexAlign="center">
+            <a class="setting-icon" [matMenuTriggerFor]="settingsMenu">
+                <i class="fa fa-cog" aria-hidden="true"></i>
+                <mat-menu #settingsMenu="matMenu">
+                  <button mat-menu-item (click)="onChangeDemoClick()"><i class="fa fa-retweet" aria-hidden="true"></i>Change Demo</button>
+                </mat-menu>
+            </a>
+        </div>
+        <div fxFlex fxFlexAlign="center">
+            <a class="admin-avatar" [matMenuTriggerFor]="adminMenu">
+                <img [src]="admin.pic.thumb" alt="admin-avatar">
+                <mat-menu #adminMenu="matMenu">
+                  <button mat-menu-item (click)="onSignOutClick()"><i class="fa fa-sign-out" aria-hidden="true"></i> Log out</button>
+                </mat-menu>
+            </a>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="10px"></div>
+  </div>
+
+  <div fxFlex class="content">
+      <router-outlet></router-outlet>
+  </div>
+</div>

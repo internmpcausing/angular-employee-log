@@ -1,6 +1,6 @@
 
 import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
-import { HomeService } from './../../services/home.service';
+import { HomeService } from './../../../services/home.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service'
 import { ISubscription } from "rxjs/Subscription";
@@ -23,14 +23,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   employees$: Observable<any>;
   selectedEmployee$: Observable<any>;
-  showRightSideBar$: Observable<any>;
-  
+
   constructor(private homeService:HomeService,
               private modalService: BsModalService) {
 
     this.employees$ = this.homeService.employees;
     this.selectedEmployee$ = this.homeService.selectedEmployee;
-    this.showRightSideBar$ = this.homeService.showRightSideBar;
     this.homeService.loadEmployees();
     
   }
@@ -71,7 +69,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     timeIn: ''
   }
 
-  showDetails(employee){
+  showDetails(employee, rightSideNav){
+    rightSideNav.toggle();
     this.homeService.getEmployeeStatus({employeeId: employee.id});
 
     // if ((this.selectedEmployeeTimeIn.employee._id == _employeeTimeIn.employee._id) && this.rightSideBar) return;
@@ -170,14 +169,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   employeeClick(employee){
     // if (this.zoomAnimate) return;
     // this.zoomAnimate = true;
-    // // this.fIntervalMapZoom(employee);
-    // if(this.mapZoomLevel >= 9) {
-    //   this.pmapZoomLevel = this.mapZoomLevel;
-    //   this.mapZoomLevel--;
-    // } else if(this.mapZoomLevel < 9) {
-    //   this.pmapZoomLevel = this.mapZoomLevel;
-    //   this.mapZoomLevel++;
-    // }
+    // this.fIntervalMapZoom(employee);
+    // // if(this.mapZoomLevel >= 9) {
+    // //   this.pmapZoomLevel = this.mapZoomLevel;
+    // //   this.mapZoomLevel--;
+    // // } else if(this.mapZoomLevel < 9) {
+    // //   this.pmapZoomLevel = this.mapZoomLevel;
+    // //   this.mapZoomLevel++;
+    // // }
     this.mapZoomLevel = 11;
     this.lat = employee.currentLocation.lat;
     this.lng = employee.currentLocation.lng;
@@ -205,8 +204,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (gm.lastOpen != null) gm.lastOpen.close();
   }
 
-  hideRightSideBar(rightSideBar){
-    this.homeService.hideRightSideBar();
+  hideRightSideBar(rightSideNav){
+    rightSideNav.toggle();
   }
 
   viewSelfie(template: TemplateRef<any>) {

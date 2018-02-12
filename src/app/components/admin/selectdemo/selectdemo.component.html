@@ -1,0 +1,68 @@
+
+<!-- <div fxFlexFill fxLayout="column" class="main-container">
+  <div fxFlex="60px" fxLayout="row" class="header">
+    <div fxFlex fxFlexAlign="center">
+      <span class="logo">DEMO <span>APP</span></span>
+    </div>
+
+    <div fxFlex="100px">
+      <div fxLayout="row" fxFlexFill>
+        <div fxFlex fxFlexAlign="center">
+            <a class="setting-icon" >
+                <i class="fa fa-cog" aria-hidden="true"></i>
+            </a>
+        </div>
+        <div fxFlex fxFlexAlign="center">
+            <a class="admin-avatar" [matMenuTriggerFor]="menu">
+                <img [src]="admin.pic.thumb" alt="admin-avatar">
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="onSignOutClick()"><i class="fa fa-sign-out" aria-hidden="true"></i> Log out</button>
+                </mat-menu>
+            </a>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="10px"></div>
+  </div>
+
+  <div fxFlex fxFlexFill class="content">
+    <div fxLayout="row">
+      <div fxFlex="10"></div>
+      <div fxFlex fxLayoutWrap>
+          <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="25"  *ngFor="let company of (companies$ |async)" class="demo-container" (click)="demoClick(company)">
+            <div fxFlexFill class="demo-item">
+              <div class="demo"><span>{{company.name}}</span></div>
+            </div>
+          </div>
+
+          <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="25" class="demo-container">
+            <div fxFlexFill class="demo-item" (click)="openDialog()">
+              <div class="demo demo-add-button">
+              </div>
+            </div>
+          </div>
+      </div>
+      <div fxFlex="10"></div>
+    </div>
+  </div>
+</div> -->
+
+
+<div fxLayout="row">
+  <div fxFlex="10"></div>
+  <div fxFlex fxLayoutWrap>
+      <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="25"  *ngFor="let company of (companies$ |async)" class="demo-container" (click)="demoClick(company)">
+        <div fxFlexFill class="demo-item">
+          <div class="demo"><span>{{company.name}}</span></div>
+        </div>
+      </div>
+
+      <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="25" class="demo-container">
+        <div fxFlexFill class="demo-item" (click)="openDialog()">
+          <div class="demo demo-add-button">
+          </div>
+        </div>
+      </div>
+  </div>
+  <div fxFlex="10"></div>
+</div>

@@ -1,3 +1,4 @@
+import { AdminService } from './admin.service';
 import { SocketService } from './socket.service';
 import * as io from "socket.io-client";
 import { Observable } from 'rxjs/Observable';
@@ -6,7 +7,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class NotificationService{
-    constructor(private socketService:SocketService){}
+    constructor(private socketService:SocketService, private adminService:AdminService){}
 
 
     requestInitNotif(){
@@ -54,6 +55,7 @@ export class NotificationService{
     newNotif(){
         let observable = new Observable(observer => {
             this.socketService.socket.on('sv-newNotification', (data) => {
+                this.adminService.changeLogsBadgeCount(true);
                 observer.next(data);    
             });  
         })

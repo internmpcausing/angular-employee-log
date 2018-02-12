@@ -1,0 +1,251 @@
+/* .main-container{
+    background-color: #efefef;
+} 
+
+.navbar{
+    background-color: #151f2b;
+    border: unset;
+    border-radius: unset;
+    position: fixed;
+    width: 100%;
+    z-index: 99;
+}
+
+.logo{
+    color: white;
+    text-decoration: none;
+    font-size: 28px !important;
+    font-weight: bold;
+}
+.logo:hover{
+    color: white;
+}
+
+.logo span{
+    font-weight: 100;
+}
+
+.navbar-right{
+    display: flex;
+    align-items: center;
+}
+
+.navbar-right .fa-cog{
+    color: white;
+    font-size: 25px;
+}
+
+.admin-avatar{
+    padding: 0;
+    margin-left: 5px;
+}
+
+.admin-avatar img{
+    height: 100%;
+    padding: 5px;
+    border-radius: 50%;
+}
+.navbar-brand.setting-icon{
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 30px;
+}
+
+.content{
+    margin-top: 55px;
+    background-color: #efefef;
+    padding: 0 5%;
+}
+
+.content .demo-container .demo{
+    background-color: white;
+    border-radius: 5px;
+}
+
+.content .demo-container .demo{
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.demo h1{
+    font-size: 2.5vw;
+    text-align: center;
+    padding: 3.5vw;
+}
+
+.demo img{
+    font-size: 2.5vw;
+    text-align: center;
+    padding: 3.5vw;
+}
+
+.demo-add-h1{
+    opacity: 0;
+}
+
+.demo-add-button{
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: 7vw;
+    background-position: center;
+    background-image: url(https://res.cloudinary.com/dka3vzadb/image/upload/t_media_lib_thumb/v1517980880/add_qqgrlh.png);
+    cursor: pointer;
+}
+
+.no-company{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.no-company h3{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+} */
+
+.main-container{
+    overflow: hidden;
+}
+
+.header{
+    background-color: #151f2b;
+}
+
+.logo{
+    color: white;
+    font-size: 25px;
+    padding-left: 50px;
+    font-weight: bold;
+}
+
+.logo span{
+    font-weight: normal;
+}
+
+
+a.setting-icon{
+    color: white;
+    font-size: 30px;
+}
+
+a.admin-avatar img{
+    max-height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.content{
+    overflow: auto;
+    background-color: #efefef
+}
+
+.demo-container{
+    padding: 10px;
+}
+
+.demo-item{
+    cursor: pointer;
+    background-color: #ffffff;
+    border-radius: 5px;
+    position: relative;
+    display: inline-block;
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.demo-item::after {
+    content: "";
+    border-radius: 5px;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  .demo-item:hover {
+  -webkit-transform: scale(1.05, 1.05);
+  transform: scale(1.05, 1.05);
+}
+
+.demo-item:hover::after {
+    opacity: 1;
+}
+
+.demo{
+    min-height: 100px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.demo-add-button{
+    background-repeat: no-repeat;
+    background-size: 80px;
+    background-position: center;
+    background-image: url(https://res.cloudinary.com/dka3vzadb/image/upload/t_media_lib_thumb/v1517980880/add_qqgrlh.png);
+    padding: 19px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* dialog */
+
+.mat-dialog-title{
+    position: relative;
+    border-bottom: 1px solid #e5e5e5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-dialog-title .mat-spinner{
+    position: absolute;
+    right: 0;
+}
+
+.mat-dialog-title i{    
+    position: absolute;
+    right: 0;
+    color: green;
+}
+
+mat-form-field.full-width{
+    width: 100%
+}
+
+.mat-dialog-actions{
+    display: flex;
+    justify-content: flex-end;
+}

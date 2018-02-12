@@ -53,7 +53,18 @@ import { Toast, ToastrService, ToastPackage } from 'ngx-toastr';
   preserveWhitespaces: false,
 })
 export class NotificationToastComponent extends Toast implements OnInit {
-
+  message: {
+    name: {
+      firstName: '',
+      lastName: ''
+    },
+    timeIn: 0,
+    pic: '',
+    newNotif: false,
+    newMessage: false,
+    successLogin: false,
+    failedLogIn: false
+  }
   constructor(protected toastrService: ToastrService,
             public toastPackage: ToastPackage) { 
     super(toastrService, toastPackage);

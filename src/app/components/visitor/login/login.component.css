@@ -1,0 +1,62 @@
+.container{
+    height: 100%;
+    background-color: #24344b;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo{
+    color: white;
+    font-size: 55px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.logo .bold{
+    font-weight: bold;
+}
+
+.container .center{
+    position: absolute;
+    top: 20%;
+}
+
+.button-container{
+    padding: 0 5%;
+}
+
+.button-container button{
+    font-size: 15px;
+    font-weight: bold;
+    background-color: #a1dce2
+}
+
+.login-form .seperator{
+    min-height: 10px;
+}
+
+.login-form .seperator2{
+    min-height: 25px;
+}
+
+.forgot{
+    text-align: center;
+    color: #a2dde3;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 15px;
+}
+
+.loading{
+    position: absolute;
+    margin-top: 1px;
+    font-size: 19px;
+    margin-left: -27px;
+}

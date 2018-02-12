@@ -1,4 +1,4 @@
-.chat-container{
+/* .chat-container{
     background-color: #efefef;
     height: 100%;
 }
@@ -27,17 +27,15 @@
     padding-right: 10px;
 }
 
-.other-msg .avatar img{
-    width: 100%;
-    border-radius: 5px;
-    max-height: 57px;
-}
+
 
 .other-msg .msg p{
     border: 1px solid #c4d8d9;
     background-color: #ffffff;
     border-radius: 3px;
     margin-bottom: 0px;
+    padding: 1.8vh 1vw;
+    
 }
 
 .msg p{
@@ -47,6 +45,7 @@
     font-size: 13px;
     line-height: 15px;
     color: #575757;
+    padding: 1.8vh 1vw;
 }
 
 .msg span{
@@ -54,10 +53,15 @@
     color: #919191;
 }
 
-.my-msg .avatar img{
-    width: 100%;
+.avatar img{
     border-radius: 5px;
+    max-height: 3vw;
 }
+
+.other-msg .avatar img{
+    margin-left: .2vw;
+}
+
 .msg-container.my-msg{
     margin-left: 0px;
 }
@@ -78,7 +82,7 @@
 }
 
 .chat-first-row{
-    height: 75%;
+    height: 66%;
     padding-bottom: 15px;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -91,12 +95,10 @@
 .additional-messages-loading{
     text-align: center;
     padding: 10px;
+    font-size: 20px;
 }
 
-.chatbox-initial-loading{
-    text-align: center;
-    padding: 30px;
-}
+
 
 .additional-messages-loading i{
     font-size: 20px;
@@ -105,4 +107,80 @@
 
 .chatbox-initial-loading i{
     font-size: 30px;
+}
+
+.chat-send-button{
+    background-color: #24344b;
+} */
+.main-container{
+    /* padding: 10px; */
+}
+
+.chatbox-initial-loading{
+    font-size: 30px;
+    text-align: center;
+    padding: 30px;
+}
+
+.additional-messages-loading{
+    text-align: center;
+    padding: 10px;
+    font-size: 20px;
+}
+
+/* .msgs{
+
+} */
+
+.chat-container{
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.msg-container{
+    margin-top: 12px;
+}
+
+.msg-container .avatar img{
+    border-radius: 5px;
+    max-height: 50px;
+}
+.msg{
+    width: 100%;
+    padding: 0 8px;
+}
+
+
+
+.msg p{
+    margin: 0;
+    padding: 10px;
+    border: solid 1px #ddd;
+    background-color: #fff;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.msg p.isMe{
+    border: solid 1px #bfbfbf;
+    background-color: #d3e7e8;
+}
+
+.msg span{
+    font-size: 11px;
+    text-align: center;
+    color: #8a8a8a;
+}
+
+.typing{
+    display:flex;
+    align-items:center;
+    padding-left: 10px;
+}
+
+.chat-controls{
+    padding: 12px;
+}
+
+.chat-controls textarea{
+    margin-bottom: 10px;
 }

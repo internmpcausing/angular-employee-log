@@ -1,0 +1,66 @@
+<mat-drawer-container fxFlexFill>
+  <mat-drawer mode="side" opened="true" class="left-side-bar" fxLayout="column">
+    <app-notifications fxFlexFill (displayNotifDetails)="displayNotifDetails($event)"></app-notifications>
+  </mat-drawer>
+  <mat-drawer-content class="content-container">
+    <div fxFlex class="initial-display-message" *ngIf="!firstLoad">
+      <h1>Please select a log..</h1>
+    </div>
+    <div fxLayout="column" fxFlexFill *ngIf="firstLoad" class="employee-log-map-container">
+      <div fxFlex="64px">
+        <p class="header">{{employee.name.lastName}}, {{employee.name.firstName}}</p>
+      </div>
+
+      <div fxFlex>
+        <div fxLayout="row" fxFlexFill>
+          <div fxFlex="20" fxLayout="column" class="logged-details-container">
+              <div fxFLex class="selfie-container" [ngStyle]="{'background-image': 'url(' + employeeTimeIn.pic.thumb + ')'}">
+              </div>
+              <div fxFlex fxLayout="column" class="logged-details">
+                  <div fxLayout="row">
+                      <span fxFlex="75px" class="logged-details-label">Date</span>
+                      <span fxFlex class="logged-details-content">{{(employeeTimeIn.timeIn | amFromUnix) | amDateFormat:'LL'}}</span>
+                  </div>
+
+                  <div fxLayout="row">
+                      <span fxFlex="75px" class="logged-details-label">Time</span>
+                      <span fxFlex class="logged-details-content">{{ (employeeTimeIn.timeIn | amFromUnix) | amDateFormat:'hh:mm A'}}</span>
+                  </div>
+
+                  <div fxLayout="row">
+                      <span fxFlex="75px" class="logged-details-label">Location</span>
+                      <span fxFlex class="logged-details-content">{{employeeTimeIn.map.formattedAddress}}</span>
+                  </div>
+
+                  <div fxLayout="row">
+                      <span fxFlex="75px" class="logged-details-label">Battery</span>
+                      <span fxFlex class="logged-details-content">{{employeeTimeIn.batteryStatus}}%
+                          <i class="fa fa-battery-three-quarters" aria-hidden="true" style="color:green"></i>
+                      </span>
+                      
+                  </div>
+                  
+              </div>
+
+          </div>
+          <div fxFlex>
+              <agm-map style="height:100%"
+              [latitude]="employeeTimeIn.map.lat" 
+              [longitude]="employeeTimeIn.map.lng"
+              [zoom]="20"
+              [disableDefaultUI]="true"
+              [zoomControl]="false"
+              >
+                <agm-marker  [latitude]="employeeTimeIn.map.lat" [longitude]="employeeTimeIn.map.lng"></agm-marker>
+              </agm-map>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-drawer-content>
+
+  <mat-drawer mode="side" opened="true" position="end" class="right-side-bar" fxLayout="column" *ngIf="firstLoad">
+      <app-chat *ngIf="firstLoad" fxFlexFill></app-chat>
+
+  </mat-drawer>
+</mat-drawer-container>

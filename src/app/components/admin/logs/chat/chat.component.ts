@@ -1,8 +1,8 @@
 
 
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-import { ChatService } from './../../../services/chat.service';
-import { SocketService } from '../../../services/socket.service';
+import { ChatService } from './../../../../services/chat.service';
+import { SocketService } from '../../../../services/socket.service';
 import { Observable } from 'rxjs/Observable';
 import { ISubscription } from "rxjs/Subscription";
 import { ScrollEvent } from 'ngx-scroll-event';

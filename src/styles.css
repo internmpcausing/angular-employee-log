@@ -1,4 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+
 html, body, .main-container{
     height: 100%;
 }
@@ -13,40 +17,28 @@ html, body, .main-container{
     height: 100%;
 }
 
-.employee-log-map-container{
-    padding: 0px 20px;
-    height: 100%;
+.login-form{
+    width: 100%;
 }
 
-.employee-log-map-container h4{
-    color: #24324c;
-    font-weight: bold;
-    border-bottom: solid 2px #e5e5e5;
-    padding-bottom: 10px;
-    margin-bottom: 0px;
+.login-form input{
+    color: #82b2be;
+    font-size: 20px;
 }
 
-.employee-container {
-    height: 100%; padding-top:20px
+.login-form mat-form-field {
+    display: block;
 }
 
-
-
-
-.logged-details{
-    padding: 0;
+.login-form .mat-form-field-underline{
+    background-color: #82b2be;
 }
 
-.logged-details .row{
-    padding: 0px 0px 10px 0px;
+.login-form .mat-form-field-ripple {
+    background-color: #82b2be;
 }
 
-.logged-details .row.first-item{
-    padding: 20px 0px 10px 0px;
-}
-
-
-
-.logged-details-info span{
-    padding-left: 25px;
+.login-form .mat-form-field-label{
+    color: white;
+    font-size: 17px;
 }

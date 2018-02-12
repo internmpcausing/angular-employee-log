@@ -1,0 +1,127 @@
+.flex-container{
+    height: 100%;
+    margin: 0px;
+    min-height: 100%;
+    min-width: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: #efefef;
+}
+
+.space-left{
+    flex: 1 1 auto;
+    height: 100%;
+    margin: 0px;
+    min-height: 100%;
+    max-width: 10%;
+    width: 10%;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+}
+
+.space-right{
+    flex: 1 1 auto;
+    height: 100%;
+    margin: 0px;
+    min-height: 100%;
+    max-width: 10%;
+    width: 10%;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+}
+
+.main-content{
+    flex: 1 1 auto;
+    height: 100%;
+    margin: 0px;
+    min-height: 100%;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.header{
+    flex: 1 1 58px;
+    max-height: 58px;
+    min-height: 58px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.header button{
+    margin-right: 10px;
+}
+.table-header{
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: 100%;
+    min-height: 60px;
+    max-height: 60px;
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    align-items: center;
+    margin-bottom: 1px;
+    margin-top: 10px;
+}
+
+.table-header span{
+    flex: 1 1 30%;
+    font-size: 15px;
+    color: black;
+}
+
+.table-header span.space{
+    flex: 1 1 auto;
+    min-width: 90px;
+    max-width: 90px;
+}
+
+.content{
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.employee{
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: 100%;
+    min-height: 60px;
+    max-height: 60px;
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    align-items: center;
+    margin-bottom: 1px;
+    cursor: pointer;
+}
+
+.employee:hover{
+    background-color: #e8e8e8;
+}
+
+.employee img{
+    border-radius: 50%;
+    margin: 0 30px 0 10px;
+    flex: 1 0 auto;
+    max-width: 50px;
+    min-width: 50px;
+
+}
+
+.employee span{
+    flex: 1 1 30%;
+    font-size: 15px;
+    color: black;
+}

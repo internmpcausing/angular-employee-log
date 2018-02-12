@@ -1,6 +1,13 @@
 
 
 
+import { MyGlobals } from './globals';
+
+
+
+
+
+
 
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,21 +24,82 @@ import { AgmCoreModule } from '@agm/core';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { SocketService } from './services/socket.service';
-import { NotificationsComponent } from './components/logs/notifications/notifications.component';
-import { ChatComponent } from './components/logs/chat/chat.component';
+import { NotificationsComponent } from './components/admin/logs/notifications/notifications.component';
+import { ChatComponent } from './components/admin/logs/chat/chat.component';
 import { NotificationService } from './services/notification.service';
 import { ChatService } from './services/chat.service';
 import { MomentModule } from 'angular2-moment';
 import { NgProgressModule } from 'ngx-progressbar';
-import { LogsComponent } from './components/logs/logs.component';
-import { AppRoutingModule, routingComponents } from './app.routing';
-import { HomeComponent } from './components/home/home.component';
+import { LogsComponent } from './components/admin/logs/logs.component';
+import { AppRoutingModule } from './app.routing';
+import { HomeComponent } from './components/admin/home/home.component';
 import { HomeService } from './services/home.service';
 import { ScrollEventModule } from 'ngx-scroll-event';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NotificationToastComponent } from './components/notification-toast/notification-toast.component';
+import { AdminService } from './services/admin.service';
+import { AdminComponent } from './components/admin/admin.component';
+import { SelectdemoComponent, DialogAddNewDemo } from './components/admin/selectdemo/selectdemo.component';
+import { EmployeesComponent } from './components/admin/employees/employees.component';
+import { VisitorComponent } from './components/visitor/visitor.component';
+import { LoginComponent } from './components/visitor/login/login.component';
+import { VisitorRootComponent } from './components/visitor/visitorroot/visitorroot.component';
 
+import { AuthGuard, SelectDemoGuard } from './guards/auth.guard';
+import { TokenService } from './services/token.service';
+import { AuthService } from './services/auth.service';
+import { SelectDemoService } from './services/selectdemo.service';
+
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
+
+
+import {
+  MatInputModule, 
+  MatDialogModule, 
+  MatButtonModule, 
+  MatProgressSpinnerModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatTableModule,
+  MatListModule,
+  MatMenuModule} from '@angular/material';
+
+@NgModule({
+  imports: [
+    MatInputModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatTableModule,
+    MatListModule
+  ],
+  exports: [
+    MatInputModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatTableModule,
+    MatListModule
+  ],
+  declarations: [EmployeesComponent]
+})
+export class MaterialModule {}
 
 
 @NgModule({
@@ -40,28 +108,54 @@ import { NotificationToastComponent } from './components/notification-toast/noti
     NotificationsComponent,
     ChatComponent,
     LogsComponent,
-    routingComponents,
     HomeComponent,
-    NotificationToastComponent
+    NotificationToastComponent,
+    AdminComponent,
+    SelectdemoComponent,
+    DialogAddNewDemo,
+    VisitorComponent,
+    LoginComponent,
+    VisitorRootComponent,
   ],
-  entryComponents: [NotificationToastComponent],
+  entryComponents: [NotificationToastComponent, DialogAddNewDemo],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     NgProgressModule,
     BrowserAnimationsModule,
+    FormsModule, 
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    MaterialModule,
+    PerfectScrollbarModule,
     ScrollEventModule,
     AlertModule.forRoot(),
     ModalModule.forRoot(),
     BsDropdownModule.forRoot(),
     ToastrModule.forRoot({toastComponent: NotificationToastComponent}),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDuOss95cF1Xa6hfbn7M_fC7plWH9GCnj8'
+      apiKey: 'AIzaSyCuxTc1zAmpV2lxGKQkHud1TzrcXyzWasY'
     }),
     MomentModule
   ],
-  providers: [SocketService, NotificationService, ChatService, HomeService],
+  providers: [
+    MyGlobals, 
+    AdminService, 
+    SocketService, 
+    TokenService, 
+    AuthGuard, 
+    SelectDemoGuard, 
+    AuthService, 
+    SelectDemoService, 
+    NotificationService, 
+    ChatService, 
+    HomeService,
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }  
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

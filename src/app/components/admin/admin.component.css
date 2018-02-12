@@ -1,0 +1,119 @@
+/* .nav-bar .nav-buttons{
+    padding-top: 10px;
+    padding-left: 45px;
+}
+
+.nav-bar .nav-buttons a{
+    margin-right: 17px;
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a.logo{
+    text-decoration: none;
+    font-size: 28px !important;
+    font-weight: bold;
+    margin-right: 100px !important;
+}
+
+
+
+a.logo span{
+    font-weight: 100;
+}
+
+.nav-btn{
+    padding: 10px 15px;
+}
+
+.nav-btn.active{
+    background-color: #24344b;
+    border-radius: 5px;
+}
+
+span.custom-badge{
+    position: absolute;
+    background-color: #6aa042;
+    height: 28px;
+    width: 28px;
+    text-align: center;
+    line-height: 27px;
+    border-radius: 50%;
+} */
+
+
+.main-container{
+    overflow: hidden;
+}
+
+.header{
+    background-color: #151f2b;
+}
+
+.navigation-buttons{
+    display:flex;
+}
+
+.nav-btn{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 12px;
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+.nav-btn.active, .nav-btn:hover{
+    background-color: #24344b;
+    border-radius: 5px;
+}
+
+span.custom-badge{
+    position: absolute;
+    background-color: #6aa042;
+    height: 25px;
+    width: 25px;
+    text-align: center;
+    line-height: 25px;
+    border-radius: 50%;
+    top: -5px;
+    right: -4px;
+} 
+
+
+.logo{
+    color: white;
+    font-size: 25px;
+    padding-left: 50px;
+    font-weight: bold;
+    margin-right: 25px;
+}
+
+.logo span{
+    font-weight: normal;
+}
+
+
+a.setting-icon{
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+a.admin-avatar img{
+    max-height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+.content{
+    overflow: auto;
+    background-color: #efefef
+}

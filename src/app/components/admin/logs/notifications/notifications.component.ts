@@ -1,10 +1,12 @@
 
+
 import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { NotificationService } from '../../../services/notification.service';
-import { SocketService } from './../../../services/socket.service';
+import { NotificationService } from '../../../../services/notification.service';
+import { SocketService } from './../../../../services/socket.service';
 import { NgProgress } from 'ngx-progressbar';
 import { ISubscription } from "rxjs/Subscription";
 import { ScrollEvent } from 'ngx-scroll-event';
+import { AdminService } from './../../../../services/admin.service';
 
 @Component({
   selector: 'app-notifications',
@@ -16,6 +18,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   
   
   constructor(private notifService:NotificationService,
+              private adminService:AdminService,
               public ngProgress: NgProgress) {}
 
   private subscription: ISubscription[] = [];
@@ -35,6 +38,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
       s.unsubscribe();
     }
   }
+  
 
   notifications;
   displayInitNotif(notifications){
@@ -46,6 +50,10 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
   selectedNotification;
   getNotifDetails(notification){
+    if (!notification.isSeen) this.adminService.changeLogsBadgeCount(false);
+
+    this.adminService.changeChatSelectedEmployeeId(notification.employeeId);
+
     this.selectedNotification = notification;
     this.ngProgress.start();
     notification.isSeen = true;
@@ -59,6 +67,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
   @Output() displayNotifDetails = new EventEmitter<any>();
   onDisplayNotifDetails(notifDetails){
+
     (<any>notifDetails).employee = this.selectedNotification;
     this.displayNotifDetails.emit(notifDetails);
     this.ngProgress.done();

@@ -1,12 +1,5 @@
-/* pic-container{
-    padding: 0;max-width: 50px;
-}
 
-.pic-container img{
-    width: 100%;border-radius: 6px;
-} */
-
-.notification{
+.notification, .message{
     height: 100%;
     display:flex;
     justify-content:center;
@@ -15,6 +8,7 @@
 
 .pic-container img{
     border-radius: 50%;
+    max-height: 50px;
 }
 
 .other-details{
@@ -22,7 +16,7 @@
     line-height: 18px;
 }
 
-.notif-title{
+.notif-title, .sender-name{
     font-weight: bold;
     font-size: 15px;
 }
@@ -32,13 +26,59 @@
     font-size: 14px;
 }
 
-.notif-time{
+.message-content{
+    font-size: 14px;
+}
+
+.notif-time, .message-time{
     font-size: 13px;
+}
+
+.notification .background{
+    position: absolute;
+    background-color: #24344b;
+    height: 100%;
+    width: 100%;
+    opacity: 0.9;
+}
+
+.message .background{
+    position: absolute;
+    background-color: #f75c54;
+    height: 100%;
+    width: 100%;
+    opacity: 0.9;
+}
+.success-login .background, .failed-login .background{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0.9;
+    top: 0;
+    left: 0;
+}
+
+.success-login .background{
+    background-color: #51a351;
+}
+
+.failed-login .background{
+    background-color: #bd362f;
+}
+
+.login-message .content{
+    padding: 10px 0;
+    font-size: 15px;
+}
+
+.login-message .content i{
+    margin-right: 5px;
+    font-size: 20px;
 }
 
 
 :host {
-    background-color: #24344be3;
+    background-color: transparent;
     position: relative;
     overflow: hidden;
     margin: 0 0 6px;
@@ -48,11 +88,4 @@
     color: #FFFFFF;
     pointer-events: all;
     cursor: pointer;
-}
-.notif-container{
-    margin: 0;
-}
-.btn-pink {
-    -webkit-backface-visibility: hidden;
-    -webkit-transform: translateZ(0);
 }

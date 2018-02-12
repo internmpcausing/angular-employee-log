@@ -5,6 +5,9 @@
   ></ng-progress>
   <app-notifications (displayNotifDetails)="displayNotifDetails($event)"></app-notifications>
 
+  <div class="col-md-10 initial-display-message" *ngIf="!firstLoad">
+    <h1>Please select a log..</h1>
+  </div>
 
   <div class="col-md-8 employee-log-map-container" *ngIf="firstLoad">
       
@@ -45,7 +48,7 @@
   
               <div class="row" style="padding: 0px 0px 10px 0px;">
                 <div class="col-md-2">
-                    <span>Location</span><br>
+                    <span class="logged-details-label">Location</span><br>
                 </div>
                 <div class="col-md-10" style="padding-left: 40px;">
                     <span>{{employeeTimeIn.map.formattedAddress}}</span>
@@ -54,10 +57,10 @@
   
               <div class="row">
                 <div class="col-md-2">
-                    <span>Battery</span><br>
+                    <span class="logged-details-label">Battery</span><br>
                 </div>
                 <div class="col-md-10" style="padding-left: 40px;">{{employeeTimeIn.batteryStatus}}%
-                    <i class="fa fa-battery-three-quarters" aria-hidden="true" style="font-size: 22px; color:green"></i>
+                    <i class="fa fa-battery-three-quarters" aria-hidden="true" style="font-size: 2vh; color:green"></i>
                 </div>
               </div>
             </div>
@@ -88,3 +91,4 @@
 
   <!--**********************************-->
 </div>
+

@@ -22,8 +22,11 @@ export interface IEmployee{
 export class ChatService{
 
     private socket;
-    public employee: Observable<IEmployee[]>;
-    private _employee: BehaviorSubject<IEmployee[]>;
+    public employee: Observable<IEmployee>;
+    private _employee: BehaviorSubject<IEmployee>;
+
+    public chatSelectedEmployee: Observable<number>;
+    private _chatSelectedEmployee: BehaviorSubject<number>;
 
 
     public scollChatBox: Observable<boolean>;
@@ -40,8 +43,11 @@ export class ChatService{
 
     constructor(private socketService:SocketService){
         this.socket = this.socketService.socket;
-        this._employee = <BehaviorSubject<IEmployee[]>>new BehaviorSubject([]);
+        this._employee = <BehaviorSubject<IEmployee>>new BehaviorSubject({});
         this.employee = this._employee.asObservable();
+
+        this._chatSelectedEmployee = <BehaviorSubject<number>>new BehaviorSubject(0);
+        this.chatSelectedEmployee = this._chatSelectedEmployee.asObservable();
 
         this._scollChatBox = <BehaviorSubject<false>>new BehaviorSubject(false);
         this.scollChatBox = this._scollChatBox.asObservable();
@@ -101,12 +107,12 @@ export class ChatService{
             let employee = Object.assign({}, this._employee.getValue());
             let messages = (<any>employee).messages;
             let m = (<any>messages).find(message => { return  message.secret == data.secret});
-
+            console.log(data);
             if(!m){
                 console.log('New Message');
                 (<any>(<any>employee).messages).push(data);
                 this._employee.next(employee);
-                this._scollChatBox.next(null);
+                this._scollChatBox.next(true);
             }
             else{
                 console.log('Message Sent!!');
@@ -115,6 +121,7 @@ export class ChatService{
     }
     
     loadInitMessages(notificationId, employeeId){
+        this._chatSelectedEmployee.next(employeeId);
         this.socket.emit('cl-getInitMessages', {notificationId: notificationId });
     }
 

@@ -1,9 +1,10 @@
+import { SocketService } from './../../../services/socket.service';
 
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as io from "socket.io-client";
 import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
-import { SocketService } from './../../services/socket.service';
+
 import { ChatComponent } from './chat/chat.component';
 import { NgProgress } from 'ngx-progressbar';
 

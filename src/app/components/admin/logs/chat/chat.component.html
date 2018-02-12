@@ -1,0 +1,120 @@
+<!-- <div class="col-md-2 chat-container">
+  <div class="row chat-first-row" #chatMessages detect-scroll (onScroll)="handleScroll($event)" >
+
+    <div class="col-md-12 chatbox-initial-loading" *ngIf="!initialChatBoxReady">
+        <i class="loading fa fa-spinner fa-pulse"></i>
+    </div>
+    
+    <div *ngIf="initialChatBoxReady">
+      <div class="col-md-12 additional-messages-loading" *ngIf="chatBoxAdditionalMessagesLoading">
+          <i class="loading fa fa-spinner fa-pulse"></i>
+      </div>
+      <div class="container-fluid msgs-container">
+        <div class="row msgs">
+          <div class="col-md-12 _msgs">
+            <div *ngFor="let message of (employee$ | async).messages"> 
+              
+              <div class="row msg-container other-msg" *ngIf="message.isMe">
+                  <div class="col-md-3 avatar">
+                      <img [src]="(employee$ | async).pic.thumb" alt="chat-avatar">
+                  </div>
+                  <div class="col-md-9 msg">
+                    <p>{{message.content}}</p>
+                    <span>{{ (message.sentAt | amFromUnix) | amDateFormat: 'h:mm A MM/DD/YYYY' }}</span>
+                  </div>
+              </div>
+
+              <div class="row msg-container my-msg" *ngIf="!message.isMe">
+                  <div class="col-md-9 msg">
+                    <p>{{message.content}}</p>
+                    <span>{{ (message.sentAt | amFromUnix) | amDateFormat: 'h:mm A MM/DD/YYYY'}}</span>
+                  </div>
+                  <div class="col-md-3 avatar">
+                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf6aaQJAo291z97N4QtmDBsG_WhZ9puznRWdlSLIKC5h6RtgqgeQ" alt="chat-avatar">
+                  </div>
+              </div>
+          </div>
+          </div>         
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="min-height: 34px;">
+      <div class="container-fluid">
+        <div class="col-md-12" style="padding: 7px 0;">
+            <span *ngIf="(employee$ | async).isTyping">{{(employee$ | async).name.firstName | titlecase}} is typing ...</span>
+        </div>
+      </div>
+      
+  </div>
+  <div class="row">
+    <div class="container-fluid">
+        <div class="row msg-text-area">
+            <div class="col-md-12">
+                <textarea class="form-control" rows="3" #msg (keyup.enter)="sendNewMessage(msg)" placeholder="Send a message" (keypress)="typing()"></textarea>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-block btn-primary chat-send-button" (click)="sendNewMessage(msg)">Send</button>
+            </div>
+          </div>
+    </div>
+  </div>
+  
+  
+
+
+</div> -->
+
+
+<div fxFlexFill fxLayout="column" class="main-container">
+    <div class="chatbox-initial-loading" *ngIf="!initialChatBoxReady">
+        <i class="loading fa fa-spinner fa-pulse"></i>
+    </div>
+
+    <div fxFlex #chatMessages class="chat-container" detect-scroll (onScroll)="handleScroll($event)">
+        <div *ngIf="initialChatBoxReady">
+            <div class="additional-messages-loading" *ngIf="chatBoxAdditionalMessagesLoading">
+                <i class="loading fa fa-spinner fa-pulse"></i>
+            </div>
+
+            <div class="msgs" fxLayout="column" *ngFor="let message of (employee$ | async).messages">
+
+                <div class="msg-container" fxLayout="row" *ngIf="message.isMe">
+                    <div fxFlex="10px"></div>
+                    <div class="avatar">
+                        <img [src]="(employee$ | async).pic.thumb" alt="chat-avatar">
+                    </div>
+
+                    <div class="msg" fxFlex fxLayout="column">
+                    <p>{{message.content}}</p>
+                    <span>{{ (message.sentAt | amFromUnix) | amDateFormat: 'h:mm A MM/DD/YYYY' }}</span>
+                    </div>
+                </div>
+
+                <div class="msg-container" fxLayout="row" *ngIf="!message.isMe">
+                        <div class="msg" fxFlex fxLayout="column">
+                        <p class="isMe">{{message.content}}</p>
+                        <span>{{ (message.sentAt | amFromUnix) | amDateFormat: 'h:mm A MM/DD/YYYY' }}</span>
+                        </div>
+
+                        <div class="avatar">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf6aaQJAo291z97N4QtmDBsG_WhZ9puznRWdlSLIKC5h6RtgqgeQ" alt="chat-avatar">
+                        </div>
+                        <div fxFlex="10px"></div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div fxFlex="30px" class="typing" fxFlexAlign="end center">
+       <span *ngIf="(employee$ | async).isTyping">{{(employee$ | async).name.firstName | titlecase}} is typing ...</span>
+    </div>
+    <div fxFLex="20" class="chat-controls" fxLayout="column">
+        <textarea class="form-control" rows="3" #msg (keyup.enter)="sendNewMessage(msg)" placeholder="Send a message" (keypress)="typing()"></textarea>
+        <button type="button" class="btn btn-block btn-primary chat-send-button" (click)="sendNewMessage(msg)">Send</button>
+    </div>
+</div>

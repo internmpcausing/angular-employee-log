@@ -1,0 +1,31 @@
+<div class="col-md-12 container">
+  <div class="center">
+    <div class="logo">
+      <span class="bold">DEMO</span>
+      <span> APP</span>
+    </div>
+
+    <form class="login-form">
+      <mat-form-field>
+        <input matInput placeholder="Username" #username [disabled]="disableControls">
+      </mat-form-field>
+      
+      <div class="seperator"></div>
+
+      <mat-form-field>
+        <input type="password" matInput placeholder="Password" #password [disabled]="disableControls">
+      </mat-form-field>
+
+      <div class="seperator2"></div>      
+    </form>
+    <div class="button-container">
+        
+        <button class="btn btn-block" (click)="login(username, password)" [disabled]="disableControls"><i class="loading fa fa-spinner fa-pulse fa-fw" *ngIf="showLoading"></i> LOGIN</button>
+    </div>
+
+    <div class="forgot">
+      <span>Forgot Password?</span>
+    </div>
+  </div>
+
+</div>
