@@ -18,6 +18,10 @@ export class LogsComponent implements OnInit{
 
   constructor(private socketService:SocketService){
 
+
+    let s = localStorage.getItem('selectedEmployeeId');
+    if (s) this.socketService.leaveOneRoom(s);
+    localStorage.removeItem('selectedEmployeeId');
   }
 
   firstLoad = false;
@@ -25,9 +29,10 @@ export class LogsComponent implements OnInit{
   employeeTimeIn;
   @ViewChild(ChatComponent) chatComponent:ChatComponent
   displayNotifDetails(notifDetails){
+    console.log(notifDetails);
     this.employeeTimeIn = notifDetails;
     this.employee = notifDetails.employee;
-    this.firstLoad = true
+    this.firstLoad = true;
     // this.lat = notifDetails.map.lat;
     // this.lng = notifDetails.map.lng
     // this.pic = notifDetails.pic.thumb;

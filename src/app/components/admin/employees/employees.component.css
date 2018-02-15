@@ -125,3 +125,66 @@
     font-size: 15px;
     color: black;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* dialog */
+
+.mat-dialog-title{
+    position: relative;
+    border-bottom: 1px solid #e5e5e5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-dialog-title .mat-spinner{
+    position: absolute;
+    right: 0;
+}
+
+.mat-dialog-title i{    
+    position: absolute;
+    right: 0;
+    color: green;
+}
+
+mat-form-field.full-width{
+    width: 100%;
+    margin-bottom: 5px;
+
+}
+
+.mat-dialog-actions{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.pic-column{
+    padding: 0 15px;
+}
+
+.pic-column button{
+    padding: 0;
+}
+.pic-container{
+    justify-content: center;
+    margin-bottom: 10px;
+    align-items: center;
+    max-width: 80px;
+}
+
+.pic-container img{
+    height: 100%;
+}

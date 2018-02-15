@@ -247,7 +247,7 @@
             [latitude]="employee.currentLocation.lat"
             [longitude]="employee.currentLocation.lng"
             (mouseOver)="onMouseOver(infoWindow,gm)"
-            [iconUrl]=""
+            [iconUrl]="'/assets/img/marker-' + (employee.isOnline ? 'online' : 'offline') + '.png'"
             
             >
             
@@ -258,7 +258,7 @@
               </dt>
               <dd>
                 <span class="name">{{(employee.name.lastName + ', ' + employee.name.firstName) | titlecase}}</span><br>
-                <span class="details-btn" (click)="showDetails(employee)">DETAILS</span>
+                <span class="details-btn" (click)="showDetails(employee, rightSideNav)">DETAILS</span>
               </dd>
             </dl>
           </agm-info-window>
@@ -282,7 +282,7 @@
               <h3 class="name">{{(selectedEmployee.name.lastName + ', ' + selectedEmployee.name.firstName) | titlecase}}</h3>
             </div>
 
-            <div fxFlex="30" fxFlexAlign="center" class="pic-container" [ngStyle]="{'background-image': 'url(' + selectedEmployee.pic.original + ')'}">
+            <div fxFlex="150px" fxFlexAlign="center" class="pic-container" [ngStyle]="{'background-image': 'url(' + selectedEmployee.pic.original + ')'}">
                 <img [src]="selectedEmployee.pic.original" alt="">
             </div>
             <div fxFlex="10px"></div>
@@ -290,19 +290,19 @@
 
                 <div fxLayout="row" class="details">
                     <span fxFlex="15px"></span>
-                    <span fxFlex="70px" class="details-label">Status</span>
+                    <span fxFlex="75px" class="details-label">Status</span>
                     <span fxFlex>{{selectedEmployee.isOnline ? 'Online' : 'Offline'}} <i class="fa fa-circle" [ngClass]="{'online': selectedEmployee.isOnline}"  aria-hidden="true"></i></span>
                 </div>
 
                 <div fxLayout="row" class="details" *ngIf="selectedEmployee.isOnline">
                     <span fxFlex="15px"></span>
-                    <span fxFlex="70px" class="details-label">Connection Type</span>
+                    <span fxFlex="75px" class="details-label">Connection Type</span>
                     <span fxFlex>{{selectedEmployee.connectionType | uppercase}}</span>
                 </div>
 
                 <div fxLayout="row" class="details" *ngIf="selectedEmployee.isOnline">
                     <span fxFlex="15px"></span>
-                    <span fxFlex="70px" class="details-label">Battery</span>
+                    <span fxFlex="75px" class="details-label">Battery</span>
                     <span fxFlex>
                       {{selectedEmployee.battery.level}}% 
                       <i class="fa battery" [ngClass]="selectedEmployee.battery.batteryClass" [ngStyle]="{'color': selectedEmployee.battery.batteryColor}" aria-hidden="true"></i>
@@ -312,13 +312,13 @@
 
                 <div fxLayout="row" class="details" *ngIf="selectedEmployee.isOnline">
                     <span fxFlex="15px"></span>
-                    <span fxFlex="70px" class="details-label">Current Location</span>
+                    <span fxFlex="75px" class="details-label">Current Location</span>
                     <span fxFlex>{{selectedEmployee.currentLocation.formattedAddress}}</span>
                 </div>
 
                 <div fxLayout="row" class="details" *ngIf="selectedEmployee.isOnline">
                     <span fxFlex="15px"></span>
-                    <span fxFlex="70px" class="details-label">Phone</span>
+                    <span fxFlex="75px" class="details-label">Phone</span>
                     <span fxFlex class="phone-details">
                       Manufacturer <br><span>{{selectedEmployee.phone.manufacturer | titlecase}}</span><br>
                       Model <br><span>{{selectedEmployee.phone.model}}</span><br>
@@ -328,13 +328,13 @@
 
                 <div fxLayout="row" class="details" *ngIf="!selectedEmployeeTimeIn.employee.online">
                     <span fxFlex="15px"></span>
-                    <span fxFlex="70px" class="details-label">Logged In Location</span>
+                    <span fxFlex="75px" class="details-label">Logged In Location</span>
                     <span fxFlex >{{selectedEmployee.previousLocation.formattedAddress}}</span>
                 </div>
 
                 <div fxLayout="row" class="details" *ngIf="!selectedEmployeeTimeIn.employee.online">
                     <span fxFlex="15px"></span>
-                    <span fxFlex="70px" class="details-label">Selfie</span>
+                    <span fxFlex="75px" class="details-label">Selfie</span>
                     <span fxFlex class="view-selfie" (click)="viewSelfie(SelfieModal)">View</span>
                 </div>
 

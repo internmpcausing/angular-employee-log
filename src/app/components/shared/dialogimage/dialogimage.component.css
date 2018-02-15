@@ -1,0 +1,12 @@
+.mat-dialog-title{
+    position: relative;
+    border-bottom: 1px solid #e5e5e5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-dialog-actions{
+    display: flex;
+    justify-content: flex-end;
+}

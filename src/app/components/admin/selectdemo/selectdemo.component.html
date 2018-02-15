@@ -51,13 +51,13 @@
 <div fxLayout="row">
   <div fxFlex="10"></div>
   <div fxFlex fxLayoutWrap>
-      <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="25"  *ngFor="let company of (companies$ |async)" class="demo-container" (click)="demoClick(company)">
+      <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="25" fxFlex.xl="25"  *ngFor="let company of (companies$ |async)" class="demo-container" (click)="demoClick(company)">
         <div fxFlexFill class="demo-item">
           <div class="demo"><span>{{company.name}}</span></div>
         </div>
       </div>
 
-      <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="25" class="demo-container">
+      <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="25" fxFlex.xl="25" class="demo-container">
         <div fxFlexFill class="demo-item" (click)="openDialog()">
           <div class="demo demo-add-button">
           </div>

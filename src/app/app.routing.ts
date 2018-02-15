@@ -1,4 +1,7 @@
 
+
+
+
 import { VisitorRootComponent } from './components/visitor/visitorroot/visitorroot.component';
 import { SelectdemoComponent } from './components/admin/selectdemo/selectdemo.component';
 import { AdminComponent } from './components/admin/admin.component';
@@ -13,6 +16,7 @@ import { VisitorComponent } from './components/visitor/visitor.component';
 import { LoginComponent } from './components/visitor/login/login.component';
 import { EmployeesComponent } from './components/admin/employees/employees.component';
 
+
 const routes: Routes = [
     // { path: 'logs', component: LogsComponent },
     { 
@@ -26,7 +30,8 @@ const routes: Routes = [
                 children: [
                     {
                         path: 'select-demo',
-                        component: SelectdemoComponent},
+                        component: SelectdemoComponent
+                    },
                     {
                         path: '',
                         canActivateChild: [SelectDemoGuard],

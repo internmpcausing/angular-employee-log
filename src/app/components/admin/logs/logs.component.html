@@ -14,7 +14,7 @@
       <div fxFlex>
         <div fxLayout="row" fxFlexFill>
           <div fxFlex="20" fxLayout="column" class="logged-details-container">
-              <div fxFLex class="selfie-container" [ngStyle]="{'background-image': 'url(' + employeeTimeIn.pic.thumb + ')'}">
+              <div fxFLex class="selfie-container" [ngStyle]="{'background-image': 'url(' + employeeTimeIn.pics[0].thumb + ')'}">
               </div>
               <div fxFlex fxLayout="column" class="logged-details">
                   <div fxLayout="row">
@@ -38,6 +38,11 @@
                           <i class="fa fa-battery-three-quarters" aria-hidden="true" style="color:green"></i>
                       </span>
                       
+                  </div>
+
+                  <div fxLayout="row">
+                      <span fxFlex="75px" class="logged-details-label">Code</span>
+                      <span fxFlex class="logged-details-content">{{employeeTimeIn.scanDecoded}}</span>
                   </div>
                   
               </div>

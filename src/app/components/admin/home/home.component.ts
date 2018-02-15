@@ -1,3 +1,4 @@
+import { SocketService } from './../../../services/socket.service';
 
 import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
 import { HomeService } from './../../../services/home.service';
@@ -25,12 +26,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   selectedEmployee$: Observable<any>;
 
   constructor(private homeService:HomeService,
-              private modalService: BsModalService) {
+              private modalService: BsModalService,
+              private socketService: SocketService) {
 
     this.employees$ = this.homeService.employees;
     this.selectedEmployee$ = this.homeService.selectedEmployee;
     this.homeService.loadEmployees();
-    
+
+
+    let s = localStorage.getItem('selectedEmployeeId');
+    if (s) this.socketService.leaveOneRoom(s);
+    localStorage.removeItem('selectedEmployeeId');
   }
 
   private subscription: ISubscription[] = [];
@@ -70,8 +76,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   showDetails(employee, rightSideNav){
+    this.mapZoomLevel = 100;
+    let s = localStorage.getItem('selectedEmployeeId');
+    if(s){
+      if (s != employee.id){
+        this.socketService.leaveAndJoinRoom(s, employee.id);
+      }
+    }
+    else{
+      this.socketService.joinRooms([employee.id]);
+    }
+    localStorage.setItem('selectedEmployeeId', employee.id);
+    
     rightSideNav.toggle();
-    this.homeService.getEmployeeStatus({employeeId: employee.id});
+    this.homeService.getEmployeeStatus(employee.id);
 
     // if ((this.selectedEmployeeTimeIn.employee._id == _employeeTimeIn.employee._id) && this.rightSideBar) return;
     

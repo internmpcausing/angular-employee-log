@@ -4,7 +4,7 @@
       <div class="navigation-buttons" *ngIf="!(showNavigationButton$ | async)"><span class="logo">DEMO <span>APP</span></span>
       </div>
 
-      <div class="navigation-buttons" *ngIf="(showNavigationButton$ | async)"><span class="logo">DEMO <span>APP</span></span>
+      <div class="navigation-buttons" *ngIf="(showNavigationButton$ | async)"><span class="logo">{{company.name | uppercase}} DEMO <span>APP</span></span>
 
         <a routerLink="/dashboard" class="nav-btn" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
           <span>Home</span>

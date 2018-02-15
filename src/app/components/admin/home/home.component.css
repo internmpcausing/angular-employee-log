@@ -55,6 +55,7 @@
     background-size: contain;
     background-position: center;
     border-radius: 50%;
+    min-width: 150px;
 }
 
 .right-side-bar .pic-container img{

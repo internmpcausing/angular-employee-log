@@ -7,7 +7,7 @@
             <i class="fa fa-trash-o" aria-hidden="true"></i>
          </button>
 
-         <button mat-mini-fab color="primary">
+         <button mat-mini-fab color="primary" (click)="openDialog()">
             <i class="fa fa-plus" aria-hidden="true"></i>
          </button>
     </div>
@@ -19,11 +19,11 @@
         <span>Firstname</span>
     </div>
     <div class="content" >
-        <div class="employee">
-          <img src="https://trello-avatars.s3.amazonaws.com/86b9d2dcf35b7a7ca6525b1208401649/50.png" alt="employee-pic">
-          <span>432443234234342</span>
-          <span>Causing</span>
-          <span>Mark Phillip</span>
+        <div class="employee" *ngFor="let _employee of (employees$ | async)">
+          <img [src]="_employee.pic.thumb ? _employee.pic.thumb : 'https://18429-presscdn-0-68-pagely.netdna-ssl.com/wp-content/uploads/2016/07/medium-default-avatar.png'" alt="employee-pic">
+          <span>{{_employee._id}}</span>
+          <span>{{_employee.name.lastName | titlecase}}</span>
+          <span>{{_employee.name.firstName | titlecase}}</span>
         </div>
     </div>
 

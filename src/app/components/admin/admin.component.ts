@@ -9,7 +9,6 @@ import { ChatComponent } from './logs/chat/chat.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AdminService, IAdmin, ICompany } from './../../services/admin.service';
 
-
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -33,6 +32,7 @@ export class AdminComponent implements OnInit{
               private router: Router,
               private route:ActivatedRoute,
               private adminService:AdminService){
+    
     this.socket = this.socketService.socket;
     this.socketService.connect();
 
@@ -61,7 +61,7 @@ export class AdminComponent implements OnInit{
 
 
   ngOnInit(){
-    this.socketService.socket.emit('cl-unseenLogsCount');
+    this.socketService.socket.emit('cl-unseenLogsCount', {company: localStorage.getItem('selectedDemoId')});
     this.socketService.socket.on('sv-unseenLogsCount', data => {
       this.adminService.getInitialLogsBadgeCount(data);
     })
@@ -72,8 +72,9 @@ export class AdminComponent implements OnInit{
     });    
 
     this.socketService.socket.on('sv-newMessageNotif', (data) => {
+      
       data = Object.assign({}, data, {newMessage: true});
-      if(this.currentRoute == '/logs'){
+      if(this.currentRoute == '/dashboard/logs'){
         if(this.chatSelectedEmployeeId != data.id){
           this.toastr.show(data, 'New Message', {disableTimeOut: false});
         }
@@ -88,6 +89,9 @@ export class AdminComponent implements OnInit{
 
   onSignOutClick(){
     localStorage.removeItem('token');
+    localStorage.removeItem('selectedDemoId');
+    localStorage.removeItem('selectedEmployeeId');
+    this.socketService.socket.disconnect();
     this.router.navigate(['/login']);
   }
 

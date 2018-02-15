@@ -11,7 +11,7 @@ export class NotificationService{
 
 
     requestInitNotif(){
-        this.socketService.socket.emit('cl-getInitNotif');
+        this.socketService.socket.emit('cl-getInitNotif', {company: localStorage.getItem('selectedDemoId')});
     }
 
     displayInitNotif(){
@@ -24,7 +24,9 @@ export class NotificationService{
     }
 
     requestAdditionalNotif(lastNotificationTimeIn){
-        this.socketService.socket.emit('cl-getAdditionalNotif', {timeIn: lastNotificationTimeIn});
+        this.socketService.socket.emit('cl-getAdditionalNotif', {
+            company: localStorage.getItem('selectedDemoId'),
+            timeIn: lastNotificationTimeIn});
     }
 
     displayAdditionalNotif(){

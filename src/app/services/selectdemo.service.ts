@@ -1,4 +1,4 @@
-import { IModalResponseNewDemo } from './selectdemo.service';
+
 import { TokenService } from './token.service';
 import { MyGlobals } from './../globals';
 
@@ -22,6 +22,8 @@ export interface IModalResponseNewDemo{
     success: boolean;
     msg: string;
 }
+
+
 
 
 

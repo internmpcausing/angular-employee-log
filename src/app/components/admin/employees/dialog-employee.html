@@ -1,0 +1,49 @@
+
+<div mat-dialog-title>
+    <span>New Employee</span>
+    <mat-spinner [diameter]="20" *ngIf="modal.loading"></mat-spinner>
+    <i class="fa fa-check" aria-hidden="true" *ngIf="modal.check"></i>
+</div>
+
+
+<div mat-dialog-content>
+    <div fxLayout="row">
+        <div fxFlex="120px" fxLayout="column" class="pic-column" >
+            <div fxFlex="80px" class="pic-container" fxFlexAlign="center">
+                <img [src]="employee.pic.original ? employee.pic.original : 'https://18429-presscdn-0-68-pagely.netdna-ssl.com/wp-content/uploads/2016/07/medium-default-avatar.png'">
+            </div>
+
+            <input #file type="file" fxHide (change)="fileChangeEvent($event)">
+            <button mat-button color="accent" [disabled]="modal.disableControl" (click)="file.click()">Choose file</button>
+
+        </div>
+        <div [formGroup]="employeeForm" fxFlex fxLayout="column">
+                <mat-form-field class="full-width">
+                    <input matInput [(ngModel)]="employee.name.lastName" formControlName="lastName" placeholder="Lastname">
+                    <mat-error>This filed is required</mat-error>
+                </mat-form-field>
+            
+                <mat-form-field class="full-width">
+                    <input matInput [(ngModel)]="employee.name.firstName" formControlName="firstName" placeholder="Firstname">
+                    <mat-error>This filed is required</mat-error>
+                </mat-form-field>
+            
+                <mat-form-field class="full-width">
+                    <input matInput [(ngModel)]="employee.username" formControlName="username" placeholder="Username" >
+                    <mat-error>This filed is required</mat-error>
+                </mat-form-field>
+            
+                <mat-form-field class="full-width">
+                    <input type="password" matInput [(ngModel)]="employee.password" formControlName="password" placeholder="Password">
+                    <mat-error>This filed is required</mat-error>
+                </mat-form-field>
+        </div>
+    </div>
+  
+</div>
+<div mat-dialog-actions>
+  
+    <button mat-button color="warn" [mat-dialog-close] [disabled]="modal.disableControl">Cancel</button>
+    <button mat-button color="primary" (click)="onSaveClick()" cdkFocusInitial [disabled]="modal.disableControl || employeeForm.invalid">Create</button>
+  
+</div>

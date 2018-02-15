@@ -23,6 +23,8 @@ export class HomeService{
     public selectedEmployee: Observable<IEmployee>;
     private _selectedEmployee: BehaviorSubject<IEmployee>;
 
+    private selectedEmployeeId = 0;
+
 
 
     constructor(private socketService:SocketService){
@@ -38,22 +40,11 @@ export class HomeService{
 
         this.socket.on('sv-sendRecentTimeIns', (data) => {
             console.log(data);
-            data[0] = Object.assign({}, data[0], {
-                currentLocation: {
-                    lat:14.676041,
-                    lng: 121.0437
-                }
-            })
-
             this._employees.next(data);
         })
         
         this.socket.on('sv-sendSelectedEmployeeStatus', (data) => {
-            
-            // console.log('current value');
-            // console.log(this._selectedEmployee.getValue());
-            // console.log('will added value');
-            // console.log(data);
+            if(this.selectedEmployeeId != data.employeeId) return;
 
             if(data.battery){
                 let batteryClass: string;
@@ -74,16 +65,10 @@ export class HomeService{
             }
 
             let e = Object.assign({}, this._selectedEmployee.getValue(), data);
-            // console.log('new value');
-            // console.log(e);
-
-            setTimeout(() => { 
-                this._selectedEmployee.next(e);                
-            }, 500);
+            this._selectedEmployee.next(e);
         })
 
         this.socket.on('sv-sendEmployeeStatus', data => {
-            console.log(data);
             let m = this._employees.getValue();
 
             let e = m.map((employee) => {
@@ -100,18 +85,20 @@ export class HomeService{
                 return employee;
             })
             this._employees.next(e);
-            console.log(this._employees.getValue());
         })
     }
 
     loadEmployees(){
-        this.socketService.socket.emit('cl-getRecentTimeIns');
+        this.socketService.socket.emit('cl-getRecentTimeIns', {company: localStorage.getItem('selectedDemoId')});
     }
 
     getEmployeeStatus(employeeId){
         this._selectedEmployee.next(Object.assign({}));
-        console.log(employeeId);
-        this.socketService.socket.emit('cl-getEmployeeStatus', employeeId);
+        this.selectedEmployeeId = employeeId;
+        setTimeout(() => {
+            this.socketService.socket.emit('cl-getEmployeeStatus', {employeeId: employeeId});
+        }, 500)
+        
     }
     
 }

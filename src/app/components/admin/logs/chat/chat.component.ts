@@ -1,11 +1,13 @@
 
 
+
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ChatService } from './../../../../services/chat.service';
 import { SocketService } from '../../../../services/socket.service';
 import { Observable } from 'rxjs/Observable';
 import { ISubscription } from "rxjs/Subscription";
 import { ScrollEvent } from 'ngx-scroll-event';
+import { AdminService, IAdmin } from './../../../../services/admin.service';
 
 @Component({
   selector: 'app-chat',
@@ -16,7 +18,11 @@ export class ChatComponent implements OnInit, OnDestroy {
   employee$: Observable<any>;
   employee;
   private subscription: ISubscription[] = [];
-  constructor(private chatService:ChatService, private socket:SocketService) {
+  
+  AdminService
+  admin: IAdmin;
+    
+  constructor(private chatService:ChatService, private socket:SocketService, private adminService:AdminService) {
    }
 
   ngOnInit() {
@@ -42,6 +48,10 @@ export class ChatComponent implements OnInit, OnDestroy {
       if (data){
         this.noMoreMessage = true;
       }
+    }))
+
+    this.subscription.push(this.adminService.admin.subscribe(data => {
+      this.admin = data;
     }))
   }
   

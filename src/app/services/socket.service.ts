@@ -30,11 +30,20 @@ export class SocketService{
         })
 
         this.socket.on('connect', () => {
-            this.socket.emit('cl-adminJoinRoom');
+
+            let rooms = [];
+            if (localStorage.getItem('selectedDemoId')) rooms.push(localStorage.getItem('selectedDemoId'));
+            if (localStorage.getItem('selectedEmployeeId')) rooms.push(localStorage.getItem('selectedEmployeeId'))
+            this.joinRooms(rooms);
             console.log('socket successfully connected');
         })
-        this.socket.on('reconnect', (socket) => {
-            this.socket.emit('cl-adminJoinRoom');
+
+        this.socket.on('reconnect', () => {
+            let rooms = [];
+            if (localStorage.getItem('selectedDemoId')) rooms.push(localStorage.getItem('selectedDemoId'));
+            if (localStorage.getItem('selectedEmployeeId')) rooms.push(localStorage.getItem('selectedEmployeeId'))
+            this.joinRooms(rooms);
+
             console.log('socket successfully reconnected');
         })
         
@@ -45,6 +54,22 @@ export class SocketService{
             this.router.navigate(['/login']);
         })
 
+    }
+
+    joinRooms(rooms){
+        this.socket.emit('cl-adminJoinRooms', {rooms: rooms});
+    }
+
+    leaveRooms(){
+        this.socket.emit('cl-adminLeaveRooms');
+    }
+
+    leaveOneRoom(room){
+        this.socket.emit('cl-adminLeaveOneRoom', {room: room});
+    }
+
+    leaveAndJoinRoom(roomLeave, roomJoin){
+        this.socket.emit('cl-adminLeaveAndJoinRoom', {roomLeave: roomLeave, roomJoin:roomJoin});
     }
 }
 

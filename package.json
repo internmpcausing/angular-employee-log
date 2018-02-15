@@ -4,12 +4,14 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve -o --host 192.168.1.73",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
+    
   },
+  
   "private": true,
   "dependencies": {
     "@agm/core": "^1.0.0-beta.2",
@@ -31,6 +33,7 @@
     "font-awesome": "^4.7.0",
     "moment": "^2.20.1",
     "ngx-bootstrap": "^2.0.0-rc.0",
+    "ngx-image-cropper": "^0.1.24",
     "ngx-perfect-scrollbar": "^5.3.4",
     "ngx-progressbar": "^2.1.1",
     "ngx-scroll-event": "^1.0.5",

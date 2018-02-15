@@ -1,6 +1,8 @@
 
 
 
+
+
 import { MyGlobals } from './globals';
 
 
@@ -41,7 +43,8 @@ import { NotificationToastComponent } from './components/notification-toast/noti
 import { AdminService } from './services/admin.service';
 import { AdminComponent } from './components/admin/admin.component';
 import { SelectdemoComponent, DialogAddNewDemo } from './components/admin/selectdemo/selectdemo.component';
-import { EmployeesComponent } from './components/admin/employees/employees.component';
+import { EmployeesComponent, DialogEmployee } from './components/admin/employees/employees.component';
+import { EmployeesService } from './services/employees.service';
 import { VisitorComponent } from './components/visitor/visitor.component';
 import { LoginComponent } from './components/visitor/login/login.component';
 import { VisitorRootComponent } from './components/visitor/visitorroot/visitorroot.component';
@@ -57,6 +60,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { DialogImageComponent } from './components/shared/dialogimage/dialogimage.component';
+
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -96,8 +102,7 @@ import {
     MatSidenavModule,
     MatTableModule,
     MatListModule
-  ],
-  declarations: [EmployeesComponent]
+  ]
 })
 export class MaterialModule {}
 
@@ -112,12 +117,16 @@ export class MaterialModule {}
     NotificationToastComponent,
     AdminComponent,
     SelectdemoComponent,
+    EmployeesComponent,
     DialogAddNewDemo,
+    DialogEmployee,
+    DialogImageComponent,
     VisitorComponent,
     LoginComponent,
     VisitorRootComponent,
+    
   ],
-  entryComponents: [NotificationToastComponent, DialogAddNewDemo],
+  entryComponents: [NotificationToastComponent, DialogAddNewDemo, DialogEmployee, DialogImageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -130,6 +139,7 @@ export class MaterialModule {}
     MaterialModule,
     PerfectScrollbarModule,
     ScrollEventModule,
+    ImageCropperModule,
     AlertModule.forRoot(),
     ModalModule.forRoot(),
     BsDropdownModule.forRoot(),
@@ -143,7 +153,7 @@ export class MaterialModule {}
     MyGlobals, 
     AdminService, 
     SocketService, 
-    TokenService, 
+    TokenService,
     AuthGuard, 
     SelectDemoGuard, 
     AuthService, 
@@ -151,6 +161,7 @@ export class MaterialModule {}
     NotificationService, 
     ChatService, 
     HomeService,
+    EmployeesService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

@@ -1,3 +1,4 @@
+import { SocketService } from './../../../services/socket.service';
 import { Observable } from 'rxjs/Observable';
 import { SelectDemoService, IModalResponseNewDemo } from './../../../services/selectdemo.service';
 import { Component, OnInit, OnDestroy, TemplateRef, Inject } from '@angular/core';
@@ -5,7 +6,6 @@ import { AdminService, IAdmin, ICompany } from './../../../services/admin.servic
 import { Router } from '@angular/router';
 import { ISubscription } from "rxjs/Subscription";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-
 
 @Component({
   selector: 'app-selectdemo',
@@ -21,7 +21,8 @@ export class SelectdemoComponent implements OnInit {
     private selectDemoService:SelectDemoService, 
     private adminService:AdminService,
     private router:Router,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    private socketService:SocketService) {
     this.companies$ = this.selectDemoService.companies;
 
     this.adminService.admin.subscribe(data => {
@@ -30,6 +31,10 @@ export class SelectdemoComponent implements OnInit {
   }
 
   ngOnInit() {
+    localStorage.removeItem('selectedDemoId');
+    localStorage.removeItem('selectedEmployeeId');
+    this.socketService.leaveRooms();
+
     this.selectDemoService.getAll();
   }
 
@@ -49,6 +54,9 @@ export class SelectdemoComponent implements OnInit {
 
   demoClick(company){
     localStorage.setItem('selectedDemoId', company._id);
+    this.socketService.joinRooms([company._id]);
+    this.socketService.socket.emit('cl-unseenLogsCount', {company: company._id});
+    this.adminService.getInitialLogsBadgeCount(0);
     this.router.navigate(['/dashboard']);
   }
 

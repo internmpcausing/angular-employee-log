@@ -45,7 +45,10 @@ export class LoginComponent implements OnInit {
       }, 500)
       
     }, err => {
-      console.log(err);
+      setTimeout(() => {
+        this.login(username, password);
+      }, 3000)
+      
     });
   }
 

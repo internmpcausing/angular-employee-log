@@ -19,7 +19,8 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   
   constructor(private notifService:NotificationService,
               private adminService:AdminService,
-              public ngProgress: NgProgress) {}
+              public ngProgress: NgProgress,
+              private socketService:SocketService) {}
 
   private subscription: ISubscription[] = [];
   ngOnInit() {
@@ -50,8 +51,19 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
   selectedNotification;
   getNotifDetails(notification){
+
+    let s = localStorage.getItem('selectedEmployeeId');
+    if(s){
+      if (s != notification.employeeId){
+        this.socketService.leaveAndJoinRoom(s, notification.employeeId);
+      }
+    }
+    localStorage.setItem('selectedEmployeeId', notification.employeeId);
+
+
     if (!notification.isSeen) this.adminService.changeLogsBadgeCount(false);
 
+    console.log(notification);
     this.adminService.changeChatSelectedEmployeeId(notification.employeeId);
 
     this.selectedNotification = notification;
