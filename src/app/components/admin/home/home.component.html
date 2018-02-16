@@ -267,7 +267,7 @@
       </agm-map>
   </mat-drawer-content>
 
-  <mat-drawer [perfectScrollbar]  #rightSideNav mode="push" [(opened)]="isOpenRightSideNav" position="end" class="right-side-bar" fxLayout="column">
+  <mat-drawer [perfectScrollbar]  #rightSideNav mode="over" [(opened)]="isOpenRightSideNav" position="end" class="right-side-bar" fxLayout="column">
       <div fxFlex="30px" fxFlexAlign="start center" class="togglearrow">
           <img src="https://res.cloudinary.com/dka3vzadb/image/upload/t_media_lib_thumb/v1517475151/togglearrow_u4imwj.png" alt="togglearrow" (click)="hideRightSideBar(rightSideNav)">
       </div>
@@ -326,17 +326,21 @@
                     </span>
                 </div>
 
-                <div fxLayout="row" class="details" *ngIf="!selectedEmployeeTimeIn.employee.online">
+                <div fxLayout="row" class="details" *ngIf="!selectedEmployee.isOnline">
                     <span fxFlex="15px"></span>
                     <span fxFlex="75px" class="details-label">Logged In Location</span>
                     <span fxFlex >{{selectedEmployee.previousLocation.formattedAddress}}</span>
                 </div>
 
-                <div fxLayout="row" class="details" *ngIf="!selectedEmployeeTimeIn.employee.online">
+                <div fxLayout="row" class="details">
                     <span fxFlex="15px"></span>
-                    <span fxFlex="75px" class="details-label">Selfie</span>
-                    <span fxFlex class="view-selfie" (click)="viewSelfie(SelfieModal)">View</span>
+                    <span fxFlex="75px" class="details-label">Pictures</span>
+                    <span fxFlex class="view-selfie" (click)="onShowSlideShowClick()">View</span>
+
+                    
                 </div>
+
+                
 
 
                   
@@ -348,4 +352,6 @@
 
   </mat-drawer>
 </mat-drawer-container>
+
+<app-slideshow *ngIf="showSlideShow" (closeSlideShowClick)="onCloseSlideShowClick()" [pics]="(selectedEmployee$ | async).selfies" [index]="0"></app-slideshow>
 

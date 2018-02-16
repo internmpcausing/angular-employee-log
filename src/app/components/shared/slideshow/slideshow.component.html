@@ -1,0 +1,20 @@
+<div class="slideshow" fxLayout="row">
+    <div class="backdrop"></div>
+    
+
+    <div class="controls left" >
+        <i class="fa fa-arrow-left" aria-hidden="true" (click)="onPreviousClick()"></i>
+    </div>
+
+    <div fxFlex class="s-content" [ngStyle.xs]="{'margin': '15px 0'}" [ngStyle]="{'background-image': 'url(' + selectedImage + ')'}">
+        <i class="fa fa-spinner fa-pulse" *ngIf="!imageReady"></i>
+    </div>
+
+    <div class="controls right">
+        <i class="fa fa-arrow-right" aria-hidden="true" (click)="onNextClick()"></i>
+    </div>
+
+    <div class="controls close-btn">
+        <i class="fa fa-times" aria-hidden="true" (click)="onCloseSlideShowClick()"></i>
+    </div>
+</div>

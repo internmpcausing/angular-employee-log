@@ -30,7 +30,7 @@ ng-progress-bar .ng-progress .bar{
     font-weight: bold;
 }
 
-.selfie-container{
+/* .selfie-container{
     background-repeat: no-repeat;
     background-size: contain;
     overflow: hidden;
@@ -38,6 +38,31 @@ ng-progress-bar .ng-progress .bar{
     background-position: center;
     height: 20vh;
     min-height: 200px;
+} */
+
+.selfie-container{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin: 1px;
+    cursor: pointer;
+    
+}
+
+.selfie-container .more-pics{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background-color: #71717161;
+    font-size: 21px;
+    color: white;
+}
+
+
+
+
+.unsetZIndex{
+    z-index: unset !important;
 }
 
 .selfie-thumb {

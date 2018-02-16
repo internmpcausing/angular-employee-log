@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     employee: {
       online: '',
       name: '',
-      pic: '',
+      pic: [],
       _id: ''
       
     },
@@ -228,6 +228,15 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   viewSelfie(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
+  }
+
+  showSlideShow = false;
+  onShowSlideShowClick(){
+    this.showSlideShow = true;
+  }
+
+  onCloseSlideShowClick(){
+    this.showSlideShow = false;
   }
 
 }

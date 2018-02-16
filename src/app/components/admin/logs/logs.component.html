@@ -1,5 +1,5 @@
 <mat-drawer-container fxFlexFill>
-  <mat-drawer mode="side" opened="true" class="left-side-bar" fxLayout="column">
+  <mat-drawer mode="side" opened="true" class="left-side-bar" fxLayout="column" [ngClass]="{'unsetZIndex': showSlideShow}">
     <app-notifications fxFlexFill (displayNotifDetails)="displayNotifDetails($event)"></app-notifications>
   </mat-drawer>
   <mat-drawer-content class="content-container">
@@ -8,14 +8,29 @@
     </div>
     <div fxLayout="column" fxFlexFill *ngIf="firstLoad" class="employee-log-map-container">
       <div fxFlex="64px">
-        <p class="header">{{employee.name.lastName}}, {{employee.name.firstName}}</p>
+        <p class="header">{{employee.name.lastName + ', ' + employee.name.firstName | titlecase}}</p>
       </div>
 
       <div fxFlex>
         <div fxLayout="row" fxFlexFill>
-          <div fxFlex="20" fxLayout="column" class="logged-details-container">
-              <div fxFLex class="selfie-container" [ngStyle]="{'background-image': 'url(' + employeeTimeIn.pics[0].thumb + ')'}">
+          <div fxFlex="300px"  fxLayout="column" class="logged-details-container">
+              <div class="gallery-container" fxFlex="210px" [ngStyle]="{'flex-direction': picGallery.layout, 'opacity': picGallery.opacity}">
+                <div fxFlex class="selfie-container" [ngStyle]="{'background-image': 'url(' + employeeTimeIn.pics[0].original + ')'}" (click)="onShowSlideShowClick(0)">
+                </div>
+
+                <div fxFlex class="selfie-container" *ngIf="employeeTimeIn.pics.length == 2" [ngStyle]="{'background-image': 'url(' + employeeTimeIn.pics[1].original + ')'}" (click)="onShowSlideShowClick(1)">
+                </div>
+
+                <div fxFlex *ngIf="employeeTimeIn.pics.length > 2" [ngStyle]="{'flex-direction': (picGallery.isRowLayout ? 'row' : 'column'), 'display': 'flex'}">
+                        <div fxFlex class="selfie-container" *ngFor="let p of employeeTimeIn.pics; let i = index" [ngStyle]="{'background-image': 'url(' + p.original + ')', 'display': (i == 1 || i > 3) ? 'none' : 'block'}" (click)="onShowSlideShowClick(i)">
+                            <div fxFlexFill *ngIf="(i == 3 && employeeTimeIn.pics.length > 4)" class="more-pics">{{employeeTimeIn.pics.length - (i+1)}}+</div>
+                        </div>
+                </div>
+
+                <app-slideshow *ngIf="showSlideShow" (closeSlideShowClick)="onCloseSlideShowClick()" [pics]="employeeTimeIn.pics" [index]="selectedImageIndex"></app-slideshow>
+
               </div>
+
               <div fxFlex fxLayout="column" class="logged-details">
                   <div fxLayout="row">
                       <span fxFlex="75px" class="logged-details-label">Date</span>
@@ -64,7 +79,7 @@
     </div>
   </mat-drawer-content>
 
-  <mat-drawer mode="side" opened="true" position="end" class="right-side-bar" fxLayout="column" *ngIf="firstLoad">
+  <mat-drawer mode="side" opened="true" position="end" class="right-side-bar" fxLayout="column" *ngIf="firstLoad" [ngClass]="{'unsetZIndex': showSlideShow}">
       <app-chat *ngIf="firstLoad" fxFlexFill></app-chat>
 
   </mat-drawer>

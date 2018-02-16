@@ -32,6 +32,9 @@ export class LogsComponent implements OnInit{
     console.log(notifDetails);
     this.employeeTimeIn = notifDetails;
     this.employee = notifDetails.employee;
+    
+    this.displayGallery(notifDetails);
+    
     this.firstLoad = true;
     // this.lat = notifDetails.map.lat;
     // this.lng = notifDetails.map.lng
@@ -44,6 +47,44 @@ export class LogsComponent implements OnInit{
       this.chatComponent.requestInitMessages(notifDetails);
     }, 1)
    
+  }
+
+  picGallery = {
+    layout: 'column',
+    isRowLayout: true,
+    imagesCount: 0,
+    opacity: 0
+  }
+
+  showSlideShow = false;
+  displayGallery(employeeTimeIn){
+    this.picGallery.opacity = 0;
+    let firstImage = new Image();
+
+    firstImage.onload = () => {
+      this.picGallery.layout = 'column';
+      this.picGallery.isRowLayout = true;
+
+      if (firstImage.height > firstImage.width) {
+        this.picGallery.layout = 'row';
+        this.picGallery.isRowLayout = false;
+      }
+      this.picGallery.opacity = 1;
+    }
+    
+    
+    this.picGallery.imagesCount = employeeTimeIn.pics.length;
+    firstImage.src = employeeTimeIn.pics[0].original;
+  }
+
+  selectedImageIndex = 0;
+  onShowSlideShowClick(index){
+    this.selectedImageIndex = index;
+    this.showSlideShow = true;
+  }
+
+  onCloseSlideShowClick(){
+    this.showSlideShow = false;
   }
   
   ngOnInit(){
@@ -123,6 +164,8 @@ export class LogsComponent implements OnInit{
     // // });
 
   }
+
+  
 
 
    
