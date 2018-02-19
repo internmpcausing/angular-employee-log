@@ -63,6 +63,8 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { DialogImageComponent } from './components/shared/dialogimage/dialogimage.component';
 import { SlideshowComponent } from './components/shared/slideshow/slideshow.component';
+import { DefaultPipe } from './pipes/default.pipe';
+
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -79,6 +81,7 @@ import {
   MatTableModule,
   MatListModule,
   MatMenuModule} from '@angular/material';
+
 
 
 @NgModule({
@@ -126,7 +129,8 @@ export class MaterialModule {}
     VisitorComponent,
     LoginComponent,
     VisitorRootComponent,
-    SlideshowComponent
+    SlideshowComponent,
+    DefaultPipe
     
   ],
   entryComponents: [NotificationToastComponent, DialogAddNewDemo, DialogEmployee, DialogImageComponent],

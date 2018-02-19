@@ -58,6 +58,9 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         this.socketService.leaveAndJoinRoom(s, notification.employeeId);
       }
     }
+    else{
+      this.socketService.joinRooms([notification.employeeId]);
+    }
     localStorage.setItem('selectedEmployeeId', notification.employeeId);
 
 

@@ -86,7 +86,7 @@
                 <div class="msg-container" fxLayout="row" *ngIf="message.isMe">
                     <div fxFlex="10px"></div>
                     <div class="avatar">
-                        <img [src]="(employee$ | async).pic.thumb" alt="chat-avatar">
+                        <img [src]="(employee$ | async).pic.thumb | default: 'https://18429-presscdn-0-68-pagely.netdna-ssl.com/wp-content/uploads/2016/07/medium-default-avatar.png'" alt="chat-avatar">
                     </div>
 
                     <div class="msg" fxFlex fxLayout="column">

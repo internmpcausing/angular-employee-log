@@ -41,6 +41,10 @@ export class HomeService{
         this.socket.on('sv-sendRecentTimeIns', (data) => {
             console.log(data);
             this._employees.next(data);
+            let employeeIds = <any>data.map(employee => {
+                return employee.id
+            })
+            this.socket.emit('cl-getInitialAllEmployeeStatus', {employeeIds:employeeIds});
         })
         
         this.socket.on('sv-sendSelectedEmployeeStatus', (data) => {

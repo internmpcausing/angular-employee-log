@@ -1,42 +1,3 @@
-<!-- <div class="col-md-2 main-container">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-          <p class="header">RECENT</p>
-      </div>
-    </div>
-
-    <div class="row notifications-container">
-      <div [perfectScrollbar] class="col-md-12 notification-container" detect-scroll (onScroll)="handleScroll($event)">
-
-          <div class="row notification-item" [ngClass]="{'notification-seen': !notification.isSeen, 'notification-selected': notification.selected}" *ngFor="let notification of notifications" (click)="getNotifDetails(notification)">
-              <div class="col-md-3 pic-container">
-                  <img [src]="notification.pic" alt="chat-avatar">
-              </div>
-              <div class="col-md-9 other-details">
-                  <p class="name">{{notification.name.firstName + ' ' + notification.name.lastName  | titlecase}}</p>
-                  <p class="time">{{ (notification.timeIn | amFromUnix) | amCalendar}}</p>
-                </div>
-            </div>
-
-
-            <div class="row notification-loading-container" *ngIf="showNotificationLoading">
-              <div class="col-md-12 notification-loading">
-                  <i class="loading fa fa-spinner fa-pulse"></i>
-              </div>
-            </div>
-
-            
-        
-
-        
-          
-      </div>
-    </div>
-  </div>
-
-  
-</div> -->
 
 <div fxFlexFill fxLayout="column" class="main-container">
   <div fxFLex="20">
@@ -48,7 +9,7 @@
   <div fxFlexFill fxLayout="column" class="notifications-container" detect-scroll (onScroll)="handleScroll($event)">
       <div fxLayout="row" class="notification" [ngClass]="{'notification-seen': !notification.isSeen, 'notification-selected': notification.selected}" *ngFor="let notification of notifications" (click)="getNotifDetails(notification)">
         <span fxFLex="15" class="left-space"></span>
-        <img fxFLex="20" [src]="notification.pic" alt="chat-avatar">
+        <img fxFLex="20" [src]="notification.pic | default: 'https://18429-presscdn-0-68-pagely.netdna-ssl.com/wp-content/uploads/2016/07/medium-default-avatar.png'" alt="chat-avatar">
         <div fxFlex fxFlexAlign="center" fxLayout="column" class="other-details">
             <span class="name">{{notification.name.firstName + ' ' + notification.name.lastName  | titlecase}}</span>
             <span class="time">{{ (notification.timeIn | amFromUnix) | amCalendar}}</span>
