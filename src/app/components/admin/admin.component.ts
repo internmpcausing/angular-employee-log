@@ -67,6 +67,7 @@ export class AdminComponent implements OnInit{
     })
 
     this.socketService.socket.on('sv-newNotification', (data) => {
+      new Audio('assets/sounds/notification.mp3').play();
       data = Object.assign({}, data, {newNotif: true});
       this.toastr.show(data, 'New Time In', {disableTimeOut: false});
     });    
@@ -76,9 +77,11 @@ export class AdminComponent implements OnInit{
       data = Object.assign({}, data, {newMessage: true});
       if(this.currentRoute == '/dashboard/logs'){
         if(this.chatSelectedEmployeeId != data.id){
+          new Audio('assets/sounds/message.mp3').play();
           this.toastr.show(data, 'New Message', {disableTimeOut: false});
         }
       } else{
+        new Audio('assets/sounds/message.mp3').play();
         this.toastr.show(data, 'New Message', {disableTimeOut: false});
       }
       
