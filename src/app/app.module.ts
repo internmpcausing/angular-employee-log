@@ -80,7 +80,8 @@ import {
   MatSidenavModule,
   MatTableModule,
   MatListModule,
-  MatMenuModule} from '@angular/material';
+  MatMenuModule,
+  MatCheckboxModule} from '@angular/material';
 
 
 
@@ -94,7 +95,8 @@ import {
     MatMenuModule,
     MatSidenavModule,
     MatTableModule,
-    MatListModule
+    MatListModule,
+    MatCheckboxModule
   ],
   exports: [
     MatInputModule,
@@ -105,7 +107,8 @@ import {
     MatMenuModule,
     MatSidenavModule,
     MatTableModule,
-    MatListModule
+    MatListModule,
+    MatCheckboxModule
   ],
   declarations: []
 })
