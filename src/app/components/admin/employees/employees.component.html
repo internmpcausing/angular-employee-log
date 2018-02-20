@@ -1,4 +1,4 @@
-<div class="flex-container">
+<!-- <div class="flex-container">
   <div class="space-left"></div>
 
   <div class="main-content">
@@ -30,4 +30,64 @@
 
   </div>
   <div class="space-right"></div>
-</div>
+</div> -->
+
+
+
+
+<mat-drawer-container fxFlexFill>
+  <mat-drawer-content [perfectScrollbar]>
+    <div fxFlexFill fxLayout="row">
+      <span fxFlex="20px"></span>
+
+      <div fxFlex fxLayout="column" class="main-container">
+          <div class="header-background"></div>
+          <div class="header">
+            <div fxLayout="row">
+                <button mat-mini-fab color="warn">
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                 </button>
+        
+                 <button mat-mini-fab color="primary" (click)="openDialog()">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                 </button>
+            </div>
+          </div>
+          <div fxLayoutWrap class="employees-container">
+            
+              <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="25" fxFlex.xl="25" class="employee-item-container" *ngFor="let _employee of (employees$ | async)">
+                  <div fxFlexFill fxLayout="row" class="employee-item" (click)="showDetails(rightSideNav);">
+                    <span fxFlex="15px"></span>
+                    <div fxFlex="50px" class="avatar">
+                        <img [src]="_employee.pic.thumb ? _employee.pic.thumb : 'https://18429-presscdn-0-68-pagely.netdna-ssl.com/wp-content/uploads/2016/07/medium-default-avatar.png'" alt="">
+                    </div>
+                    <span fxFlex="15px"></span>
+                    <div fxFlex class="name">{{(_employee.name.firstName + ' ' + _employee.name.lastName) | titlecase}}</div>
+                    <div fxFlex="35px" class="item-menu">
+                      <button mat-icon-button [matMenuTriggerFor]="employeeMenu" (click)="$event.stopPropagation()">
+                          <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                      </button>
+                      <mat-menu #employeeMenu="matMenu">
+                        <button mat-menu-item class="employee-menu"><i class="fa fa-pencil" aria-hidden="true"></i><span>Edit</span></button>
+                        <button mat-menu-item class="employee-menu" (click)="openConfirmDialog(_employee)"><i class="fa fa-trash-o" aria-hidden="true"></i><span>Delete</span></button>
+                      </mat-menu>
+  
+                    </div>
+                  </div>
+                </div>
+          </div>
+      </div>
+
+      <span fxFlex="20px"></span>
+    </div>
+  </mat-drawer-content>
+
+  <mat-drawer [perfectScrollbar]  #rightSideNav mode="side" [(opened)]="isOpenRightSideNav" position="end" class="right-side-bar" fxLayout="column">
+      <div fxFlex="30px" fxFlexAlign="start center" class="togglearrow">
+          <img src="https://res.cloudinary.com/dka3vzadb/image/upload/t_media_lib_thumb/v1517475151/togglearrow_u4imwj.png" alt="togglearrow" (click)="hideRightSideBar(rightSideNav)">
+      </div>
+    
+
+  </mat-drawer>
+</mat-drawer-container>
+

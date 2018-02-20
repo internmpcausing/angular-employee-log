@@ -56,6 +56,7 @@
     background-position: center;
     border-radius: 50%;
     min-width: 150px;
+    border: solid white 3px;
 }
 
 .right-side-bar .pic-container img{
@@ -66,9 +67,10 @@
 
 
 .right-side-bar .other-details{
-    overflow-x: hidden;
-    overflow-y: auto;
+    /* overflow-x: hidden;
+    overflow-y: auto; */
     display: unset !important;
+    padding-bottom: 20px;
 }
 
 

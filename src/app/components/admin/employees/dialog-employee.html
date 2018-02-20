@@ -25,11 +25,13 @@
             
                 <mat-form-field class="full-width">
                     <input matInput [(ngModel)]="employee.name.firstName" formControlName="firstName" placeholder="Firstname">
+                    {{employeeForm.controls.lastName.errors |json}}
                     <mat-error>This filed is required</mat-error>
                 </mat-form-field>
             
                 <mat-form-field class="full-width">
                     <input matInput [(ngModel)]="employee.username" formControlName="username" placeholder="Username" >
+                    <mat-hint *ngIf="!modal.uniqueUsername">This username is alaready taken</mat-hint>
                     <mat-error>This filed is required</mat-error>
                 </mat-form-field>
             

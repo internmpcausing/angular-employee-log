@@ -1,6 +1,6 @@
+import { DialogConfirmComponent } from './../../shared/dialogconfirm/dialogconfirm.component';
 import { SocketService } from './../../../services/socket.service';
 import { DialogImageComponent } from './../../shared/dialogimage/dialogimage.component';
-
 import { Component, OnInit, OnDestroy, TemplateRef, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { SelectDemoService, IModalResponseNewDemo } from './../../../services/selectdemo.service';
@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { ISubscription } from "rxjs/Subscription";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { EmployeesService, IEmployee } from './../../../services/employees.service';
+import { ProperCase } from '../../../globals';
+
 
 @Component({
   selector: 'app-employees',
@@ -18,6 +20,7 @@ import { EmployeesService, IEmployee } from './../../../services/employees.servi
 export class EmployeesComponent implements OnInit {
 
   employees$: Observable<any>;
+  isOpenRightSideNav = false;
   constructor(public dialog: MatDialog, private employeesService:EmployeesService, private socketService:SocketService) { 
     this.employeesService.getAllEmployee();
     this.employees$ = this.employeesService.employees;
@@ -38,6 +41,30 @@ export class EmployeesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+    });
+  }
+
+  showDetails(rightSideNav){
+    if(!this.isOpenRightSideNav){
+      this.isOpenRightSideNav = true;
+      rightSideNav.toggle();
+    }
+  }
+
+  hideRightSideBar(rightSideNav){
+    rightSideNav.toggle();
+  }
+  
+  openConfirmDialog(employee): void {
+    let m = `Are you sure you want to delete ${ProperCase(employee.name.firstName)} ${ProperCase(employee.name.lastName)}`
+    let dialogRef = this.dialog.open(DialogConfirmComponent, {
+      data: {message: m }
+    });
+
+    dialogRef.beforeClose().subscribe(confirmed => {
+      if(confirmed){
+        this.employeesService.deleteEmployee(employee._id);
+      }
     });
   }
 
@@ -103,19 +130,23 @@ export class DialogEmployee implements OnInit, OnDestroy {
         username: new FormControl('', Validators.required),
         password: new FormControl('', Validators.required)
       });
+    
+      this.employeeForm.controls['lastName'].setErrors({'dsd': true});
+      
+      
   }
 
   fileChangeEvent(event: any): void {
     this.openImageDialog(event);
   }
   openImageDialog(event: any): void {
-    
     let dialogRef = this.dialog.open(DialogImageComponent, {
       width: '450px',
       data: {img: event, cropped: '' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      console.log('dsas');
       if(result){
         this.employee.pic = Object.assign({}, this.employee.pic, {
           original: result
@@ -157,6 +188,7 @@ export class DialogEmployee implements OnInit, OnDestroy {
       });
     }
   }
+  
 
   
 

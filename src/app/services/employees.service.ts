@@ -88,4 +88,13 @@ export class EmployeesService{
     getAllEmployee(){
         this.socket.emit('cl-getAllEmployee', {company: localStorage.getItem('selectedDemoId')})
     }
+
+    deleteEmployee(employeeId){
+        this.socket.emit('cl-deleteEmployee', {employeeId:employeeId});
+        let e = this._employees.getValue();
+        e = e.filter(employee => {
+            if((<any>employee)._id != employeeId) return employee;
+        })
+        this._employees.next(e);
+    }
 }

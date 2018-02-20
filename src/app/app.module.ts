@@ -39,7 +39,7 @@ import { HomeService } from './services/home.service';
 import { ScrollEventModule } from 'ngx-scroll-event';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { NotificationToastComponent } from './components/notification-toast/notification-toast.component';
+import { NotificationToastComponent } from './components/shared/notification-toast/notification-toast.component';
 import { AdminService } from './services/admin.service';
 import { AdminComponent } from './components/admin/admin.component';
 import { SelectdemoComponent, DialogAddNewDemo } from './components/admin/selectdemo/selectdemo.component';
@@ -62,9 +62,10 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { DialogImageComponent } from './components/shared/dialogimage/dialogimage.component';
+import { DialogConfirmComponent } from './components/shared/dialogconfirm/dialogconfirm.component';
 import { SlideshowComponent } from './components/shared/slideshow/slideshow.component';
 import { DefaultPipe } from './pipes/default.pipe';
-
+import { CustomDateTimePipe } from './pipes/custom-date-time.pipe';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -82,6 +83,7 @@ import {
   MatListModule,
   MatMenuModule,
   MatCheckboxModule} from '@angular/material';
+
 
 
 
@@ -129,14 +131,16 @@ export class MaterialModule {}
     DialogAddNewDemo,
     DialogEmployee,
     DialogImageComponent,
+    DialogConfirmComponent,
     VisitorComponent,
     LoginComponent,
     VisitorRootComponent,
     SlideshowComponent,
-    DefaultPipe
+    DefaultPipe,
+    CustomDateTimePipe
     
   ],
-  entryComponents: [NotificationToastComponent, DialogAddNewDemo, DialogEmployee, DialogImageComponent],
+  entryComponents: [NotificationToastComponent, DialogAddNewDemo, DialogEmployee, DialogImageComponent, DialogConfirmComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -1,4 +1,4 @@
-.flex-container{
+/* .flex-container{
     height: 100%;
     margin: 0px;
     min-height: 100%;
@@ -126,11 +126,102 @@
     color: black;
 }
 
+ */
+
+ .main-container{
+     position: relative;
+ }
+
+ .header-background{
+     min-height: 70px;
+     background-color: #fafafa;
+     position: fixed;
+     width: 100%;
+ }
+
+ .header{
+     position: absolute;
+     right: 0;
+ }
+
+ .header div{
+     position: fixed;
+     transform: translateX(-100%);
+     margin-top: 15px;
+ }
+
+ .header div button{
+     margin-right: 5px;
+ }
+
+.employees-container{
+    padding-top: 70px;
+}
+
+.employee-item-container{
+    padding: 5px;
+    min-height: 80px;
+    max-height: 80px;
+}
+
+.employee-item{
+    cursor: pointer;
+    border-radius: 10px;
+    border: solid 2px transparent;
+}
+
+.employee-item:hover{
+    border: solid 2px #696969;
+    border-radius: 10px;
+}
+
+.employee-item .avatar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.employee-item .avatar img{
+    max-height: 50px;
+    border-radius: 50%;
+}
+
+.employee-item .name{
+    display: flex;
+    align-items: center;
+}
+
+.employee-item .item-menu{
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+}
+
+.item-menu i{
+    font-size: 15px;
+}
+
+.employee-item:hover .item-menu{
+    opacity: 1;
+}
+
+.employee-menu i{
+    font-size: 18px;
+    padding-right: 8px;
+}
 
 
 
+ .right-side-bar{
+    background-color: #24344b;
+    width: 300px;
+    overflow: hidden;
+}
 
-
+.right-side-bar .togglearrow img{
+    cursor: pointer;
+    margin: 10px 0 0 10px;
+}
 
 
 

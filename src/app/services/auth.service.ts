@@ -9,8 +9,6 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import * as Rx from "rxjs/Rx"
 import { Router } from '@angular/router';
 
-AdminService
-
 
 @Injectable()
 export class AuthService{

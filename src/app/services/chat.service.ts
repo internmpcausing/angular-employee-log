@@ -111,8 +111,10 @@ export class ChatService{
             if(!m){
                 console.log('New Message');
                 (<any>(<any>employee).messages).push(data);
+                (<any>employee).isTyping = false;
                 this._employee.next(employee);
                 this._scollChatBox.next(true);
+                
             }
             else{
                 console.log('Message Sent!!');

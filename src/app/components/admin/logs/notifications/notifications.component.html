@@ -12,7 +12,7 @@
         <img fxFLex="20" [src]="notification.pic | default: 'https://18429-presscdn-0-68-pagely.netdna-ssl.com/wp-content/uploads/2016/07/medium-default-avatar.png'" alt="chat-avatar">
         <div fxFlex fxFlexAlign="center" fxLayout="column" class="other-details">
             <span class="name">{{notification.name.firstName + ' ' + notification.name.lastName  | titlecase}}</span>
-            <span class="time">{{ (notification.timeIn | amFromUnix) | amCalendar}}</span>
+            <span class="time">{{ (notification.timeIn | amFromUnix) | amCalendar | customDateTime}}</span>
         </div>
       </div>
 

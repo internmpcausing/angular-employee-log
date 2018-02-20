@@ -15,7 +15,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class AppComponent implements OnInit{
 
     ngOnInit(){
-
+      
     }
   // title = 'app';
   // lat: number = 51.678418;
