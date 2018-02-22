@@ -81,6 +81,9 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.chatService.typing();
   }
 
+  seenMessage(){
+    this.chatService.seen();
+  }
 
    @ViewChild('chatMessages') chatMessages: ElementRef
    sendNewMessage(txt: HTMLInputElement){

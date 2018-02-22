@@ -81,7 +81,7 @@
                 <i class="loading fa fa-spinner fa-pulse"></i>
             </div>
 
-            <div class="msgs" fxLayout="column" *ngFor="let message of (employee$ | async).messages">
+            <div class="msgs" fxLayout="column" *ngFor="let message of (employee$ | async).messages; let i = index; let last = last">
 
                 <div class="msg-container" fxLayout="row" *ngIf="message.isMe">
                     <div fxFlex="10px"></div>
@@ -93,19 +93,26 @@
                     <p>{{message.content}}</p>
                     <span>{{ (message.sentAt | amFromUnix) | amDateFormat: 'h:mm A MM/DD/YYYY' }}</span>
                     </div>
-                </div>
+                </div>                
 
                 <div class="msg-container" fxLayout="row" *ngIf="!message.isMe">
-                        <div class="msg" fxFlex fxLayout="column">
+                    <div class="msg" fxFlex fxLayout="column">
                         <p class="isMe">{{message.content}}</p>
                         <span>{{ (message.sentAt | amFromUnix) | amDateFormat: 'h:mm A MM/DD/YYYY' }}</span>
-                        </div>
-
-                        <div class="avatar">
-                            <img [src]="admin.pic.thumb" alt="chat-avatar">
-                        </div>
-                        <div fxFlex="10px"></div>
                     </div>
+
+                    <div class="avatar">
+                        <img [src]="admin.pic.thumb" alt="chat-avatar">
+                    </div>
+                    <div fxFlex="10px"></div>
+                </div>
+
+                <div class="seen-container" fxLayout="row" *ngIf="!message.isMe && last && message.seenAt">
+                    <div fxFlex="10px"></div>
+                    <span fxFlex>
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                        Seen {{ (message.seenAt | amFromUnix) | amDateFormat: 'h:mm A MM/DD/YYYY' }}</span>
+                </div>
             </div>
         </div>
     </div>
@@ -114,7 +121,7 @@
        <span *ngIf="(employee$ | async).isTyping">{{(employee$ | async).name.firstName | titlecase}} is typing ...</span>
     </div>
     <div fxFLex="20" class="chat-controls" fxLayout="column">
-        <textarea class="form-control" rows="3" #msg (keyup.enter)="sendNewMessage(msg)" placeholder="Send a message" (keypress)="typing()"></textarea>
+        <textarea class="form-control" rows="3" #msg (focus)="seenMessage()" (focusout)="seenMessage()" (keyup.enter)="sendNewMessage(msg)" placeholder="Send a message" (keypress)="typing()"></textarea>
         <button type="button" class="btn btn-block btn-primary chat-send-button" (click)="sendNewMessage(msg)">Send</button>
     </div>
 </div>

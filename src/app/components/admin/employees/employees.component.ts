@@ -35,10 +35,10 @@ export class EmployeesComponent implements OnInit {
 
   ngOnInit() {}
 
-  openDialog(): void {
+  openDialog(data): void {
     let dialogRef = this.dialog.open(DialogEmployee, {
       width: '450px',
-      data: { }
+      data: data
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -89,6 +89,7 @@ export class EmployeesComponent implements OnInit {
   styleUrls: ['./employees.component.css']
 })
 export class DialogEmployee implements OnInit, OnDestroy {
+  private subscription: ISubscription[] = [];
   employee:IEmployee = {
     name: {},
     username: '',
@@ -106,13 +107,9 @@ export class DialogEmployee implements OnInit, OnDestroy {
 
 
   
-  private subscription: ISubscription[] = [];
-  ngOnDestroy() {
-    for(let s of this.subscription){
-      s.unsubscribe();
-    }
-  }
+  
 
+  action: any;
   constructor(
       public dialog: MatDialog,
       public dialogRef: MatDialogRef<DialogEmployee>,
@@ -121,7 +118,10 @@ export class DialogEmployee implements OnInit, OnDestroy {
       private formBuilder:FormBuilder,
       private asyncValidationService:AsyncValidationService) {
 
-      
+      this.action = Object.assign({}, {
+        add: this.data.add,
+        update: this.data.update
+      })
 
       this.subscription.push(this.employeesService.modalResponse.subscribe(data => this.onModalResponse(data)));
   }
@@ -129,19 +129,41 @@ export class DialogEmployee implements OnInit, OnDestroy {
   employeeForm: FormGroup;
   ngOnInit(){
 
-    this.employeeForm = this.formBuilder.group({
-      lastName: ['', Validators.required],
-      firstName: ['', Validators.required],
-      username: [
-        '', 
-        Validators.required,
+    // this.employeeForm = this.formBuilder.group({
+    //   lastName: ['', Validators.required],
+    //   firstName: ['', Validators.required],
+    //   username: [
+    //     '', 
+    //     Validators.required,
         
-        this.asyncValidationService.checkUsername.bind(this.asyncValidationService)],
-      password: ['', Validators.required],
-    })
+    //     this.asyncValidationService.checkUsername.bind(this.asyncValidationService)],
+    //   password: ['', Validators.required],
+    // })
     
+    if(this.data.employee){
+      let e  = Object.assign({}, this.data.employee);
+      this.employee.name = Object.assign({}, e.name);
+      this.employee.pic = e.pic;
+    }
+
+    let group = {
+      lastName: ['', Validators.required],
+      firstName: ['', Validators.required]
+    }
+    
+    if(this.action.add){
+      group['username'] = ['', Validators.required, this.asyncValidationService.checkUsername.bind(this.asyncValidationService)];
+      group['password'] = ['', Validators.required];
+    }
+
+    this.employeeForm = this.formBuilder.group(group);
       
-      
+  }
+
+  ngOnDestroy() {
+    for(let s of this.subscription){
+      s.unsubscribe();
+    }
   }
 
   fileChangeEvent(event: any): void {
@@ -154,7 +176,6 @@ export class DialogEmployee implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('dsas');
       if(result){
         this.employee.pic = Object.assign({}, this.employee.pic, {
           original: result
@@ -172,7 +193,10 @@ export class DialogEmployee implements OnInit, OnDestroy {
     this.modal.disableControl = true;
     this.modal.loading = true;
     setTimeout(() => {
-      this.employeesService.addEmployee(this.employee);
+      if(this.action.add) this.employeesService.addEmployee(this.employee);
+      if(this.action.update) this.employeesService.updateEmployee(this.employee, this.data.employee);
+
+      
     }, 1000)  
   }
 

@@ -48,14 +48,14 @@
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                  </button>
         
-                 <button mat-mini-fab color="primary" (click)="openDialog()">
+                 <button mat-mini-fab color="primary" (click)="openDialog({add: true})">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                  </button>
             </div>
           </div>
           <div fxLayoutWrap class="employees-container">
             
-              <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="25" fxFlex.xl="25" class="employee-item-container" *ngFor="let _employee of (employees$ | async)">
+              <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="25" fxFlex.xl="20" class="employee-item-container" *ngFor="let _employee of (employees$ | async)">
                   <div fxFlexFill fxLayout="row" class="employee-item" (click)="showDetails(rightSideNav);">
                     <span fxFlex="15px"></span>
                     <div fxFlex="50px" class="avatar">
@@ -68,7 +68,7 @@
                           <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                       </button>
                       <mat-menu #employeeMenu="matMenu">
-                        <button mat-menu-item class="employee-menu"><i class="fa fa-pencil" aria-hidden="true"></i><span>Edit</span></button>
+                        <button mat-menu-item class="employee-menu" (click)="openDialog({update: true, employee:_employee})"><i class="fa fa-pencil" aria-hidden="true"></i><span>Edit</span></button>
                         <button mat-menu-item class="employee-menu" (click)="openConfirmDialog(_employee)"><i class="fa fa-trash-o" aria-hidden="true"></i><span>Delete</span></button>
                       </mat-menu>
   

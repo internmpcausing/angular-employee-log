@@ -6,7 +6,9 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 
 export interface IMessage{
+    _id: string;
     sentAt: number;
+    seenAt: number,
     content: string;
     isMe: boolean;
 }
@@ -63,7 +65,7 @@ export class ChatService{
 
         this.socket.on('sv-sendInitMessages', (data) => {
             if(data.messages) data.messages = data.messages.reverse();
-
+            console.log(data.messages);
             
 
             setTimeout(() => {
@@ -120,6 +122,17 @@ export class ChatService{
                 console.log('Message Sent!!');
             }
         });
+
+        this.socket.on('sv-seenMessage', (data) => {
+            let employee = Object.assign({}, this._employee.getValue());
+            employee.messages = employee.messages.map(m => {
+                if(data._id === m._id){
+                    m.seenAt = data.seenAt;
+                }
+                return m;
+            })
+            this._employee.next(employee);
+        })
     }
     
     loadInitMessages(notificationId, employeeId){
@@ -165,6 +178,18 @@ export class ChatService{
     typing(){
         let employee = Object.assign({}, this._employee.getValue());
         this.socketService.socket.emit('cl-typing', {employeeId: (<any>employee)._id});
+    }
+
+    seen(){
+        let employee = Object.assign({}, this._employee.getValue());
+        if(employee.messages.length){
+            let message = employee.messages.pop();
+            if(message.isMe && !message.seenAt){
+                this.socket.emit('cl-seenMessage', {_id: message._id});
+            }
+            employee.messages.push(message);
+        }
+        this._employee.next(employee);
     }
     
 }

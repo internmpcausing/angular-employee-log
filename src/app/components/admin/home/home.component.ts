@@ -195,9 +195,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     // //   this.pmapZoomLevel = this.mapZoomLevel;
     // //   this.mapZoomLevel++;
     // // }
-    this.mapZoomLevel = 11;
-    this.lat = employee.currentLocation.lat;
-    this.lng = employee.currentLocation.lng;
+    this.mapZoomLevel = 10;
+    setTimeout(() => {
+      this.mapZoomLevel = 12;
+      this.lat = employee.currentLocation.lat;
+      this.lng = employee.currentLocation.lng;
+    },1);
+    
   }
 
   agmZoomChange(gm){

@@ -28,7 +28,7 @@
                     <mat-error>This filed is required</mat-error>
                 </mat-form-field>
             
-                <mat-form-field class="full-width">
+                <mat-form-field class="full-width" *ngIf="action.add">
                     <input matInput [(ngModel)]="employee.username" formControlName="username" placeholder="Username" >
                     <mat-hint *ngIf="employeeForm.get('username').status === 'PENDING'">Checking</mat-hint>
                     <mat-hint *ngIf="employeeForm.get('username').status === 'VALID'">Available</mat-hint>
@@ -36,7 +36,7 @@
                     <mat-error *ngIf="employeeForm.get('username').errors && employeeForm.get('username').errors.required">This filed is required</mat-error>
                 </mat-form-field>
             
-                <mat-form-field class="full-width">
+                <mat-form-field class="full-width" *ngIf="action.add">
                     <input type="password" matInput [(ngModel)]="employee.password" formControlName="password" placeholder="Password">
                     <mat-error>This filed is required</mat-error>
                 </mat-form-field>

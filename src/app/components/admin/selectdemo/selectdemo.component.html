@@ -50,8 +50,8 @@
 
 <div fxLayout="row">
   <div fxFlex="10"></div>
-  <div fxFlex fxLayoutWrap>
-      <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="25" fxFlex.xl="25"  *ngFor="let company of (companies$ |async)" class="demo-container" (click)="demoClick(company)">
+  <div fxFlex fxLayoutWrap *ngIf="(companies$ |async) as companies">
+      <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="25" fxFlex.xl="25"  *ngFor="let company of companies" class="demo-container" (click)="demoClick(company)">
         <div fxFlexFill class="demo-item">
           <div class="demo"><span>{{company.name}}</span></div>
         </div>
@@ -64,5 +64,6 @@
         </div>
       </div>
   </div>
+  
   <div fxFlex="10"></div>
 </div>

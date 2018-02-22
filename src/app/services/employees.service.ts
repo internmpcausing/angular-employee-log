@@ -85,6 +85,28 @@ export class EmployeesService{
         this.socket.emit('cl-saveEmployee', employee);
     }
 
+    updateEmployee(newVal, previousVal){
+        // console.log(newVal);
+        // console.log(previousVal);
+        this.socket.emit('cl-saveEmployee', {
+            update: true,
+            _id: previousVal._id,
+            name: newVal.name,
+            pic: newVal.pic.original === previousVal.pic.original ? '' : newVal.pic.original
+        }, responseData => {
+            console.log(responseData);
+            previousVal.name = responseData.name;
+            previousVal.pic = responseData.pic;
+            this._modalResponse.next({
+                success: true,
+                msg: 'Update success'
+            });
+            this._modalResponse = <BehaviorSubject<IModalResponseNewDemo>>new BehaviorSubject({});
+            this.modalResponse = this._modalResponse.asObservable();
+
+        })
+    }
+
     getAllEmployee(){
         this.socket.emit('cl-getAllEmployee', {company: localStorage.getItem('selectedDemoId')})
     }
