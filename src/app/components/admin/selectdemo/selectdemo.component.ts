@@ -6,6 +6,8 @@ import { AdminService, IAdmin, ICompany } from './../../../services/admin.servic
 import { Router } from '@angular/router';
 import { ISubscription } from "rxjs/Subscription";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { AsyncValidationService } from '../../../services/asyncvalidation.service';
 
 @Component({
   selector: 'app-selectdemo',
@@ -69,7 +71,7 @@ export class SelectdemoComponent implements OnInit {
   templateUrl: 'dialog-add-new-demo.html',
   styleUrls: ['./selectdemo.component.css']
 })
-export class DialogAddNewDemo implements OnDestroy {
+export class DialogAddNewDemo implements OnInit, OnDestroy {
   demo = {
     name: ''
   }
@@ -90,9 +92,22 @@ export class DialogAddNewDemo implements OnDestroy {
   constructor(
     public dialogRef: MatDialogRef<DialogAddNewDemo>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private selectDemoService:SelectDemoService) {
+    private selectDemoService:SelectDemoService,
+    private formBuilder:FormBuilder,
+    private asyncValidationService:AsyncValidationService) {
 
       this.subscription.push(this.selectDemoService.modalResponse.subscribe(data => this.onModalResponse(data)));
+  }
+
+  demoForm: FormGroup;
+  ngOnInit(){
+
+    this.demoForm = this.formBuilder.group({
+      name: ['', Validators.required, this.asyncValidationService.checkDemoName.bind(this.asyncValidationService)]
+    })
+    
+      
+      
   }
 
   onCancelClick() {
@@ -100,6 +115,7 @@ export class DialogAddNewDemo implements OnDestroy {
   }
 
   onCreateClick(){
+    this.demoForm.disable();
     this.modal.disableControl = true;
     this.modal.loading = true;
     setTimeout(() => {

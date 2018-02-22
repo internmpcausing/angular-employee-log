@@ -4,12 +4,14 @@ import { DialogImageComponent } from './../../shared/dialogimage/dialogimage.com
 import { Component, OnInit, OnDestroy, TemplateRef, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { SelectDemoService, IModalResponseNewDemo } from './../../../services/selectdemo.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { AsyncValidationService } from '../../../services/asyncvalidation.service';
 import { Router } from '@angular/router';
 import { ISubscription } from "rxjs/Subscription";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { EmployeesService, IEmployee } from './../../../services/employees.service';
 import { ProperCase } from '../../../globals';
+
 
 
 @Component({
@@ -115,7 +117,9 @@ export class DialogEmployee implements OnInit, OnDestroy {
       public dialog: MatDialog,
       public dialogRef: MatDialogRef<DialogEmployee>,
       @Inject(MAT_DIALOG_DATA) public data: any,
-      private employeesService:EmployeesService) {
+      private employeesService:EmployeesService,
+      private formBuilder:FormBuilder,
+      private asyncValidationService:AsyncValidationService) {
 
       
 
@@ -124,14 +128,18 @@ export class DialogEmployee implements OnInit, OnDestroy {
   
   employeeForm: FormGroup;
   ngOnInit(){
-    this.employeeForm = new FormGroup({
-        lastName: new FormControl('', Validators.required),
-        firstName: new FormControl('', Validators.required),
-        username: new FormControl('', Validators.required),
-        password: new FormControl('', Validators.required)
-      });
+
+    this.employeeForm = this.formBuilder.group({
+      lastName: ['', Validators.required],
+      firstName: ['', Validators.required],
+      username: [
+        '', 
+        Validators.required,
+        
+        this.asyncValidationService.checkUsername.bind(this.asyncValidationService)],
+      password: ['', Validators.required],
+    })
     
-      this.employeeForm.controls['lastName'].setErrors({'dsd': true});
       
       
   }

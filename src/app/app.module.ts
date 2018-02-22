@@ -3,6 +3,7 @@
 
 
 
+
 import { MyGlobals } from './globals';
 
 
@@ -66,6 +67,8 @@ import { DialogConfirmComponent } from './components/shared/dialogconfirm/dialog
 import { SlideshowComponent } from './components/shared/slideshow/slideshow.component';
 import { DefaultPipe } from './pipes/default.pipe';
 import { CustomDateTimePipe } from './pipes/custom-date-time.pipe';
+import { AsyncValidationService } from './services/asyncvalidation.service';
+
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -175,6 +178,7 @@ export class MaterialModule {}
     NotificationService, 
     ChatService, 
     HomeService,
+    AsyncValidationService,
     EmployeesService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,

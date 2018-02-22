@@ -6,15 +6,19 @@
 </div>
 
 
-<div mat-dialog-content>
+<div [formGroup]="demoForm" mat-dialog-content>
   <mat-form-field class="full-width">
-    <input matInput [(ngModel)]="demo.name" placeholder="Demo Name" [disabled]="modal.disableControl">
-    <mat-error>fdsf</mat-error>
+    <input matInput [(ngModel)]="demo.name" placeholder="Demo Name" formControlName="name">
+    <mat-hint *ngIf="demoForm.get('name').status === 'PENDING'">Checking</mat-hint>
+    <mat-hint *ngIf="demoForm.get('name').status === 'VALID'">Available</mat-hint>
+    <mat-error *ngIf="demoForm.get('name').errors && demoForm.get('name').errors.demoNameTaken">This name is already taken</mat-error>
+    <mat-error *ngIf="demoForm.get('name').errors && demoForm.get('name').errors.required">This filed is required</mat-error>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   
-    <button mat-button color="warn" [mat-dialog-close] [disabled]="modal.disableControl">Cancel</button>
-    <button mat-button color="primary" (click)="onCreateClick()" cdkFocusInitial [disabled]="modal.disableControl">Create</button>
+    <button mat-button color="warn" [mat-dialog-close] cdkFocusInitial [disabled]="modal.disableControl">Cancel</button>
+    <button mat-button color="primary" (click)="onCreateClick()" [disabled]="modal.disableControl || !demoForm.valid">Create</button>
   
 </div>
+

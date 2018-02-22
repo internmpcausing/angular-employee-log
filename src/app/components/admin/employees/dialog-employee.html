@@ -25,14 +25,15 @@
             
                 <mat-form-field class="full-width">
                     <input matInput [(ngModel)]="employee.name.firstName" formControlName="firstName" placeholder="Firstname">
-                    {{employeeForm.controls.lastName.errors |json}}
                     <mat-error>This filed is required</mat-error>
                 </mat-form-field>
             
                 <mat-form-field class="full-width">
                     <input matInput [(ngModel)]="employee.username" formControlName="username" placeholder="Username" >
-                    <mat-hint *ngIf="!modal.uniqueUsername">This username is alaready taken</mat-hint>
-                    <mat-error>This filed is required</mat-error>
+                    <mat-hint *ngIf="employeeForm.get('username').status === 'PENDING'">Checking</mat-hint>
+                    <mat-hint *ngIf="employeeForm.get('username').status === 'VALID'">Available</mat-hint>
+                    <mat-error *ngIf="employeeForm.get('username').errors && employeeForm.get('username').errors.usernameTaken">This username is already taken</mat-error>
+                    <mat-error *ngIf="employeeForm.get('username').errors && employeeForm.get('username').errors.required">This filed is required</mat-error>
                 </mat-form-field>
             
                 <mat-form-field class="full-width">
@@ -46,6 +47,6 @@
 <div mat-dialog-actions>
   
     <button mat-button color="warn" [mat-dialog-close] [disabled]="modal.disableControl">Cancel</button>
-    <button mat-button color="primary" (click)="onSaveClick()" cdkFocusInitial [disabled]="modal.disableControl || employeeForm.invalid">Create</button>
+    <button mat-button color="primary" (click)="onSaveClick()" cdkFocusInitial [disabled]="modal.disableControl || !employeeForm.valid">Create</button>
   
 </div>
