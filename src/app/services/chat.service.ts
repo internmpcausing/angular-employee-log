@@ -119,6 +119,13 @@ export class ChatService{
                 
             }
             else{
+                
+                let message = employee.messages.pop();
+                if(!message._id){
+                    message._id = data._id;
+                }
+                employee.messages.push(message);
+                this._employee.next(employee);
                 console.log('Message Sent!!');
             }
         });
@@ -132,6 +139,7 @@ export class ChatService{
                 return m;
             })
             this._employee.next(employee);
+            this._scollChatBox.next(true);
         })
     }
     

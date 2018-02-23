@@ -37,7 +37,12 @@
 
 <mat-drawer-container fxFlexFill>
   <mat-drawer-content [perfectScrollbar]>
-    <div fxFlexFill fxLayout="row">
+
+    <div fxFlexFill class="employees-loading" *ngIf="showLoading$ | async">
+        <i class="loading fa fa-spinner fa-pulse"></i>
+    </div>
+
+    <div fxFlexFill fxLayout="row" *ngIf="!(showLoading$ | async)">
       <span fxFlex="20px"></span>
 
       <div fxFlex fxLayout="column" class="main-container">

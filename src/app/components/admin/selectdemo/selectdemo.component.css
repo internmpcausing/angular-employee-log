@@ -1,112 +1,3 @@
-/* .main-container{
-    background-color: #efefef;
-} 
-
-.navbar{
-    background-color: #151f2b;
-    border: unset;
-    border-radius: unset;
-    position: fixed;
-    width: 100%;
-    z-index: 99;
-}
-
-.logo{
-    color: white;
-    text-decoration: none;
-    font-size: 28px !important;
-    font-weight: bold;
-}
-.logo:hover{
-    color: white;
-}
-
-.logo span{
-    font-weight: 100;
-}
-
-.navbar-right{
-    display: flex;
-    align-items: center;
-}
-
-.navbar-right .fa-cog{
-    color: white;
-    font-size: 25px;
-}
-
-.admin-avatar{
-    padding: 0;
-    margin-left: 5px;
-}
-
-.admin-avatar img{
-    height: 100%;
-    padding: 5px;
-    border-radius: 50%;
-}
-.navbar-brand.setting-icon{
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-right: 30px;
-}
-
-.content{
-    margin-top: 55px;
-    background-color: #efefef;
-    padding: 0 5%;
-}
-
-.content .demo-container .demo{
-    background-color: white;
-    border-radius: 5px;
-}
-
-.content .demo-container .demo{
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-}
-
-.demo h1{
-    font-size: 2.5vw;
-    text-align: center;
-    padding: 3.5vw;
-}
-
-.demo img{
-    font-size: 2.5vw;
-    text-align: center;
-    padding: 3.5vw;
-}
-
-.demo-add-h1{
-    opacity: 0;
-}
-
-.demo-add-button{
-    position: relative;
-    background-repeat: no-repeat;
-    background-size: 7vw;
-    background-position: center;
-    background-image: url(https://res.cloudinary.com/dka3vzadb/image/upload/t_media_lib_thumb/v1517980880/add_qqgrlh.png);
-    cursor: pointer;
-}
-
-.no-company{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.no-company h3{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-} */
 
 .main-container{
     overflow: hidden;
@@ -142,6 +33,14 @@ a.admin-avatar img{
 .content{
     overflow: auto;
     background-color: #efefef
+}
+
+.select-demo-loading{
+    margin-top: 25px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
 }
 
 .demo-container{
@@ -187,8 +86,19 @@ a.admin-avatar img{
 .demo{
     min-height: 100px;
     display:flex;
-    justify-content:center;
     align-items:center;
+}
+
+.demo-logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100px;
+    padding: 10px;
+}
+
+.demo-logo img{
+    width: 100%
 }
 
 .demo-add-button{
@@ -200,6 +110,24 @@ a.admin-avatar img{
 }
 
 
+.demo-item .item-menu{
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+}
+
+.item-menu i{
+    font-size: 15px;
+}
+
+.demo-item:hover .item-menu{
+    opacity: 1;
+}
+
+.demo-menu i{
+    font-size: 18px;
+    padding-right: 8px;
+}
 
 
 
@@ -228,6 +156,7 @@ a.admin-avatar img{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .mat-dialog-title .mat-spinner{
@@ -248,4 +177,28 @@ mat-form-field.full-width{
 .mat-dialog-actions{
     display: flex;
     justify-content: flex-end;
+}
+
+.pic-column{
+    padding: 0 15px;
+}
+
+.browse-pic-container{
+    display: flex;
+    justify-content: center;
+}
+
+/* .pic-column button{
+    padding: 0;
+} */
+.pic-container{
+    justify-content: center;
+    margin-bottom: 10px;
+    align-items: center;
+    max-width: 80px;
+}
+
+.pic-container img{
+    height: 100%;
+    width: 100%;
 }

@@ -40,12 +40,11 @@ export class AsyncValidationService{
     }
 
     demoNameDebouncer: any;
-    checkDemoName(control: FormControl){
-
+    checkDemoName(_id: string, control: FormControl){
         clearTimeout(this.demoNameDebouncer);
         return new Promise(resolve => {
             this.demoNameDebouncer = setTimeout(() => {
-                this.http.post(this.myGlobals.serverAddress+ 'check-demoname', {demoname: control.value}, this.httpOptions)
+                this.http.post(this.myGlobals.serverAddress+ 'check-demoname', {demoname: control.value, _id: _id}, this.httpOptions)
                     .subscribe(res => {
                         let _ok = (<any>res).ok ? null : {demoNameTaken: true};
                         resolve(_ok);

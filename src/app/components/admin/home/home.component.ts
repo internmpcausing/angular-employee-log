@@ -200,6 +200,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.mapZoomLevel = 12;
       this.lat = employee.currentLocation.lat;
       this.lng = employee.currentLocation.lng;
+      
     },1);
     
   }

@@ -1,3 +1,4 @@
+import { DialogImageComponent } from './../../shared/dialogimage/dialogimage.component';
 import { SocketService } from './../../../services/socket.service';
 import { Observable } from 'rxjs/Observable';
 import { SelectDemoService, IModalResponseNewDemo } from './../../../services/selectdemo.service';
@@ -8,6 +9,8 @@ import { ISubscription } from "rxjs/Subscription";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { AsyncValidationService } from '../../../services/asyncvalidation.service';
+import { DialogConfirmComponent } from '../../shared/dialogconfirm/dialogconfirm.component';
+import { ProperCase } from '../../../globals';
 
 @Component({
   selector: 'app-selectdemo',
@@ -18,6 +21,7 @@ export class SelectdemoComponent implements OnInit {
   admin: IAdmin;
   companies$: Observable<any>;
 
+  showLoading$: Observable<any>;
 
   constructor( 
     private selectDemoService:SelectDemoService, 
@@ -25,6 +29,8 @@ export class SelectdemoComponent implements OnInit {
     private router:Router,
     public dialog: MatDialog,
     private socketService:SocketService) {
+    
+    this.showLoading$ = this.selectDemoService.showLoading;
     this.companies$ = this.selectDemoService.companies;
 
     this.adminService.admin.subscribe(data => {
@@ -42,15 +48,29 @@ export class SelectdemoComponent implements OnInit {
 
   name = 'ddasds';
   animal = 'dsdas';
-  openDialog(): void {
+  openDialog(data): void {
+    console.log(data);
     let dialogRef = this.dialog.open(DialogAddNewDemo, {
       width: '350px',
-      data: { name: this.name, animal: this.animal }
+      data: data
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.animal = result;
+    });
+  }
+
+  openConfirmDialog(company): void {
+    let m = `All data related to this demo will be deleted. Are you sure you want to delete ${ProperCase(company.name)}?`
+    let dialogRef = this.dialog.open(DialogConfirmComponent, {
+      data: {message: m }
+    });
+
+    dialogRef.beforeClose().subscribe(confirmed => {
+      if(confirmed){
+        this.selectDemoService.deleteDemo(company._id);
+        // this.employeesService.deleteEmployee(employee._id);
+      }
     });
   }
 
@@ -73,7 +93,8 @@ export class SelectdemoComponent implements OnInit {
 })
 export class DialogAddNewDemo implements OnInit, OnDestroy {
   demo = {
-    name: ''
+    name: '',
+    logo: ''
   }
 
   modal = {
@@ -89,25 +110,60 @@ export class DialogAddNewDemo implements OnInit, OnDestroy {
     }
   }
 
+  action: any;
   constructor(
+    public dialog: MatDialog,
     public dialogRef: MatDialogRef<DialogAddNewDemo>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private selectDemoService:SelectDemoService,
     private formBuilder:FormBuilder,
     private asyncValidationService:AsyncValidationService) {
 
+      this.action = {
+        add: this.data.add,
+        update: this.data.update
+      }
       this.subscription.push(this.selectDemoService.modalResponse.subscribe(data => this.onModalResponse(data)));
   }
 
   demoForm: FormGroup;
   ngOnInit(){
 
+    let _id;
+    if(this.data.company){
+      console.log(this.data.company);
+      let e  = Object.assign({}, this.data.company);
+      this.demo.name = e.name;
+      this.demo.logo = e.logo;
+      _id = e._id
+    }
+
+    // if(this.data.employee){
+    //   let e  = Object.assign({}, this.data.employee);
+    //   this.employee.name = Object.assign({}, e.name);
+    //   this.employee.pic = e.pic;
+    // }
+    
     this.demoForm = this.formBuilder.group({
-      name: ['', Validators.required, this.asyncValidationService.checkDemoName.bind(this.asyncValidationService)]
+      name: ['', Validators.required, this.asyncValidationService.checkDemoName.bind(this.asyncValidationService, _id)]
     })
     
-      
-      
+  }
+
+  fileChangeEvent(event: any): void {
+    this.openImageDialog(event);
+  }
+  openImageDialog(event: any): void {
+    let dialogRef = this.dialog.open(DialogImageComponent, {
+      width: '450px',
+      data: {img: event, cropped: '' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.demo.logo = result;
+      }
+    });
   }
 
   onCancelClick() {
@@ -119,7 +175,9 @@ export class DialogAddNewDemo implements OnInit, OnDestroy {
     this.modal.disableControl = true;
     this.modal.loading = true;
     setTimeout(() => {
-      this.selectDemoService.addNew(this.demo.name);
+      if(this.action.add) this.selectDemoService.addDemo(this.demo);
+      if(this.action.update) this.selectDemoService.updateDemo(this.demo, this.data.company);
+      
     }, 1000)  
     
     //this.dialogRef.close();

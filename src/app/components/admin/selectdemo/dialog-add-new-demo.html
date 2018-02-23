@@ -1,19 +1,36 @@
 
 <div mat-dialog-title>
-    <span>New Project</span>
+    <span>New Demo</span>
     <mat-spinner [diameter]="20" *ngIf="modal.loading"></mat-spinner>
     <i class="fa fa-check" aria-hidden="true" *ngIf="modal.check"></i>
 </div>
 
 
-<div [formGroup]="demoForm" mat-dialog-content>
-  <mat-form-field class="full-width">
-    <input matInput [(ngModel)]="demo.name" placeholder="Demo Name" formControlName="name">
-    <mat-hint *ngIf="demoForm.get('name').status === 'PENDING'">Checking</mat-hint>
-    <mat-hint *ngIf="demoForm.get('name').status === 'VALID'">Available</mat-hint>
-    <mat-error *ngIf="demoForm.get('name').errors && demoForm.get('name').errors.demoNameTaken">This name is already taken</mat-error>
-    <mat-error *ngIf="demoForm.get('name').errors && demoForm.get('name').errors.required">This filed is required</mat-error>
-  </mat-form-field>
+<div fxLayout="column" mat-dialog-content>
+  <div fxFlex="120px" fxLayout="column" class="pic-column" >
+      <div fxFlex="80px" class="pic-container" fxFlexAlign="center">
+          <img [src]="demo.logo ? demo.logo : 'https://d31kswug2i6wp2.cloudfront.net/images/3_0/icon_company_no-logo_200x200.jpg'">
+      </div>
+
+      
+      <div class="browse-pic-container">
+          <input #file type="file" fxHide (change)="fileChangeEvent($event)">
+          <button mat-button color="accent" [disabled]="modal.disableControl" (click)="file.click()">Choose file</button>
+      </div>
+      
+
+  </div>
+
+  <div fxFlex [formGroup]="demoForm">
+      <mat-form-field class="full-width">
+        <input matInput [(ngModel)]="demo.name" placeholder="Demo Name" formControlName="name">
+        <mat-hint *ngIf="demoForm.get('name').status === 'PENDING'">Checking</mat-hint>
+        <mat-hint *ngIf="demoForm.get('name').status === 'VALID'">Available</mat-hint>
+        <mat-error *ngIf="demoForm.get('name').errors && demoForm.get('name').errors.demoNameTaken">This name is already taken</mat-error>
+        <mat-error *ngIf="demoForm.get('name').errors && demoForm.get('name').errors.required">This filed is required</mat-error>
+      </mat-form-field>
+  </div>
+  
 </div>
 <div mat-dialog-actions>
   

@@ -49,21 +49,42 @@
 
 
 <div fxLayout="row">
-  <div fxFlex="10"></div>
-  <div fxFlex fxLayoutWrap *ngIf="(companies$ |async) as companies">
-      <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="25" fxFlex.xl="25"  *ngFor="let company of companies" class="demo-container" (click)="demoClick(company)">
-        <div fxFlexFill class="demo-item">
-          <div class="demo"><span>{{company.name}}</span></div>
+  <div fxFlex="10" fxHide fxShow.gt-md></div>
+
+  <div fxFlexFill class="select-demo-loading" *ngIf="showLoading$ | async">
+      <i class="loading fa fa-spinner fa-pulse"></i>
+  </div>
+
+  <div fxFlex fxLayoutWrap *ngIf="!(showLoading$ | async)">
+      <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="25" fxFlex.xl="20"  *ngFor="let company of (companies$ |async)" class="demo-container" (click)="demoClick(company)">
+        <div fxFlexFill fxLayout="row" class="demo-item">
+          <div class="demo-logo">
+            <img [src]="company.logo ? company.logo : 'https://d31kswug2i6wp2.cloudfront.net/images/3_0/icon_company_no-logo_200x200.jpg'" alt="company logo">
+          </div>
+          <div class="demo" fxFlex><span>{{company.name | titlecase}}</span></div>
+
+          <div fxFlex="35px" class="item-menu">
+            <button mat-icon-button [matMenuTriggerFor]="demoMenu" (click)="$event.stopPropagation()">
+                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+            </button>
+            <mat-menu #demoMenu="matMenu">
+              <button mat-menu-item class="demo-menu" (click)="openDialog({update: true, company: company})"><i class="fa fa-pencil" aria-hidden="true"></i><span>Edit</span></button>
+              <button mat-menu-item class="demo-menu" (click)="openConfirmDialog(company)"><i class="fa fa-trash-o" aria-hidden="true"></i><span>Delete</span></button>
+            </mat-menu>
+
+          </div>
         </div>
       </div>
 
-      <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="25" fxFlex.xl="25" class="demo-container">
-        <div fxFlexFill class="demo-item" (click)="openDialog()">
+      <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="25" fxFlex.xl="20" class="demo-container">
+        <div fxFlexFill class="demo-item" (click)="openDialog({add: true})">
           <div class="demo demo-add-button">
           </div>
         </div>
       </div>
   </div>
+
   
-  <div fxFlex="10"></div>
+  
+  <div fxFlex="10" fxHide fxShow.gt-md></div>
 </div>

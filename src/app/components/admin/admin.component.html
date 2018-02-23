@@ -1,10 +1,13 @@
 <div fxFlexFill fxLayout="column" class="main-container">
   <div fxFlex="60px" fxLayout="row" class="header">
     <div fxFlex fxFlexAlign="center" >
-      <div class="navigation-buttons" *ngIf="!(showNavigationButton$ | async)"><span class="logo">DEMO <span>APP</span></span>
+      <div class="navigation-buttons" *ngIf="!(showNavigationButton$ | async)">
+        <span class="logo">DEMO <span>APP</span></span>
       </div>
 
-      <div class="navigation-buttons" *ngIf="(showNavigationButton$ | async)"><span class="logo">{{company.name | uppercase}}</span>
+      
+      <div fxFlex fxLayout="row" class="navigation-buttons" *ngIf="(showNavigationButton$ | async)">
+        <span class="logo">{{company.name | uppercase}}</span>
 
         <a routerLink="/dashboard" class="nav-btn" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
           <span>Home</span>
@@ -26,14 +29,17 @@
                 <mat-menu #settingsMenu="matMenu">
                   <button mat-menu-item (click)="onChangeDemoClick()"><i class="fa fa-retweet" aria-hidden="true"></i>Change Demo</button>
                 </mat-menu>
+                
             </a>
         </div>
         <div fxFlex fxFlexAlign="center">
             <a class="admin-avatar" [matMenuTriggerFor]="adminMenu">
                 <img [src]="admin.pic.thumb" alt="admin-avatar">
                 <mat-menu #adminMenu="matMenu">
+                  <button mat-menu-item><i class="fa fa-user" aria-hidden="true"></i> My Account</button>
                   <button mat-menu-item (click)="onSignOutClick()"><i class="fa fa-sign-out" aria-hidden="true"></i> Log out</button>
                 </mat-menu>
+                
             </a>
         </div>
       </div>

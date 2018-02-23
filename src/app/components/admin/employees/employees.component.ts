@@ -22,10 +22,12 @@ import { ProperCase } from '../../../globals';
 export class EmployeesComponent implements OnInit {
 
   employees$: Observable<any>;
+  showLoading$: Observable<any>;
   isOpenRightSideNav = false;
   constructor(public dialog: MatDialog, private employeesService:EmployeesService, private socketService:SocketService) { 
     this.employeesService.getAllEmployee();
     this.employees$ = this.employeesService.employees;
+    this.showLoading$ = this.employeesService.showLoading;
 
     let s = localStorage.getItem('selectedEmployeeId');
     if (s) this.socketService.leaveOneRoom(s);

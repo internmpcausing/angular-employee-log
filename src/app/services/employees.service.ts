@@ -38,6 +38,9 @@ export class EmployeesService{
     public modalResponse: Observable<IModalResponseNewDemo>;
     private _modalResponse: BehaviorSubject<IModalResponseNewDemo>;
 
+    public showLoading: Observable<boolean>;
+    private _showLoading: BehaviorSubject<boolean>;
+
     private socket;
 
     constructor(private socketService:SocketService){
@@ -51,7 +54,11 @@ export class EmployeesService{
         this._modalResponse = <BehaviorSubject<IModalResponseNewDemo>>new BehaviorSubject({});
         this.modalResponse = this._modalResponse.asObservable();
 
+        this._showLoading = <BehaviorSubject<boolean>>new BehaviorSubject(true);
+        this.showLoading = this._showLoading.asObservable();
+
         this.socket.on('sv-sendAllEmployees', data => {
+            this._showLoading.next(false);
             this._employees.next(data);
             console.log(this._employees.getValue());
         });
