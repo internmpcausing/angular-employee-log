@@ -77,11 +77,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   showDetails(employee, rightSideNav){
     this.mapZoomLevel = 100;
+
     let s = localStorage.getItem('selectedEmployeeId');
     if(s){
-      if (s != employee.id){
-        this.socketService.leaveAndJoinRoom(s, employee.id);
-      }
+      this.socketService.leaveAndJoinRoom(s, employee.id);
     }
     else{
       this.socketService.joinRooms([employee.id]);
