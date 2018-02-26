@@ -212,3 +212,8 @@ a.admin-avatar img{
     overflow: auto;
     background-color: #efefef
 }
+
+.sidenav {
+    width: 250px;
+    background-color: white;
+  }
