@@ -1,9 +1,53 @@
-
+<ng-progress [spinner]="false" [thick]="true"></ng-progress>
 
 <mat-sidenav-container fxFlexFill>
-  <mat-sidenav #sidenav mode="over" opened="true" class="sidenav" [fixedInViewport]="true">
-    <div fxFlexFill>
-        <h1>sdad</h1><h1>sdad</h1>
+  <mat-sidenav #sidenav mode="over" [(opened)]="mySidenav.open" class="sidenav" [fixedInViewport]="true">
+    <div fxFlexFill fxLayout="column">
+
+      <div class="logo" fxLayout="column">
+        <div *ngIf="(showNavigationButton$ | async)" fxLayout="column">
+            <img [src]="company.logo ? company.logo : 'https://d31kswug2i6wp2.cloudfront.net/images/3_0/icon_company_no-logo_200x200.jpg'" alt="company logo">
+            <span>{{company.name | uppercase}}</span>
+        </div>
+  
+        <span class="span-bold" *ngIf="!(showNavigationButton$ | async)">DEMO <span>APP</span></span>
+        <div class="divider"></div>
+      </div>
+
+      <div class="nav-buttons" fxLayout="column" *ngIf="(showNavigationButton$ | async)">
+          <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="sidenav.toggle()">
+            <i class="fa fa-home" aria-hidden="true"></i>
+            <span>Home</span>
+          </a>
+  
+          <a routerLink="logs" routerLinkActive="active" (click)="sidenav.toggle()">
+            <i class="fa fa-address-card-o" aria-hidden="true"></i>
+            <span>Logs</span>
+            <span class="custom-badge" *ngIf="(logsBadgeCount$ | async) as logsBadgeCount">{{logsBadgeCount}}</span>
+          </a>
+  
+          <a routerLink="employees" routerLinkActive="active" (click)="sidenav.toggle()">
+            <i class="fa fa-users" aria-hidden="true"></i>
+            <span>Employees</span>
+          </a>
+
+          <a (click)="sidenav.toggle();onChangeDemoClick()">
+            <i class="fa fa-retweet" aria-hidden="true"></i>
+            <span>Change Demo</span>
+          </a>
+      </div>
+
+      <div class="nav-buttons" fxLayout="column">  
+          <a (click)="sidenav.toggle()">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            <span>My Account</span>
+          </a>
+  
+          <a (click)="onSignOutClick()">
+              <i class="fa fa-sign-out" aria-hidden="true"></i>
+            <span>Log out</span>
+          </a>
+      </div>
     </div>
   </mat-sidenav>
 

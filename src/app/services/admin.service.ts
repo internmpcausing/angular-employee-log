@@ -7,7 +7,10 @@ import { ChatService } from './chat.service';
 export interface IAdmin{
     _id: string;
     name: Object;
-    pic: Object;
+    pic: {
+        original: string,
+        thumb: string
+    };
 }
 
 

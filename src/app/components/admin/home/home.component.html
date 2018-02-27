@@ -50,7 +50,7 @@
       </agm-map>
   </mat-drawer-content>
 
-  <mat-drawer [perfectScrollbar]  #rightSideNav mode="over" [(opened)]="isOpenRightSideNav" position="end" class="right-side-bar" fxLayout="column">
+  <mat-drawer [perfectScrollbar]  #rightSideNav mode="over" opened="true" position="end" class="right-side-bar" fxLayout="column">
       <div fxFlex="30px" fxFlexAlign="start center" class="togglearrow">
           <img src="https://res.cloudinary.com/dka3vzadb/image/upload/t_media_lib_thumb/v1517475151/togglearrow_u4imwj.png" alt="togglearrow" (click)="hideRightSideBar(rightSideNav)">
       </div>

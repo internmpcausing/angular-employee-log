@@ -93,9 +93,15 @@ export class EmployeesComponent implements OnInit {
 export class DialogEmployee implements OnInit, OnDestroy {
   private subscription: ISubscription[] = [];
   employee:IEmployee = {
-    name: {},
+    name: {
+      lastName: '',
+      firstName: ''
+    },
     username: '',
-    pic: {},
+    pic: {
+      original: '',
+      thumb: ''
+    },
     password: ''
     
   }

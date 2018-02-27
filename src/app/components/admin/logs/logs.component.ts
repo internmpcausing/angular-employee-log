@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
 
 import { ChatComponent } from './chat/chat.component';
-import { NgProgress } from 'ngx-progressbar';
 
 
 @Component({

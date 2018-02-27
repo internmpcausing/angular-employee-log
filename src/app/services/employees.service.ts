@@ -10,8 +10,14 @@ import * as Rx from "rxjs/Rx";
 export interface IEmployee{
     id?: string;
     companyId?: string;
-    name: Object;
-    pic: Object;
+    name: {
+        lastName: string,
+        firstName: string
+    };
+    pic: {
+        thumb: string,
+        original: string
+    };
     username: string;
     password: string;
     update?: boolean;

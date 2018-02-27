@@ -8,6 +8,8 @@ import { SocketService } from './../../services/socket.service';
 import { ChatComponent } from './logs/chat/chat.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AdminService, IAdmin, ICompany } from './../../services/admin.service';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+
 
 @Component({
   selector: 'app-admin',
@@ -26,12 +28,27 @@ export class AdminComponent implements OnInit{
   showNavigationButton$: Observable<any>;
   admin: IAdmin;
   company: ICompany;
-
+  
+  mySidenav = {
+    lastOpenStatus: false,
+    open: false
+  };
   constructor(private socketService:SocketService,
               private toastr: ToastrService,
               private router: Router,
               private route:ActivatedRoute,
-              private adminService:AdminService){
+              private adminService:AdminService,
+              private breakpointObserver: BreakpointObserver){
+                
+    this.breakpointObserver.observe(['(max-width: 959px)']).subscribe(result => {
+      if(result.matches){
+        this.mySidenav.open = this.mySidenav.lastOpenStatus;
+      }
+      else{
+        this.mySidenav.lastOpenStatus = this.mySidenav.open;
+        this.mySidenav.open = false;
+      }
+    });
     
     this.socket = this.socketService.socket;
     this.socketService.connect();

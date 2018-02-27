@@ -32,7 +32,8 @@ import { ChatComponent } from './components/admin/logs/chat/chat.component';
 import { NotificationService } from './services/notification.service';
 import { ChatService } from './services/chat.service';
 import { MomentModule } from 'angular2-moment';
-import { NgProgressModule } from 'ngx-progressbar';
+import { NgProgressModule } from '@ngx-progressbar/core';
+import { NgProgressRouterModule } from '@ngx-progressbar/router';
 import { LogsComponent } from './components/admin/logs/logs.component';
 import { AppRoutingModule } from './app.routing';
 import { HomeComponent } from './components/admin/home/home.component';
@@ -68,6 +69,7 @@ import { SlideshowComponent } from './components/shared/slideshow/slideshow.comp
 import { DefaultPipe } from './pipes/default.pipe';
 import { CustomDateTimePipe } from './pipes/custom-date-time.pipe';
 import { AsyncValidationService } from './services/asyncvalidation.service';
+import {LayoutModule} from '@angular/cdk/layout';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -143,7 +145,8 @@ export class MaterialModule {}
     VisitorRootComponent,
     SlideshowComponent,
     DefaultPipe,
-    CustomDateTimePipe
+    CustomDateTimePipe,
+    
     
   ],
   entryComponents: [NotificationToastComponent, DialogAddNewDemo, DialogEmployee, DialogImageComponent, DialogConfirmComponent],
@@ -151,11 +154,11 @@ export class MaterialModule {}
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgProgressModule,
     BrowserAnimationsModule,
     FormsModule, 
     ReactiveFormsModule,
     FlexLayoutModule,
+    LayoutModule,
     MaterialModule,
     PerfectScrollbarModule,
     ScrollEventModule,
@@ -163,6 +166,8 @@ export class MaterialModule {}
     AlertModule.forRoot(),
     ModalModule.forRoot(),
     BsDropdownModule.forRoot(),
+    NgProgressModule.forRoot(),
+    NgProgressRouterModule,
     ToastrModule.forRoot({toastComponent: NotificationToastComponent}),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCuxTc1zAmpV2lxGKQkHud1TzrcXyzWasY'
