@@ -78,6 +78,7 @@ export class SelectdemoComponent implements OnInit {
     localStorage.setItem('selectedDemoId', company._id);
     this.socketService.joinRooms([company._id]);
     this.socketService.socket.emit('cl-unseenLogsCount', {company: company._id});
+    this.socketService.socket.emit('cl-idOfLastMessageAndTimein', {company: company._id});
     this.adminService.getInitialLogsBadgeCount(0);
     this.router.navigate(['/dashboard']);
   }

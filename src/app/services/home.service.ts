@@ -49,7 +49,6 @@ export class HomeService{
         
         this.socket.on('sv-sendSelectedEmployeeStatus', (data) => {
             if(this.selectedEmployeeId != data.employeeId) return;
-
             if(data.battery){
                 let batteryClass: string;
                 let batteryColor;

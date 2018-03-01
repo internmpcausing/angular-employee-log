@@ -44,6 +44,8 @@ export class ChatService{
     private _noMoreMessage: BehaviorSubject<boolean>;
 
     constructor(private socketService:SocketService){
+
+        
         this.socket = this.socketService.socket;
         this._employee = <BehaviorSubject<IEmployee>>new BehaviorSubject({});
         this.employee = this._employee.asObservable();
@@ -106,10 +108,13 @@ export class ChatService{
         });
 
         this.socket.on('sv-newMessage', (data) => {
+            console.log(data);
+            if(data._m) localStorage.setItem('_m', data._m);
             let employee = Object.assign({}, this._employee.getValue());
+            console.log(data);
+            // console.log(employee);
             let messages = (<any>employee).messages;
             let m = (<any>messages).find(message => { return  message.secret == data.secret});
-            console.log(data);
             if(!m){
                 console.log('New Message');
                 (<any>(<any>employee).messages).push(data);
@@ -141,6 +146,8 @@ export class ChatService{
             this._employee.next(employee);
             this._scollChatBox.next(true);
         })
+
+        
     }
     
     loadInitMessages(notificationId, employeeId){
@@ -177,7 +184,10 @@ export class ChatService{
     }
     
     send(newMessage){
-        this.socketService.socket.emit('cl-sendNewMessage', Object.assign({}, newMessage, {employeeId: (<any>this._employee.getValue())._id}));
+        this.socketService.socket.emit('cl-sendNewMessage', Object.assign({}, newMessage, {
+            employeeId: (<any>this._employee.getValue())._id,
+            company: localStorage.getItem('selectedDemoId')
+        }));
         let employee = Object.assign({}, this._employee.getValue());
         (<any>(<any>employee).messages).push(newMessage);
         this._employee.next(employee);

@@ -90,7 +90,7 @@ export class AdminComponent implements OnInit{
     });    
 
     this.socketService.socket.on('sv-newMessageNotif', (data) => {
-      
+      if(data._m) localStorage.setItem('_m', data._m);
       data = Object.assign({}, data, {newMessage: true});
       if(this.currentRoute == '/dashboard/logs'){
         if(this.chatSelectedEmployeeId != data.id){
@@ -104,6 +104,17 @@ export class AdminComponent implements OnInit{
       
       
     })
+
+    let s = localStorage.getItem('selectedDemoId');
+    if((this.currentRoute != '/dashboard/select-demo') && s){
+      this.socketService.socket.emit('cl-idOfLastMessageAndTimein', {company: s});
+    }
+
+    this.socketService.socket.on('sv-idOfLastMessageAndTimein', data => {
+      if(data._t) localStorage.setItem('_t', data._t);
+      if(data._m) localStorage.setItem('_m', data._m);
+    })
+
 
   }
 

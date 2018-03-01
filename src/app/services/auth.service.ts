@@ -51,6 +51,11 @@ export class AuthService{
                         router.navigate(['/login']);
                         resolve(false);
                     }
+                    else{
+                        setTimeout(() => {
+                            this.isLoggedIn(router, url, resolve);
+                        }, 3000);
+                    }
                 })
                 
             }
@@ -109,12 +114,16 @@ export class AuthService{
                         resolve(false);
                     }
                 }, err => {
-                    console.log(err);
                     if(err.status == 401){
                         localStorage.removeItem('selectedDemoId');
                         localStorage.removeItem('token')
                         router.navigate(['/login']);
                         resolve(false);
+                    }
+                    else{
+                        setTimeout(() => {
+                            this.checkDemo(router, url, resolve);
+                        }, 3000);
                     }
                 })
                 ;

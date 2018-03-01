@@ -174,4 +174,7 @@ export class AppComponent implements OnInit{
 }
 
 // ng build --prod --base-href -https://internmpcausing.github.io/angular-employee-log/
-//sudo nghng s
+//sudo ngh s
+
+// ng build --prod --base-href /angular-employee-log/
+//sudo ngh s

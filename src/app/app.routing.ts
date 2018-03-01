@@ -55,7 +55,11 @@ const routes: Routes = [
                         canActivateChild: [AuthGuard],
                         component: VisitorComponent,
                         children: [
-                            {path: '', component: VisitorRootComponent}
+                            {
+                                path: '',
+                                redirectTo: '/login',
+                                pathMatch: 'full'
+                            }
                         ]
                     },
                 ]

@@ -62,8 +62,12 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   requestInitMessages(notifDetails){
-    console.log(notifDetails);
+    // console.log(notifDetails);
+    
     if(this.employee){
+      console.log(this.employee.employeeId);
+    console.log(notifDetails.employee.employeeId);
+    
       if(this.employee.employeeId != notifDetails.employee.employeeId) {
       this.chatBoxAdditionalMessagesLoading = false;
       this.initialChatBoxReady = false;
@@ -106,11 +110,13 @@ export class ChatComponent implements OnInit, OnDestroy {
    }
 
   intervalChatScroll;
+  timeOutChatScroll;
   fIntervalChatScroll(){
     clearInterval(this.intervalChatScroll);
+    clearTimeout(this.timeOutChatScroll);
     let i = this.chatMessages.nativeElement.scrollHeight;
     let p = 2;
-    setTimeout(()=>{
+    this.timeOutChatScroll = setTimeout(()=>{
       this.chatMessages.nativeElement.scrollTop -= 1;
       this.intervalChatScroll = setInterval(() => {
         let c = this.chatMessages.nativeElement.scrollTop;

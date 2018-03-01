@@ -52,6 +52,8 @@ export class AdminService{
 
         this._showNavigationButton = <BehaviorSubject<boolean>>new BehaviorSubject(false);
         this.showNavigationButton = this._showNavigationButton.asObservable();
+
+        
     }
 
     changeChatSelectedEmployeeId(employeeId){

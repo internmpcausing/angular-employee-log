@@ -84,6 +84,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
   newNotif(notification){
     console.log(notification);
+    if(notification._t) localStorage.setItem('_t', notification._t);
     (<any>this.notifications).unshift(notification);
   }
 
@@ -104,10 +105,12 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
   noMoreNotification = false;
   displayAdditionalNotif(notifications){
+    console.log(notifications);
     setTimeout(() =>{
 
       if(!notifications.length) this.noMoreNotification = true;
       for(let n of notifications){
+      
         this.notifications.push(n);
       }
       this.alreadyRequesting = false;
