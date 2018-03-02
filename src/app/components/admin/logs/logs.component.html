@@ -56,8 +56,8 @@
                   </div>
 
                   <div fxLayout="row">
-                      <span fxFlex="75px" class="logged-details-label">Code</span>
-                      <span fxFlex class="logged-details-content">{{employeeTimeIn.scanDecoded}}</span>
+                      <span fxFlex="75px" class="logged-details-label">{{(employeeTimeIn.scanDecoded).charAt(0) == 'b' ? 'Bar' : 'QR'}} Code</span>
+                      <span fxFlex class="logged-details-content">{{(employeeTimeIn.scanDecoded).substr(1)}}</span>
                   </div>
                   
               </div>

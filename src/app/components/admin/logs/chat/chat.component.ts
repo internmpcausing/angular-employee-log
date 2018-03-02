@@ -62,12 +62,9 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   requestInitMessages(notifDetails){
-    // console.log(notifDetails);
-    
+    console.log(notifDetails);
+    console.log(this.employee);
     if(this.employee){
-      console.log(this.employee.employeeId);
-    console.log(notifDetails.employee.employeeId);
-    
       if(this.employee.employeeId != notifDetails.employee.employeeId) {
       this.chatBoxAdditionalMessagesLoading = false;
       this.initialChatBoxReady = false;

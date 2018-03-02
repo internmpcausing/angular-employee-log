@@ -8,11 +8,13 @@
      background-color: #fafafa;
      position: fixed;
      width: 100%;
+     z-index: 6;
  }
 
  .header{
      position: absolute;
      right: 0;
+     z-index: 7;
  }
 
  .header div{
@@ -34,6 +36,7 @@
 
 .employees-container{
     padding-top: 70px;
+    z-index: 5;
 }
 
 .employee-item-container{
