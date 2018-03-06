@@ -20,7 +20,7 @@ export class SocketService{
     connect(){
         this.socket = io(this.myGlobals.serverAddress, {
             reconnect: true, 
-            transports : ['websocket'],
+            transports : ['polling', 'websocket'],
             query: {
                 token: localStorage.getItem('token')
               }
