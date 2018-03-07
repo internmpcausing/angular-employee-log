@@ -42,6 +42,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   notifications;
   displayInitNotif(notifications){
     console.log(notifications);
+    this.showNotificationLoading = false;
     this.notifications = notifications;
   }
 
@@ -88,7 +89,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     (<any>this.notifications).unshift(notification);
   }
 
-  showNotificationLoading = false;
+  showNotificationLoading = true;
   alreadyRequesting = false;
   public handleScroll(event: ScrollEvent) {
     if (event.isReachingBottom) {

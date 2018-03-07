@@ -7,6 +7,7 @@
 
   
   <div fxFlexFill fxLayout="column" class="notifications-container" detect-scroll (onScroll)="handleScroll($event)">
+      
       <div fxLayout="row" class="notification" [ngClass]="{'notification-seen': !notification.isSeen, 'notification-selected': notification.selected}" *ngFor="let notification of notifications" (click)="getNotifDetails(notification)">
         <span fxFLex="15" class="left-space"></span>
         <img fxFLex="20" [src]="notification.pic | default: 'https://18429-presscdn-0-68-pagely.netdna-ssl.com/wp-content/uploads/2016/07/medium-default-avatar.png'" alt="chat-avatar">

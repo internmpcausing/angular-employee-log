@@ -23,13 +23,16 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   employees$: Observable<any>;
+  showLoading$: Observable<any>;
   selectedEmployee$: Observable<any>;
 
   constructor(private homeService:HomeService,
               private modalService: BsModalService,
               private socketService: SocketService) {
 
+    this.showLoading$ = this.homeService.showLoading;
     this.employees$ = this.homeService.employees;
+    
     this.selectedEmployee$ = this.homeService.selectedEmployee;
     this.homeService.loadEmployees();
 

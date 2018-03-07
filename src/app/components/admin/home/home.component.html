@@ -1,6 +1,9 @@
 
 <mat-drawer-container fxFlexFill>
   <mat-drawer [perfectScrollbar] mode="side" opened="true" class="left-side-bar" fxLayout="column">
+    <div class="notification-loading" fxFlexAlign="center center" *ngIf="(showLoading$ | async)">
+      <i class="loading fa fa-spinner fa-pulse"></i>
+    </div>
     <div *ngFor="let employee of (employees$ | async)" (click)="employeeClick(employee)" fxLayout="row" class="employee">
         <span fxFLex="15"></span>
         <img [src]="employee.pic.thumb | default: 'https://18429-presscdn-0-68-pagely.netdna-ssl.com/wp-content/uploads/2016/07/medium-default-avatar.png'" fxFLex="20">

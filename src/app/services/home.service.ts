@@ -23,6 +23,9 @@ export class HomeService{
     public selectedEmployee: Observable<IEmployee>;
     private _selectedEmployee: BehaviorSubject<IEmployee>;
 
+    public showLoading: Observable<boolean>;
+    private _showLoading: BehaviorSubject<boolean>;
+
     private selectedEmployeeId = 0;
 
 
@@ -34,13 +37,18 @@ export class HomeService{
 
         this._selectedEmployee = <BehaviorSubject<IEmployee>>new BehaviorSubject({});
         this.selectedEmployee = this._selectedEmployee.asObservable();
+
+        this._showLoading = <BehaviorSubject<boolean>>new BehaviorSubject(true);
+        this.showLoading = this._showLoading.asObservable();
         
 
         
 
         this.socket.on('sv-sendRecentTimeIns', (data) => {
             console.log(data);
+            this._showLoading.next(false);
             this._employees.next(data);
+
             let employeeIds = <any>data.map(employee => {
                 return employee.id
             })
